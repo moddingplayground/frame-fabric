@@ -35,6 +35,7 @@ public class FrameTest implements ModInitializer {
 
     public static final ItemGroup ITEM_GROUP_TABBED_ICON_TEXTURES =
         TabbedItemGroup.builder()
+                       .defaultPredicate(ALWAYS)
                        .tab(Tab.builder().predicate(items(Items.STONE, Items.AXOLOTL_BUCKET)).build("one", GUIIcon.of(() -> new ItemStack(Items.GLOWSTONE))))
                        .tab(Tab.builder().predicate(items(Items.SPONGE)).build("two", GUIIcon.of(() -> new ItemStack(Items.STICK))))
                        .tab(Tab.builder()

@@ -29,14 +29,16 @@ public class TabbedItemGroup extends ItemGroup {
     private final GUIIcon<?> icon;
     private final List<Tab> tabs;
     private final String tabbedTextKey;
+    private final Tab.Predicate defaultPredicate;
 
     private int selectedTabIndex = -1;
 
-    protected TabbedItemGroup(Identifier id, Function<TabbedItemGroup, GUIIcon<?>> icon, List<Tab> tabs) {
+    protected TabbedItemGroup(Identifier id, Function<TabbedItemGroup, GUIIcon<?>> icon, List<Tab> tabs, Tab.Predicate defaultPredicate) {
         super(getNextItemGroupIndex(), "%s.%s".formatted(id.getNamespace(), id.getPath()));
         this.id = id;
         this.icon = icon.apply(this);
         this.tabs = tabs;
+        this.defaultPredicate = defaultPredicate;
 
         TranslatableText text = (TranslatableText) this.getDisplayName();
         this.tabbedTextKey = "%s.tab".formatted(text.getKey());
@@ -94,7 +96,7 @@ public class TabbedItemGroup extends ItemGroup {
     @Override
     public void appendStacks(DefaultedList<ItemStack> stacks) {
         Optional<Tab> tab = this.getSelectedTab();
-        Tab.Predicate predicate = tab.map(Tab::getPredicate).orElse(Tab.Predicate.CONTAINS);
+        Tab.Predicate predicate = tab.map(Tab::getPredicate).orElse(this.defaultPredicate);
         Stream<Item> stream = Registry.ITEM.stream().filter(i -> predicate.test(this, i));
         for (Item item : stream.toList()) stacks.add(new ItemStack(item));
     }
@@ -130,19 +132,23 @@ public class TabbedItemGroup extends ItemGroup {
     }
 
     public static class Builder {
-        private final List<Tab> tabs;
+        private final List<Tab> tabs = new ArrayList<>();
+        private Tab.Predicate defaultPredicate = Tab.Predicate.CONTAINS;
 
-        protected Builder() {
-            this.tabs = new ArrayList<>();
-        }
+        protected Builder() {}
 
         public Builder tab(Tab tab) {
             this.tabs.add(tab);
             return this;
         }
 
+        public Builder defaultPredicate(Tab.Predicate predicate) {
+            this.defaultPredicate = predicate;
+            return this;
+        }
+
         public TabbedItemGroup build(Identifier id, Function<TabbedItemGroup, GUIIcon<?>> icon) {
-            TabbedItemGroup group = new TabbedItemGroup(id, icon, this.tabs);
+            TabbedItemGroup group = new TabbedItemGroup(id, icon, this.tabs, this.defaultPredicate);
             for (Tab tab : this.tabs) tab.addToGroup(group);
             return group;
         }
