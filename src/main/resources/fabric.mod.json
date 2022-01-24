@@ -24,6 +24,7 @@
   },
   "custom": {
     "modmenu": {
+      "badges": [ "library" ],
       "links": {
         "mod.frame.contact.discord": "https://discord.moddingplayground.net"
       }
