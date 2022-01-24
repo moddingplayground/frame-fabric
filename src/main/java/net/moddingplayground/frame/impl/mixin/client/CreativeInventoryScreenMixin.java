@@ -62,7 +62,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     private Text redirectDrawForegroundGetDisplayName(ItemGroup group) {
         if (group instanceof TabbedItemGroup tabbedGroup) {
             return tabbedGroup.getSelectedTab()
-                              .<Text>map(tab -> new TranslatableText(tabbedGroup.getTabbedTextKey(), new TranslatableText(tab.getTranslationKey())))
+                              .<Text>map(tab -> new TranslatableText(tabbedGroup.getTabbedTextKey(), tab.getDisplayText()))
                               .orElseGet(group::getDisplayName);
         }
         return group.getDisplayName();
@@ -119,7 +119,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
             List<Tab> tabs = tgroup.getTabs();
             for (int i = 0, l = tabs.size(); i < l; i++) {
                 Tab tab = tabs.get(i);
-                this.frame_addTabWidget(tgroup, i, tab.getBackgroundTexture(), new TranslatableText(tab.getTranslationKey()));
+                this.frame_addTabWidget(tgroup, i, tab.getBackgroundTexture(), tab.getDisplayText());
             }
         }
     }

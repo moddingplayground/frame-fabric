@@ -2,12 +2,16 @@ package net.moddingplayground.frame.api.gui.itemgroup;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.tag.Tag;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.moddingplayground.frame.api.util.GUIIcon;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static net.moddingplayground.frame.api.util.FrameUtil.*;
 
@@ -16,20 +20,20 @@ public class Tab {
     private final GUIIcon<?> icon;
     private final Predicate predicate;
     private final GUIIcon<Identifier> backgroundTexture;
+    private final Function<Tab, Text> displayText;
 
     private int index;
     private TabbedItemGroup group;
-    private String translationKey;
 
-    protected Tab(String id, GUIIcon<?> icon, Predicate predicate, GUIIcon<Identifier> backgroundTexture) {
+    protected Tab(String id, GUIIcon<?> icon, Predicate predicate, GUIIcon<Identifier> backgroundTexture, Function<Tab, Text> displayText) {
         this.id = id;
         this.icon = icon;
         this.predicate = predicate;
         this.backgroundTexture = backgroundTexture;
+        this.displayText = displayText;
 
         this.index = -1;
         this.group = null;
-        this.translationKey = null;
     }
 
     public String getId() {
@@ -56,20 +60,20 @@ public class Tab {
         return this.group;
     }
 
-    public String getTranslationKey() {
-        return this.translationKey;
+    public Text getDisplayText() {
+        return this.displayText.apply(this);
     }
 
     public boolean addToGroup(TabbedItemGroup group) {
         if (this.group != null) return false;
-
         this.group = group;
         this.index = group.getTabs().indexOf(this);
-
-        TranslatableText text = (TranslatableText) group.getDisplayName();
-        this.translationKey = "%s.tab.%s".formatted(text.getKey(), this.id);
-
         return true;
+    }
+
+    public static Text createDisplayText(ItemGroup group, Tab tab) {
+        TranslatableText text = (TranslatableText) group.getDisplayName();
+        return new TranslatableText("%s.tab.%s".formatted(text.getKey(), tab.getId()));
     }
 
     public static Builder builder() {
@@ -101,6 +105,7 @@ public class Tab {
             () -> suffixId(DEFAULT_TAB_BACKGROUND, "hovered"),
             () -> suffixId(DEFAULT_TAB_BACKGROUND, "selected")
         );
+        private Function<Tab, Text> displayText = Util.memoize(tab -> createDisplayText(tab.getGroup(), tab));
 
         protected Builder() {}
 
@@ -114,8 +119,13 @@ public class Tab {
             return this;
         }
 
+        public Builder displayText(Function<Tab, Text> displayText) {
+            this.displayText = displayText;
+            return this;
+        }
+
         public Tab build(String id, GUIIcon<?> icon) {
-            return new Tab(id, icon, this.predicate, this.backgroundTexture);
+            return new Tab(id, icon, this.predicate, this.backgroundTexture, this.displayText);
         }
     }
 }

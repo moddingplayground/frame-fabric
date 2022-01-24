@@ -14,6 +14,7 @@
   "itemGroup.frame-test.tabbed_icon_textures.tab.one": "One",
   "itemGroup.frame-test.tabbed_icon_textures.tab.two": "Two",
   "itemGroup.frame-test.tabbed_icon_textures.tab.three": "Three",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.four": "Four",
 
   "itemGroup.frame-test.default_bottom": "Frame Default",
   "itemGroup.frame-test.tabbed_bottom": "Frame Tabbed wo/ Icon"

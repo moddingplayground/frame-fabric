@@ -8,6 +8,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.Frame;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static net.moddingplayground.frame.Frame.*;
+import static net.moddingplayground.frame.api.gui.itemgroup.Tab.*;
 import static net.moddingplayground.frame.api.gui.itemgroup.Tab.Predicate.*;
 import static net.moddingplayground.frame.api.util.FrameUtil.*;
 
@@ -45,6 +47,10 @@ public class FrameTest implements ModInitializer {
                                    () -> suffixId(new Identifier("three"), "hovered"),
                                    () -> suffixId(new Identifier("three"), "selected")
                                )))
+                       .tab(Tab.builder()
+                               .predicate(tag(ItemTags.BEACON_PAYMENT_ITEMS))
+                           .displayText(t -> createDisplayText(t.getGroup(), t).shallowCopy().formatted(Formatting.AQUA))
+                               .build("four", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
                        .build(id("tabbed_icon_textures"), group -> GUIIcon.of(group::createBaseIconTexture, group::createHoverIconTexture, group::createSelectedIconTexture));
 
     public static final ItemGroup ITEM_GROUP_DEFAULT_BOTTOM = FabricItemGroupBuilder.build(id("default_bottom"), () -> new ItemStack(Items.STICK));
