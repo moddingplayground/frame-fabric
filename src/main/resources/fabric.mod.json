@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+
+  "id": "frame",
+  "version": "${version}",
+
+  "name": "Frame",
+  "icon": "assets/frame/icon.png",
+  "description": "Library mod for Modding Playground",
+
+  "license": [
+    "MIT (Code)",
+    "All Rights Reserved (Assets)"
+  ],
+  "authors": [
+    "Gaetano Russo (Ninni)",
+    "Daniel Orr (Andante)"
+  ],
+
+  "contact": {
+    "homepage": "https://moddingplayground.net/frame",
+    "sources": "https://github.com/moddingplayground/frame-fabric",
+    "issues": "https://github.com/moddingplayground/frame-fabric/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "mod.frame.contact.discord": "https://discord.moddingplayground.net"
+      }
+    }
+  },
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.Frame" ]
+  },
+  "mixins": [ "frame.mixins.json" ],
+
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.18",
+    "fabricloader": ">=0.12",
+    "fabric": ">=0.46"
+  }
+}

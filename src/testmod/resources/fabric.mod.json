@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-testmod",
+  "version": "${version}",
+  "name": "Frame Test Mod",
+  "environment": "*",
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.FrameTest" ]
+  }
+}

@@ -1,0 +1,79 @@
+//file:noinspection all
+
+plugins {
+  id 'fabric-loom' version '0.10-SNAPSHOT'
+  id 'maven-publish'
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = "${project.archives_base_name}-${project.minecraft_version}"
+group = project.maven_group
+
+version = System.env.GITHUB_ACTIONS == "true"
+        ? "${project.mod_version}+build.${System.env.GITHUB_RUN_NUMBER}"
+        : project.mod_version
+
+repositories {
+  maven {
+    name = "Terraformers Maven"
+    url  = "https://maven.terraformersmc.com/releases/"
+  }
+
+  maven {
+    name = "Modding Playground Maven"
+    url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
+  }
+}
+
+dependencies {
+  minecraft "com.mojang:minecraft:${project.minecraft_version}"
+  mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_build}:v2"
+  modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+  modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+  modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
+
+  afterEvaluate { testmodImplementation sourceSets.main.output }
+}
+
+sourceSets {
+  testmod {
+    compileClasspath += main.compileClasspath
+    runtimeClasspath += main.runtimeClasspath
+  }
+}
+
+loom {
+  runs {
+    testmodClient {
+      client()
+      name = "Testmod Client"
+      source sourceSets.testmod
+    }
+
+    testmodServer {
+      server()
+      name = "Testmod Server"
+      source sourceSets.testmod
+    }
+  }
+}
+
+processResources {
+  inputs.property "version", project.version
+  filesMatching("fabric.mod.json") { expand "version": project.version }
+}
+
+tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
+
+jar {
+  from("LICENSE") { rename { "${it}_${project.mod_id}" } }
+  from("LICENSE_ASSETS") { rename { "${it}_${project.mod_id}" } }
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) { from components.java }
+  }
+}

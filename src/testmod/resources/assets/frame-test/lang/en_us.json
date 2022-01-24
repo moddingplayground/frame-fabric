@@ -1,0 +1,20 @@
+{
+  "item.frame-test.test": "Frame Test Item",
+
+  "itemGroup.frame-test.default": "Frame Default",
+
+  "itemGroup.frame-test.tabbed": "Frame Tabbed wo/ Icon",
+  "itemGroup.frame-test.tabbed_icon": "Frame Tabbed w/ Icon",
+  "itemGroup.frame-test.tabbed_icon_sel": "Frame Tabbed w/ Icon (Selection Only)",
+  "itemGroup.frame-test.tabbed_icon_hov": "Frame Tabbed w/ Icon (Hover Only)",
+  "itemGroup.frame-test.tabbed_icon_hov_nodel": "Frame Tabbed w/ Icon (Hover Only, No Selection Delegation)",
+
+  "itemGroup.frame-test.tabbed_icon_textures": "Frame Tabbed w/ Icon (Hover + Selection)",
+  "itemGroup.frame-test.tabbed_icon_textures.tab": "Tab (%s)",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.one": "One",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.two": "Two",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.three": "Three",
+
+  "itemGroup.frame-test.default_bottom": "Frame Default",
+  "itemGroup.frame-test.tabbed_bottom": "Frame Tabbed wo/ Icon"
+}
