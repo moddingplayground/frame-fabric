@@ -125,8 +125,8 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     }
 
     private void frame_addTabWidget(TabbedItemGroup group, int index, GUIIcon<Identifier> backgroundTexture, Text message) {
-        int x = this.x - 24;
-        int y = (this.y + 12) + (index * 24);
+        int x = this.x - 29;
+        int y = (this.y + 12) + (index * 26);
         TabWidget widget = new TabWidget(x, y, group, index, message, backgroundTexture);
         if (index == group.getSelectedTabIndex()) widget.setSelected(true);
         this.frame_tabWidgets.add(widget);

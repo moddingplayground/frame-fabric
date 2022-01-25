@@ -28,7 +28,7 @@ public class TabWidget extends ButtonWidget {
     private boolean selected;
 
     public TabWidget(int x, int y, TabbedItemGroup group, int index, Text message, GUIIcon<Identifier> backgroundTexture) {
-        super(x, y, 22, 22, message, button -> {});
+        super(x, y, 34, 26, message, button -> {});
         this.group = group;
         this.index = index;
         this.backgroundTexture = backgroundTexture;
@@ -90,8 +90,8 @@ public class TabWidget extends ButtonWidget {
         drawTexture(matrices, this.x, this.y, 0, 0, 32, 32, 32, 32);
         this.renderBackground(matrices, client, mouseX, mouseY);
 
-        int x = this.x + 6;
-        int y = this.y + 3;
+        int x = this.x + 11;
+        int y = this.y + 4;
         Tab tab = this.getTab();
         GUIIcon<?> icon = tab.getIcon();
         boolean hovered = this.hovered;
