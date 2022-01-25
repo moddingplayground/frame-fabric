@@ -30,6 +30,22 @@ public class GUIIcon<T> {
         return of(base, base);
     }
 
+    public static <T> GUIIcon<T> ofStatic(T base, T hovered, T selected) {
+        return of(() -> base, () -> hovered, () -> selected);
+    }
+
+    public static <T> GUIIcon<T> ofStatic(T base, T hovered, boolean delegateSelected) {
+        return ofStatic(base, hovered, delegateSelected ? hovered : base);
+    }
+
+    public static <T> GUIIcon<T> ofStatic(T base, T hovered) {
+        return ofStatic(base, hovered, true);
+    }
+
+    public static <T> GUIIcon<T> ofStatic(T base) {
+        return ofStatic(base, base);
+    }
+
     public T getIcon(boolean hovered, boolean selected) {
         return this.factory.create(hovered, selected);
     }

@@ -100,11 +100,7 @@ public class Tab {
 
     public static class Builder {
         private Predicate predicate = Predicate.NEVER;
-        private GUIIcon<Identifier> backgroundTexture = GUIIcon.of(
-            () -> suffixId(DEFAULT_TAB_BACKGROUND),
-            () -> suffixId(DEFAULT_TAB_BACKGROUND, "hovered"),
-            () -> suffixId(DEFAULT_TAB_BACKGROUND, "selected")
-        );
+        private GUIIcon<Identifier> backgroundTexture = iconOf(DEFAULT_TAB_BACKGROUND);
         private Function<Tab, Text> displayText = Util.memoize(tab -> createDisplayText(tab.getGroup(), tab));
 
         protected Builder() {}

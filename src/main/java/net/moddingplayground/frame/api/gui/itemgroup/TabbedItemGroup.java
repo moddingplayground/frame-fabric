@@ -112,20 +112,20 @@ public class TabbedItemGroup extends ItemGroup {
         return new Identifier(id.getNamespace(), "textures/%s/gui/item_group_icon/%s".formatted(Frame.MOD_ID, id.getPath()));
     }
 
-    public Identifier createIconTexture(String suffix) {
+    public Identifier iconTex(String suffix) {
         return suffixId(this.getIconTexture(), suffix);
     }
 
-    public Identifier createBaseIconTexture() {
-        return this.createIconTexture("");
+    public Identifier baseIconTex() {
+        return this.iconTex("");
     }
 
-    public Identifier createHoverIconTexture() {
-        return this.createIconTexture("hovered");
+    public Identifier hoverIconTex() {
+        return this.iconTex("hovered");
     }
 
-    public Identifier createSelectedIconTexture() {
-        return this.createIconTexture("selected");
+    public Identifier selectedIconTex() {
+        return this.iconTex("selected");
     }
 
     public static TabbedItemGroup.Builder builder() {

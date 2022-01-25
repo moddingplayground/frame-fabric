@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -11,9 +12,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.api.gui.itemgroup.Tab;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
+import net.moddingplayground.frame.api.util.GUIIcon;
 
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class TabWidget extends ButtonWidget {
     private final TabbedItemGroup group;
     private final int index;
     private final GUIIcon<Identifier> backgroundTexture;
-
     private boolean selected;
 
     public TabWidget(int x, int y, TabbedItemGroup group, int index, Text message, GUIIcon<Identifier> backgroundTexture) {
@@ -50,7 +50,7 @@ public class TabWidget extends ButtonWidget {
     }
 
     public Identifier getBackgroundTexture() {
-        return this.backgroundTexture.getIcon(this.hovered, this.isSelected());
+        return this.backgroundTexture.getIcon(this.isHovered(), this.isSelected());
     }
 
     public boolean isSelected() {
@@ -80,23 +80,18 @@ public class TabWidget extends ButtonWidget {
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
-        enableBlend();
-        defaultBlendFunc();
-        blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-
         MinecraftClient client = MinecraftClient.getInstance();
-        setShader(GameRenderer::getPositionTexShader);
-        setShaderTexture(0, this.getBackgroundTexture());
-        drawTexture(matrices, this.x, this.y, 0, 0, 32, 32, 32, 32);
-        this.renderBackground(matrices, client, mouseX, mouseY);
-
-        int x = this.x + 11;
-        int y = this.y + 4;
         Tab tab = this.getTab();
         GUIIcon<?> icon = tab.getIcon();
-        boolean hovered = this.hovered;
+        boolean hovered = this.isHovered();
         boolean selected = this.isSelected();
+        int x = this.x + 11 + (hovered || selected ? -2 : 0);
+        int y = this.y + 4;
 
+        // render background
+        this.renderBackground(matrices, client, mouseX, mouseY);
+
+        // render icon
         GUIIcon.optional(icon, hovered, selected, Identifier.class).ifPresentOrElse(
             texture -> {
                 setShader(GameRenderer::getPositionTexShader);
@@ -110,5 +105,31 @@ public class TabWidget extends ButtonWidget {
                 });
             }
         );
+
+        // render tooltip
+        if (hovered) this.renderTooltip(matrices, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderBackground(MatrixStack matrices, MinecraftClient client, int mouseX, int mouseY) {
+        enableBlend();
+        defaultBlendFunc();
+        blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+        setShaderTexture(0, this.getBackgroundTexture());
+        drawTexture(matrices, this.x, this.y, 0, 0, 32, 32, 32, 32);
+    }
+
+    @Override
+    public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.currentScreen != null && !this.isSelected()) {
+            Text message = this.getMessage();
+            TooltipComponent tooltip = TooltipComponent.of(message.asOrderedText());
+            int width = tooltip.getWidth(client.textRenderer);
+            int height = tooltip.getHeight();
+            int ox = -(width + this.width) + 20;
+            int oz = -(height + this.height) + 16;
+            client.currentScreen.renderTooltip(matrices, message, x + ox, y - oz);
+        }
     }
 }

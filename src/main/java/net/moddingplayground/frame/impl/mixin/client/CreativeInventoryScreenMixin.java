@@ -14,10 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.api.gui.itemgroup.Tab;
-import net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
+import net.moddingplayground.frame.api.util.GUIIcon;
+import net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,14 +47,6 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     private void onRenderHead(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         this.frame_mouseX = mouseX;
         this.frame_mouseY = mouseY;
-    }
-
-    // render tooltip for sidebar tab widgets
-    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V", at = @At("TAIL"))
-    public void onRenderTail(MatrixStack matrices, int mouseX, int mouseY, float tickDelta, CallbackInfo cbi) {
-        this.frame_tabWidgets.forEach(b -> {
-            if (b.isHovered()) renderTooltip(matrices, b.getMessage(), mouseX, mouseY);
-        });
     }
 
     // replace with tabbed title
@@ -106,15 +98,18 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     // add sidebar tab widgets
     @Inject(method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V", at = @At("HEAD"))
     private void onSetSelectedTab(ItemGroup group, CallbackInfo ci) {
+        // reset any changes to tabbed item group
         try {
             ItemGroup oldGroup = ItemGroup.GROUPS[selectedTab];
             if (oldGroup instanceof TabbedItemGroup tgroup) tgroup.setSelectedTabIndex(-1);
         } catch (ArrayIndexOutOfBoundsException ignored) {}
 
+        // clear widgets
         List<Drawable> drawables = ((ScreenAccessor) this).getDrawables();
         drawables.removeAll(this.frame_tabWidgets);
         this.frame_tabWidgets.clear();
 
+        // initialize new tabs if tabbed item groups
         if (group instanceof TabbedItemGroup tgroup) {
             List<Tab> tabs = tgroup.getTabs();
             for (int i = 0, l = tabs.size(); i < l; i++) {
