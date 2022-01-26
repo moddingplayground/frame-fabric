@@ -3,6 +3,7 @@ package net.moddingplayground.frame.test;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -12,16 +13,17 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.Frame;
-import net.moddingplayground.frame.api.util.FrameUtil;
-import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.api.gui.itemgroup.Tab;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
+import net.moddingplayground.frame.api.registry.StateRegistry;
+import net.moddingplayground.frame.api.util.FrameUtil;
+import net.moddingplayground.frame.api.util.GUIIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static net.moddingplayground.frame.Frame.*;
-import static net.moddingplayground.frame.api.gui.itemgroup.Tab.*;
 import static net.moddingplayground.frame.api.gui.itemgroup.Tab.Predicate.*;
+import static net.moddingplayground.frame.api.gui.itemgroup.Tab.*;
 
 public class FrameTest implements ModInitializer {
     public static final String MOD_ID   = Frame.MOD_ID + "-test";
@@ -63,7 +65,9 @@ public class FrameTest implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing {}-test", MOD_NAME);
 
-        //
+        StateRegistry.BOOKSHELVES.add(Blocks.ACACIA_LEAVES);
+        StateRegistry.LADDERS.add(Blocks.ACACIA_BUTTON);
+        StateRegistry.LADDERS_DEATH_MESSAGES.add(Blocks.BIRCH_BUTTON);
 
         LOGGER.info("Initialized {}-test", MOD_NAME);
     }

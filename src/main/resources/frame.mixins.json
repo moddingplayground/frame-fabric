@@ -3,13 +3,17 @@
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_17",
   "package": "net.moddingplayground.frame.impl.mixin",
-
-  "mixins": [],
+  "mixins": [
+    "registry.bookshelf.EnchantingTableBlockMixin",
+    "registry.bookshelf.EnchantmentScreenHandlerMixin",
+    "registry.ladder.DamageTrackerMixin",
+    "registry.ladder.FlowableFluidMixin",
+    "registry.ladder.LivingEntityMixin"
+  ],
   "client": [
     "client.CreativeInventoryScreenMixin",
     "client.ScreenAccessor"
   ],
-
   "injectors": {
     "defaultRequire": 1
   }
