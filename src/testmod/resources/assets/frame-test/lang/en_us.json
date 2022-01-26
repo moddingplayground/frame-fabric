@@ -15,6 +15,11 @@
   "itemGroup.frame-test.tabbed_icon_textures.tab.two": "Two",
   "itemGroup.frame-test.tabbed_icon_textures.tab.three": "Three",
   "itemGroup.frame-test.tabbed_icon_textures.tab.four": "Four",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.five": "Five",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.six": "Six",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.seven": "Seven",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.eight": "Eight",
+  "itemGroup.frame-test.tabbed_icon_textures.tab.nine": "Nine (UNSUPPORTED!)",
 
   "itemGroup.frame-test.default_bottom": "Frame Default",
   "itemGroup.frame-test.tabbed_bottom": "Frame Tabbed wo/ Icon"

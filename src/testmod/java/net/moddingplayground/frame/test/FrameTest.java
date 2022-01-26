@@ -47,6 +47,11 @@ public class FrameTest implements ModInitializer {
                                .predicate(tag(ItemTags.BEACON_PAYMENT_ITEMS))
                                .displayText(t -> createDisplayText(t.getGroup(), t).shallowCopy().formatted(Formatting.AQUA))
                                .build("four", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
+                       .tab(Tab.builder().build("five", GUIIcon.of(() -> new ItemStack(Items.GLOWSTONE))))
+                       .tab(Tab.builder().build("six", GUIIcon.of(() -> new ItemStack(Items.STICK))))
+                       .tab(Tab.builder().build("seven", FrameUtil.iconOf(new Identifier("seven"))))
+                       .tab(Tab.builder().build("eight", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
+                       .tab(Tab.builder().build("nine", GUIIcon.of(() -> new ItemStack(Items.BARRIER))))
                        .build(id("tabbed_icon_textures"), FrameUtil::iconOf);
 
     public static final ItemGroup ITEM_GROUP_DEFAULT_BOTTOM = FabricItemGroupBuilder.build(id("default_bottom"), () -> new ItemStack(Items.STICK));

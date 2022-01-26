@@ -22,6 +22,9 @@ import static com.mojang.blaze3d.systems.RenderSystem.*;
 
 @Environment(EnvType.CLIENT)
 public class TabWidget extends ButtonWidget {
+    public static final int TABS_PER_COLUMN = 4;
+    public static final int MAX_RECOMMENDED_TABS = TABS_PER_COLUMN * 2;
+
     private final TabbedItemGroup group;
     private final int index;
     private final GUIIcon<Identifier> backgroundTexture;
@@ -61,6 +64,14 @@ public class TabWidget extends ButtonWidget {
         this.selected = selected;
     }
 
+    public boolean isRightColumn() {
+        return isRightColumn(this.getIndex());
+    }
+
+    public static boolean isRightColumn(int index) {
+        return index >= TABS_PER_COLUMN;
+    }
+
     @Override
     public void onPress() {
         if (this.group.getSelectedTabIndex() == this.index) {
@@ -85,7 +96,9 @@ public class TabWidget extends ButtonWidget {
         GUIIcon<?> icon = tab.getIcon();
         boolean hovered = this.isHovered();
         boolean selected = this.isSelected();
-        int x = this.x + 11 + (hovered || selected ? -2 : 0);
+
+        int xo = hovered || selected ? (this.isRightColumn() ? 2 : -2) : 0;
+        int x = this.x + 11 + xo;
         int y = this.y + 4;
 
         // render background
@@ -116,7 +129,7 @@ public class TabWidget extends ButtonWidget {
         defaultBlendFunc();
         blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         setShaderTexture(0, this.getBackgroundTexture());
-        drawTexture(matrices, this.x, this.y, 0, 0, 32, 32, 32, 32);
+        drawTexture(matrices, this.x, this.y, 0, this.isRightColumn() ? 32 : 0, 64, 32, 64, 64);
     }
 
     @Override
@@ -127,7 +140,7 @@ public class TabWidget extends ButtonWidget {
             TooltipComponent tooltip = TooltipComponent.of(message.asOrderedText());
             int width = tooltip.getWidth(client.textRenderer);
             int height = tooltip.getHeight();
-            int ox = -(width + this.width) + 20;
+            int ox = this.isRightColumn() ? -this.width + 62 : -(width + this.width) + 20;
             int oz = -(height + this.height) + 16;
             client.currentScreen.renderTooltip(matrices, message, x + ox, y - oz);
         }

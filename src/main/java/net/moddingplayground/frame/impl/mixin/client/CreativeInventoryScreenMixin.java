@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.List;
 
 import static com.mojang.blaze3d.systems.RenderSystem.*;
+import static net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreativeInventoryScreen.class)
@@ -121,7 +122,14 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 
     private void frame_addTabWidget(TabbedItemGroup group, int index, GUIIcon<Identifier> backgroundTexture, Text message) {
         int x = this.x - 29;
-        int y = (this.y + 12) + (index * 26);
+        int y = this.y + 17;
+
+        if (TabWidget.isRightColumn(index)) {
+            int trueIndex = index - TABS_PER_COLUMN;
+            x += 215;
+            y += trueIndex * 26;
+        } else y += index * 26;
+
         TabWidget widget = new TabWidget(x, y, group, index, message, backgroundTexture);
         if (index == group.getSelectedTabIndex()) widget.setSelected(true);
         this.frame_tabWidgets.add(widget);

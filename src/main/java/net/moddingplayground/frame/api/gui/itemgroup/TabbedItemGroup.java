@@ -23,7 +23,9 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static net.moddingplayground.frame.Frame.*;
 import static net.moddingplayground.frame.api.util.FrameUtil.*;
+import static net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget.*;
 
 public class TabbedItemGroup extends ItemGroup {
     private final Identifier id;
@@ -137,6 +139,11 @@ public class TabbedItemGroup extends ItemGroup {
         return ItemGroup.GROUPS.length - 1;
     }
 
+    @Override
+    public String toString() {
+        return "TabbedItemGroup{" + "id=" + id + '}';
+    }
+
     public static class Builder {
         private final List<Tab> tabs = new ArrayList<>();
         private Tab.Predicate defaultPredicate = Tab.Predicate.CONTAINS;
@@ -155,7 +162,12 @@ public class TabbedItemGroup extends ItemGroup {
 
         public TabbedItemGroup build(Identifier id, Function<TabbedItemGroup, GUIIcon<?>> icon) {
             TabbedItemGroup group = new TabbedItemGroup(id, icon, this.tabs, this.defaultPredicate);
+
+            int tabCount = this.tabs.size();
+            if (tabCount > MAX_RECOMMENDED_TABS) LOGGER.warn("{} registered {} tabs (recommended max {})", id, tabCount, MAX_RECOMMENDED_TABS);
+                else if (tabCount == 1) LOGGER.warn("{} only registered 1 item group tab?", id);
             for (Tab tab : this.tabs) tab.addToGroup(group);
+
             return group;
         }
     }
