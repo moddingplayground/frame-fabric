@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.impl.mixin.registry.bookshelf;
+package net.moddingplayground.frame.mixin.registry.bookshelf;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

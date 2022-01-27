@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.impl.mixin.registry.ladder;
+package net.moddingplayground.frame.mixin.registry.ladder;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

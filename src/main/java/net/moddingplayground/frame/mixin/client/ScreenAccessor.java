@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.impl.mixin.client;
+package net.moddingplayground.frame.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
