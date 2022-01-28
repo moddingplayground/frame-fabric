@@ -33,7 +33,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [ "net.moddingplayground.frame.Frame" ]
+    "main":   [ "net.moddingplayground.frame.impl.Frame" ],
+    "client": [ "net.moddingplayground.frame.impl.client.FrameClient" ]
   },
   "mixins": [ "frame.mixins.json" ],
 

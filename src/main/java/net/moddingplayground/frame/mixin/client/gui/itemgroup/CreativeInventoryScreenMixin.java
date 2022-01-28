@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.mixin.client;
+package net.moddingplayground.frame.mixin.client.gui.itemgroup;
 
 import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
@@ -18,8 +18,10 @@ import net.moddingplayground.frame.api.gui.itemgroup.Tab;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
 import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget;
+import net.moddingplayground.frame.mixin.client.ScreenAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -36,21 +38,25 @@ import static net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget.*;
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler> {
     @Shadow private static int selectedTab;
 
-    private int frame_mouseX, frame_mouseY;
-    private final List<TabWidget> frame_tabWidgets = Lists.newArrayList();
+    @Unique private int frame_mouseX, frame_mouseY;
+    @Unique private final List<TabWidget> frame_tabWidgets = Lists.newArrayList();
 
     public CreativeInventoryScreenMixin(CreativeInventoryScreen.CreativeScreenHandler handler, PlayerInventory inventory, Text text) {
         super(handler, inventory, text);
     }
 
-    // capture mouse position
+    /**
+     * Captures the mouse position.
+     */
     @Inject(method = "render", at = @At("HEAD"))
     private void onRenderHead(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         this.frame_mouseX = mouseX;
         this.frame_mouseY = mouseY;
     }
 
-    // replace with tabbed title
+    /**
+     * Replace title with custom title.
+     */
     @Redirect(method = "drawForeground", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemGroup;getDisplayName()Lnet/minecraft/text/Text;"))
     private Text redirectDrawForegroundGetDisplayName(ItemGroup group) {
         if (group instanceof TabbedItemGroup tabbedGroup) {
@@ -61,7 +67,9 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         return group.getDisplayName();
     }
 
-    // render custom tab icon textures
+    /**
+     * Render custom implementation of icons.
+     */
     @Inject(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/CreativeInventoryScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void onRenderTabIcon(MatrixStack matrices, ItemGroup group, CallbackInfo ci, boolean selected, boolean isTopRow, int column, int u, int v, int x, int y) {
         if (group instanceof TabbedItemGroup tabbedGroup) {
@@ -74,7 +82,9 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         }
     }
 
-    // render custom implementation of icons
+    /**
+     * Render custom implementation of icons.
+     */
     @Inject(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemGroup;getIcon()Lnet/minecraft/item/ItemStack;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void onRenderTabIconGetIcon(MatrixStack matrices, ItemGroup group, CallbackInfo ci, boolean selected, boolean isTopRow, int column, int u, int v, int x, int y) {
         if (group instanceof TabbedItemGroup tabbedGroup) {
@@ -88,6 +98,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         }
     }
 
+    @Unique
     private boolean frame_isHovered(ItemGroup group, int column, boolean isTopRow) {
         int mx = group.isSpecial()
             ? this.backgroundWidth - 28 * (6 - column) + 2
@@ -96,7 +107,9 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         return this.isPointWithinBounds(mx + 3, my + 3, 23, 27, this.frame_mouseX, this.frame_mouseY);
     }
 
-    // add sidebar tab widgets
+    /**
+     * Add sidebar tab widgets.
+     */
     @Inject(method = "setSelectedTab(Lnet/minecraft/item/ItemGroup;)V", at = @At("HEAD"))
     private void onSetSelectedTab(ItemGroup group, CallbackInfo ci) {
         // reset any changes to tabbed item group
@@ -120,6 +133,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         }
     }
 
+    @Unique
     private void frame_addTabWidget(TabbedItemGroup group, int index, GUIIcon<Identifier> backgroundTexture, Text message) {
         int x = this.x - 29;
         int y = this.y + 17;

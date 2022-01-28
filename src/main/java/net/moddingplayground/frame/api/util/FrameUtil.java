@@ -1,7 +1,7 @@
 package net.moddingplayground.frame.api.util;
 
 import net.minecraft.util.Identifier;
-import net.moddingplayground.frame.Frame;
+import net.moddingplayground.frame.impl.Frame;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
 
 public final class FrameUtil {

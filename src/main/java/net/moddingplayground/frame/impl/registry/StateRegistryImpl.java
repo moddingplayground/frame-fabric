@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static net.moddingplayground.frame.Frame.*;
+import static net.moddingplayground.frame.impl.Frame.*;
 
 /**
  * A stored list of states.

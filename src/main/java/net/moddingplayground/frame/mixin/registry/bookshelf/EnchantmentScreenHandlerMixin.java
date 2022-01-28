@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(EnchantmentScreenHandler.class)
 public class EnchantmentScreenHandlerMixin {
-    // lambda inside of onContentUpdate
+    // method_17411 - lambda inside of onContentUpdate
     @Redirect(method = "method_17411", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"))
     private boolean redirectBookshelfIsOf(BlockState state, Block block) {
         if (block == Blocks.BOOKSHELF && StateRegistry.BOOKSHELVES.contains(state)) return true;
