@@ -14,8 +14,8 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
-import net.moddingplayground.frame.impl.Frame;
 import net.moddingplayground.frame.api.util.GUIIcon;
+import net.moddingplayground.frame.impl.Frame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static net.moddingplayground.frame.impl.Frame.*;
 import static net.moddingplayground.frame.api.util.FrameUtil.*;
+import static net.moddingplayground.frame.impl.Frame.*;
 import static net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget.*;
 
 public class TabbedItemGroup extends ItemGroup {

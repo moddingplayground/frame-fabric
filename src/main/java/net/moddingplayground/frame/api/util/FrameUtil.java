@@ -1,8 +1,8 @@
 package net.moddingplayground.frame.api.util;
 
 import net.minecraft.util.Identifier;
-import net.moddingplayground.frame.impl.Frame;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
+import net.moddingplayground.frame.impl.Frame;
 
 public final class FrameUtil {
     public static final Identifier DEFAULT_TAB_BACKGROUND = new Identifier(Frame.MOD_ID, "textures/gui/item_group/tab_background");
