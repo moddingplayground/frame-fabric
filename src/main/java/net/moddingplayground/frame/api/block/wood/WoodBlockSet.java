@@ -31,10 +31,10 @@ import java.util.function.Consumer;
 import static net.moddingplayground.frame.api.block.wood.WoodBlock.*;
 
 public class WoodBlockSet extends BlockSet {
-    private final String id;
-    private final Settings settings;
-    private final EnumSet<WoodBlock> include;
-    private SignType signType;
+    protected final String id;
+    protected final Settings settings;
+    protected final EnumSet<WoodBlock> include;
+    protected SignType signType;
 
     public WoodBlockSet(String modId, String id, Settings settings, EnumSet<WoodBlock> include) {
         super(modId);
