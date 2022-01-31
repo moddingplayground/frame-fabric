@@ -6,6 +6,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.moddingplayground.frame.api.registry.set.FormattableIdentifier;
 import net.moddingplayground.frame.api.registry.set.RegistrableObject;
 import net.moddingplayground.frame.api.registry.set.RegistrySet;
 
@@ -82,6 +83,12 @@ public enum WoodBlock implements RegistrableObject<Block> {
     }
 
     public Block createBlock(WoodBlockSet set) {
+        WoodBlockSet.Settings settings = set.getSettings();
+        if (settings.vanilla()) {
+            FormattableIdentifier id = FormattableIdentifier.ofPath(this.format);
+            Identifier identifier = id.format(set.getId(), this.getId());
+            return Registry.BLOCK.get(identifier);
+        }
         return this.block.create(set);
     }
 
@@ -97,7 +104,7 @@ public enum WoodBlock implements RegistrableObject<Block> {
 
     @Override
     public <R extends RegistrySet> Block register(Identifier id, Object object, R set) {
-        if (!(object instanceof Block block)) return null;
+        if (!(object instanceof Block block) || Registry.BLOCK.containsId(id)) return null;
 
         WoodBlockSet woodSet = (WoodBlockSet) set;
         Item item = this.createItem(woodSet, block);
