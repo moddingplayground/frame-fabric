@@ -185,7 +185,7 @@ public class WoodBlockSet extends BlockSet {
                 this.material = settings.material();
                 this.materialDecoration = settings.materialDecoration();
                 this.materialLeaves = settings.materialLeaves();
-                this.materialSapling = settings.materialSapling;
+                this.materialSapling = settings.materialSapling();
                 this.mapColorLight = settings.mapColorLight();
                 this.mapColorDark = settings.mapColorDark();
                 this.soundGroup = settings.soundGroup();
