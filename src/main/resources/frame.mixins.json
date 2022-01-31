@@ -12,6 +12,7 @@
     "banner.LoomContainerMixin",
     "banner.LoomContainerPatternSlotMixin",
     "block.wood.BlockEntityTypeMixin",
+    "block.wood.EntityPredicateMixin",
     "registry.bookshelf.EnchantingTableBlockMixin",
     "registry.bookshelf.EnchantmentScreenHandlerMixin",
     "registry.ladder.DamageTrackerMixin",
