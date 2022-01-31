@@ -104,9 +104,13 @@ public enum WoodBlock implements RegistrableObject<Block> {
 
     @Override
     public <R extends RegistrySet> Block register(Identifier id, Object object, R set) {
-        if (!(object instanceof Block block) || Registry.BLOCK.containsId(id)) return null;
+        if (!(object instanceof Block block)) return null;
 
         WoodBlockSet woodSet = (WoodBlockSet) set;
+        WoodBlockSet.Settings settings = woodSet.getSettings();
+
+        if (settings.vanilla() && Registry.BLOCK.containsId(new Identifier(id.getPath()))) return null;
+
         Item item = this.createItem(woodSet, block);
         if (item != null) Registry.register(Registry.ITEM, id, item);
 
