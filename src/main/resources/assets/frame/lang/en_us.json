@@ -1,4 +1,5 @@
 {
   "mod.frame.name": "Frame",
-  "mod.frame.contact.discord": "Discord"
+  "mod.frame.contact.discord": "Discord",
+  "entity.frame.boat": "Boat"
 }

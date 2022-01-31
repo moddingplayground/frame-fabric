@@ -99,7 +99,7 @@ public class Tab {
     }
 
     public static class Builder {
-        private Predicate predicate = Predicate.NEVER;
+        private Predicate predicate = Predicate.CONTAINS;
         private GUIIcon<Identifier> backgroundTexture = iconOf(DEFAULT_TAB_BACKGROUND);
         private Function<Tab, Text> displayText = Util.memoize(tab -> createDisplayText(tab.getGroup(), tab));
 

@@ -5,6 +5,7 @@
   "name": "Frame Test Mod",
   "environment": "*",
   "entrypoints": {
-    "main": [ "net.moddingplayground.frame.test.FrameTest" ]
+    "main":                   [ "net.moddingplayground.frame.test.FrameTest" ],
+    "frame:after_initialize": [ "net.moddingplayground.frame.test.frame.FrameTestAfterInitializeFrame" ]
   }
 }

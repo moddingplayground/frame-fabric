@@ -4,10 +4,14 @@
   "compatibilityLevel": "JAVA_17",
   "package": "net.moddingplayground.frame.mixin",
   "mixins": [
+    "access.BlocksInvoker",
+    "access.BoatItemAccessor",
+    "access.SignTypeInvoker",
     "banner.BannerBlockEntityMixin",
     "banner.BannerItemMixin",
     "banner.LoomContainerMixin",
     "banner.LoomContainerPatternSlotMixin",
+    "block.wood.BlockEntityTypeMixin",
     "registry.bookshelf.EnchantingTableBlockMixin",
     "registry.bookshelf.EnchantmentScreenHandlerMixin",
     "registry.ladder.DamageTrackerMixin",
@@ -15,12 +19,15 @@
     "registry.ladder.LivingEntityMixin"
   ],
   "client": [
+    "access.client.EntityModelLayersAccessor",
+    "access.client.ScreenAccessor",
     "banner.client.BannerBlockEntityRendererMixin",
     "banner.client.BuiltinModelItemRendererMixin",
     "banner.client.ClientBannerBlockEntityMixin",
     "banner.client.LoomScreenMixin",
-    "client.ScreenAccessor",
-    "client.gui.itemgroup.CreativeInventoryScreenMixin"
+    "block.client.wood.EntityModelLayersMixin",
+    "block.client.wood.TexturedRenderLayersMixin",
+    "gui.client.itemgroup.CreativeInventoryScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

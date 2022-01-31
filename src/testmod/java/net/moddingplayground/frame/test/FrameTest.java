@@ -27,10 +27,10 @@ import org.slf4j.LoggerFactory;
 
 import static net.moddingplayground.frame.api.gui.itemgroup.Tab.Predicate.*;
 import static net.moddingplayground.frame.api.gui.itemgroup.Tab.*;
-import static net.moddingplayground.frame.impl.Frame.*;
 
 public class FrameTest implements ModInitializer {
     public static final String MOD_ID   = Frame.MOD_ID + "-test";
+    public static final String MOD_NAME = Frame.MOD_NAME + "-test";
     public static final Logger LOGGER   = LoggerFactory.getLogger(MOD_ID);
 
     public static final ItemGroup ITEM_GROUP_DEFAULT = FabricItemGroupBuilder.build(id("default"), () -> new ItemStack(Items.STICK));
@@ -69,13 +69,13 @@ public class FrameTest implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Initializing {}-test", MOD_NAME);
+        LOGGER.info("Initializing {}", MOD_NAME);
 
         StateRegistry.BOOKSHELVES.add(Blocks.ACACIA_LEAVES);
         StateRegistry.LADDERS.add(Blocks.ACACIA_BUTTON);
         StateRegistry.LADDERS_DEATH_MESSAGES.add(Blocks.BIRCH_BUTTON);
 
-        LOGGER.info("Initialized {}-test", MOD_NAME);
+        LOGGER.info("Initialized {}", MOD_NAME);
     }
 
     public static Identifier id(String id) {

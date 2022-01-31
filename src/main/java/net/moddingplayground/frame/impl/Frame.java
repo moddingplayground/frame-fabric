@@ -2,8 +2,12 @@ package net.moddingplayground.frame.impl;
 
 import com.google.common.reflect.Reflection;
 import net.fabricmc.api.ModInitializer;
-import net.moddingplayground.frame.api.registry.FrameRegistries;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Identifier;
+import net.moddingplayground.frame.api.entrypoint.AfterInitializeFrameEntrypoint;
+import net.moddingplayground.frame.api.registry.FrameRegistry;
 import net.moddingplayground.frame.impl.banner.FrameBannerPatternsInternal;
+import net.moddingplayground.frame.impl.entity.FrameEntityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +20,20 @@ public class Frame implements ModInitializer {
     @Override
 	public void onInitialize() {
 		LOGGER.info("Initializing {}", MOD_NAME);
-        Reflection.initialize(FrameRegistries.class, FrameBannerPatternsInternal.class);
+
+        Reflection.initialize(
+            FrameRegistry.class,
+            FrameBannerPatternsInternal.class,
+            FrameEntityType.class
+        );
+
+        FabricLoader loader = FabricLoader.getInstance();
+        loader.getEntrypoints(idString("after_initialize"), AfterInitializeFrameEntrypoint.class).forEach(AfterInitializeFrameEntrypoint::afterInitializeFrame);
+
 		LOGGER.info("Initialized {}", MOD_NAME);
 	}
+
+    private static String idString(String path) {
+        return new Identifier(MOD_ID, path).toString();
+    }
 }

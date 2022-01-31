@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.mixin.client.gui.itemgroup;
+package net.moddingplayground.frame.mixin.gui.client.itemgroup;
 
 import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
@@ -18,7 +18,7 @@ import net.moddingplayground.frame.api.gui.itemgroup.Tab;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
 import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.impl.client.gui.itemgroup.TabWidget;
-import net.moddingplayground.frame.mixin.client.ScreenAccessor;
+import net.moddingplayground.frame.mixin.access.client.ScreenAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
