@@ -8,12 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.api.banner.FrameBannerPattern;
+import net.moddingplayground.frame.api.banner.FrameBannerPatternItem;
 import net.moddingplayground.frame.api.banner.FrameBannerPatterns;
 import net.moddingplayground.frame.api.gui.itemgroup.Tab;
 import net.moddingplayground.frame.api.gui.itemgroup.TabbedItemGroup;
@@ -21,7 +21,6 @@ import net.moddingplayground.frame.api.registry.StateRegistry;
 import net.moddingplayground.frame.api.util.FrameUtil;
 import net.moddingplayground.frame.api.util.GUIIcon;
 import net.moddingplayground.frame.impl.Frame;
-import net.moddingplayground.frame.test.item.SwordBannerItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +62,8 @@ public class FrameTest implements ModInitializer {
     public static final ItemGroup ITEM_GROUP_DEFAULT_BOTTOM = FabricItemGroupBuilder.build(id("default_bottom"), () -> new ItemStack(Items.STICK));
     public static final ItemGroup ITEM_GROUP_TABBED_BOTTOM = TabbedItemGroup.builder().build(id("tabbed_bottom"), g -> GUIIcon.of(() -> new ItemStack(Items.BLAZE_ROD)));
 
-    public static final Item TEST_ITEM = Registry.register(Registry.ITEM, id("test"), new SwordBannerItem(ToolMaterials.NETHERITE, 3, -2.4f, new FabricItemSettings().fireproof()));
-
     public static final FrameBannerPattern TEST_BANNER_PATTERN = Registry.register(FrameBannerPatterns.REGISTRY, id("test"), new FrameBannerPattern());
+    public static final Item TEST_ITEM = Registry.register(Registry.ITEM, id("test"), new FrameBannerPatternItem(TEST_BANNER_PATTERN, new FabricItemSettings().fireproof()));
 
     @Override
     public void onInitialize() {
