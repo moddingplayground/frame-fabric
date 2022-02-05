@@ -158,9 +158,8 @@ public class WoodBlockDefaults {
     }
 
     public static Item signItem(WoodBlockSet set, Block block, Item.Settings settings) {
-        Block sign = set.getBlock(SIGN);
         Block wallSign = set.getBlock(WALL_SIGN);
-        return new SignItem(settings, sign, wallSign);
+        return new SignItem(settings, block, wallSign);
     }
 
     public static Block sign(WoodBlockSet set) {
