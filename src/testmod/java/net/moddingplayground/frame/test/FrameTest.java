@@ -43,20 +43,20 @@ public class FrameTest implements ModInitializer {
     public static final ItemGroup ITEM_GROUP_TABBED_ICON_TEXTURES =
         TabbedItemGroup.builder()
                        .defaultPredicate(ALWAYS)
-                       .tab(Tab.builder().predicate(items(Items.STONE, Items.AXOLOTL_BUCKET)).build("one", GUIIcon.of(() -> new ItemStack(Items.GLOWSTONE))))
-                       .tab(Tab.builder().predicate(items(Items.SPONGE)).build("two", GUIIcon.of(() -> new ItemStack(Items.STICK))))
+                       .tab(Tab.builder().predicate(items(Items.STONE, Items.AXOLOTL_BUCKET)).build("one", GUIIcon.ofStatic(new ItemStack(Items.GLOWSTONE))))
+                       .tab(Tab.builder().predicate(items(Items.SPONGE)).build("two", GUIIcon.ofStatic(new ItemStack(Items.STICK), new ItemStack(Items.BLAZE_ROD), new ItemStack(Items.ENDER_PEARL))))
                        .tab(Tab.builder()
                                .predicate(tag(ItemTags.AXOLOTL_TEMPT_ITEMS))
                                .build("three", FrameUtil.iconOf(new Identifier("three"))))
                        .tab(Tab.builder()
                                .predicate(tag(ItemTags.BEACON_PAYMENT_ITEMS))
                                .displayText(t -> createDisplayText(t.getGroup(), t).shallowCopy().formatted(Formatting.AQUA))
-                               .build("four", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
-                       .tab(Tab.builder().build("five", GUIIcon.of(() -> new ItemStack(Items.GLOWSTONE))))
-                       .tab(Tab.builder().build("six", GUIIcon.of(() -> new ItemStack(Items.STICK))))
+                               .build("four", GUIIcon.ofStatic(new ItemStack(Items.DIAMOND))))
+                       .tab(Tab.builder().build("five", GUIIcon.ofStatic(new ItemStack(Items.GLOWSTONE))))
+                       .tab(Tab.builder().build("six", GUIIcon.ofStatic(new ItemStack(Items.STICK))))
                        .tab(Tab.builder().build("seven", FrameUtil.iconOf(new Identifier("seven"))))
-                       .tab(Tab.builder().build("eight", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
-                       .tab(Tab.builder().build("nine", GUIIcon.of(() -> new ItemStack(Items.BARRIER))))
+                       .tab(Tab.builder().build("eight", GUIIcon.ofStatic(new ItemStack(Items.DIAMOND))))
+                       .tab(Tab.builder().build("nine", GUIIcon.ofStatic(new ItemStack(Items.BARRIER))))
                        .build(id("tabbed_icon_textures"), FrameUtil::iconOf);
 
     public static final ItemGroup ITEM_GROUP_DEFAULT_BOTTOM = FabricItemGroupBuilder.build(id("default_bottom"), () -> new ItemStack(Items.STICK));
