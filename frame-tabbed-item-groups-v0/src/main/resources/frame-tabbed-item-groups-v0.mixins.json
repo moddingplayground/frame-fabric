@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.tabbeditemgroups",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "client.CreativeInventoryScreenMixin",
+    "client.ScreenAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

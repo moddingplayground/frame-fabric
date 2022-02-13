@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-template-v0-test",
+  "name": "Frame Template (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-template-v0": "*"
+  }
+}

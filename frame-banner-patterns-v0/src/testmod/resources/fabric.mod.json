@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-banner-patterns-v0-test",
+  "name": "Frame Banner Patterns (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.bannerpatterns.FrameBannerPatternsTest" ]
+  },
+  "depends": {
+    "frame-banner-patterns-v0": "*"
+  }
+}

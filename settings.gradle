@@ -10,3 +10,9 @@ pluginManagement {
 }
 
 rootProject.name = "frame-fabric"
+
+include "frame-api-base"
+include "frame-banner-patterns-v0"
+include "frame-config-v0"
+include "frame-content-registries-v0"
+include "frame-tabbed-item-groups-v0"

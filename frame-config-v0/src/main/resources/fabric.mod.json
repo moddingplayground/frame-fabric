@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-config-v0",
+  "name": "Frame Config (v0)",
+  "description": "A group of utilities for making configurations.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-config/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "depends": {
+    "cloth-config": ">=6.1"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-content-registries-v0",
+  "name": "Frame Content Registries (v0)",
+  "description": "Adds registries for vanilla features that are missing them.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-content-registries-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "mixins": [ "frame-content-registries-v0.mixins.json" ]
+}

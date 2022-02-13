@@ -1,0 +1,14 @@
+archivesBaseName = "frame-config-v0"
+version = getSubprojectVersion(project)
+
+repositories {
+    maven {
+        name = "Shedaniel"
+        url  = "https://maven.shedaniel.me/"
+    }
+}
+
+dependencies {
+    String clothConfig = "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+    modApi clothConfig ; include clothConfig
+}

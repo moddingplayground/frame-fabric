@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.contentregistries",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BookshelfStateRegistryMixins$EnchantingTableBlockMixin",
+    "BookshelfStateRegistryMixins$EnchantmentScreenHandlerMixin",
+    "LadderStateRegistryMixins$DamageTrackerMixin",
+    "LadderStateRegistryMixins$FlowableFluidMixin",
+    "LadderStateRegistryMixins$LivingEntityMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

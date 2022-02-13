@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-tabbed-item-groups-v0-test",
+  "name": "Frame Tabbed Item Groups (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.tabbeditemgroups.FrameTabbedItemGroupsTest" ]
+  },
+  "depends": {
+    "frame-tabbed-item-groups-v0": "*"
+  }
+}

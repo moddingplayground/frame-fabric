@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-tabbed-item-groups-v0",
+  "name": "Frame Tabbed Item Groups (v0)",
+  "description": "An API for adding tabbed item groups.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-tabbed-item-groups-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "mixins": [ "frame-tabbed-item-groups-v0.mixins.json" ]
+}

@@ -3,19 +3,16 @@
 
   "id": "frame",
   "version": "${version}",
+  "environment": "*",
 
   "name": "Frame",
   "icon": "assets/frame/icon.png",
-  "description": "Library mod for Modding Playground",
-
+  "description": "Library mod for Modding Playground.",
   "license": [
     "MIT (Code)",
     "All Rights Reserved (Assets)"
   ],
-  "authors": [
-    "Gaetano Russo (Ninni)",
-    "Daniel Orr (Andante)"
-  ],
+  "authors": [ "Daniel Orr (Andante)" ],
 
   "contact": {
     "homepage": "https://moddingplayground.net/frame",
@@ -31,17 +28,10 @@
     }
   },
 
-  "environment": "*",
-  "entrypoints": {
-    "main":   [ "net.moddingplayground.frame.impl.Frame" ],
-    "client": [ "net.moddingplayground.frame.impl.client.FrameClient" ]
-  },
-  "mixins": [ "frame.mixins.json" ],
-
   "depends": {
     "java": ">=17",
     "minecraft": ">=1.18",
-    "fabricloader": ">=0.12",
+    "fabricloader": ">=0.13",
     "fabric": ">=0.46"
   }
 }

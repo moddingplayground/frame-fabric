@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-banner-patterns-v0",
+  "name": "Frame Banner Patterns (v0)",
+  "description": "An API for adding custom banner patterns.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-banner-patterns-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.impl.bannerpatterns.FrameBannerPatternsImpl" ],
+    "client": [ "net.moddingplayground.frame.impl.bannerpatterns.client.FrameBannerPatternsClientImpl" ]
+  },
+  "mixins": [ "frame-banner-patterns-v0.mixins.json" ]
+}

@@ -1,0 +1,2 @@
+archivesBaseName = "frame-content-registries-v0"
+version = getSubprojectVersion(project)

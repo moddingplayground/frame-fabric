@@ -1,0 +1,2 @@
+archivesBaseName = "frame-banner-patterns-v0"
+version = getSubprojectVersion(project)

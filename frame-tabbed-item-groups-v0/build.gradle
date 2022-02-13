@@ -1,0 +1,6 @@
+archivesBaseName = "frame-tabbed-item-groups-v0"
+version = getSubprojectVersion(project)
+
+moduleDependencies(project, [
+        'frame-api-base'
+])

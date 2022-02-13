@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-content-registries-v0-test",
+  "name": "Frame Content Registries (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-content-registries-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.contentregistries.FrameContentRegistriesTest" ]
+  }
+}

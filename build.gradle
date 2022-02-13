@@ -1,88 +1,194 @@
 //file:noinspection all
 
 plugins {
-  id 'fabric-loom' version '0.10-SNAPSHOT'
-  id 'maven-publish'
+  id "java-library"
+  id "eclipse"
+  id "idea"
+  id "maven-publish"
+  id "fabric-loom" version "0.11-SNAPSHOT" apply false
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+def ENV = System.getenv()
 
-archivesBaseName = "${project.archives_base_name}-${project.minecraft_version}"
-group = project.maven_group
+version = ENV.GITHUB_ACTIONS
+        ? "${project.mod_version}+build.${ENV.GITHUB_RUN_NUMBER}"
+        : project.version
 
-version = System.env.GITHUB_ACTIONS == "true"
-        ? "${project.mod_version}+build.${System.env.GITHUB_RUN_NUMBER}"
-        : project.mod_version
+logger.lifecycle("Building %s: %s".formatted(project.mod_id, version))
 
-repositories {
-  maven {
-    name = "Terraformers"
-    url  = "https://maven.terraformersmc.com/releases/"
-  }
-
-  maven {
-    name = "Modding Playground"
-    url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
-  }
-
-  maven {
-    name = "Shedaniel"
-    url  = "https://maven.shedaniel.me/"
-  }
+def getSubprojectVersion(project) {
+  // Get the version from the gradle.properties file
+  def version = project.properties["${project.name}-version"]
+  if (!version) throw new NullPointerException("Could not find version for " + project.name)
+  return version
 }
 
-dependencies {
-  minecraft "com.mojang:minecraft:${project.minecraft_version}"
-  mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_build}:v2"
-  modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-  modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-  modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
-
-  String  clothConfig = "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
-  modApi  clothConfig ; include clothConfig
-
-  afterEvaluate { testmodImplementation sourceSets.main.output }
-}
-
-sourceSets {
-  testmod {
-    compileClasspath += main.compileClasspath
-    runtimeClasspath += main.runtimeClasspath
+def moduleDependencies(project, List<String> depNames) {
+  def deps = depNames.iterator().collect { project.dependencies.project(path: ":$it", configuration: 'namedElements') }
+  project.dependencies {
+    deps.each { api it }
   }
 }
 
-loom {
-  runs {
-    testmodClient {
-      client()
-      name = "Testmod Client"
-      source sourceSets.testmod
-    }
+allprojects {
+  apply plugin: "java-library"
+  apply plugin: "maven-publish"
+  apply plugin: "fabric-loom"
 
-    testmodServer {
-      server()
-      name = "Testmod Server"
-      source sourceSets.testmod
+  tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
+  group = project.maven_group
+
+  sourceSets {
+    testmod {
+      compileClasspath += main.compileClasspath
+      runtimeClasspath += main.runtimeClasspath
     }
   }
+
+  loom {
+    runtimeOnlyLog4j = true
+
+    runs {
+      testmodClient {
+        client()
+        ideConfigGenerated project.rootProject == project
+        name = "Testmod Client"
+        source sourceSets.testmod
+      }
+
+      testmodServer {
+        server()
+        ideConfigGenerated project.rootProject == project
+        name = "Testmod Server"
+        source sourceSets.testmod
+      }
+    }
+  }
+
+  repositories {
+    maven {
+      name = "Terraformers"
+      url  = "https://maven.terraformersmc.com/releases/"
+    }
+
+    maven {
+      name = "Modding Playground"
+      url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
+    }
+
+    mavenLocal()
+  }
+
+  dependencies {
+    minecraft "com.mojang:minecraft:$rootProject.minecraft_version"
+    mappings "net.fabricmc:yarn:${rootProject.minecraft_version}+build.${project.yarn_build}:v2"
+    modApi "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
+  }
+
+  loom { shareRemapCaches = true }
+
+  processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand "version": project.version }
+  }
+
+  java { withSourcesJar() }
+
+  jar {
+    from("LICENSE") { rename { "${it}_${project.mod_id}" } }
+    from("LICENSE_ASSETS") { rename { "${it}_${project.mod_id}" } }
+  }
+
+  tasks.withType(AbstractArchiveTask) {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+  }
+
+  tasks.withType(GenerateModuleMetadata) { enabled = false }
 }
 
-processResources {
-  inputs.property "version", project.version
-  filesMatching("fabric.mod.json") { expand "version": project.version }
+// Apply auxiliary buildscripts to submodules
+// This must be done after all plugins are applied to subprojects
+apply from: "gradle/module-validation.gradle"
+apply from: "gradle/module-versioning.gradle"
+
+subprojects {
+  dependencies { testmodImplementation sourceSets.main.output }
+
+  publishing {
+    publications { mavenJava(MavenPublication) { from components.java } }
+    setupRepositories(repositories)
+  }
+
+  afterEvaluate {
+    // Disable the gen sources task on sub projects
+    genSourcesWithFernFlower.enabled = false
+    genSourcesWithCfr.enabled = false
+    unpickJar.enabled = false
+  }
 }
 
-tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
-java { withSourcesJar() }
-
-jar {
-  from("LICENSE") { rename { "${it}_${project.mod_id}" } }
-  from("LICENSE_ASSETS") { rename { "${it}_${project.mod_id}" } }
+task remapMavenJar(type: net.fabricmc.loom.task.RemapJarTask, dependsOn: jar) {
+  input = jar.archiveFile
+  archiveFileName = "${archivesBaseName}-${project.version}-maven.jar"
+  addNestedDependencies = false
 }
+build.dependsOn remapMavenJar
 
 publishing {
   publications {
-    mavenJava(MavenPublication) { from components.java }
+    mavenJava(MavenPublication) {
+      artifact(remapMavenJar) { builtBy remapMavenJar }
+      artifact(sourcesJar) { builtBy remapSourcesJar }
+
+      pom.withXml {
+        def depsNode = asNode().appendNode("dependencies")
+        subprojects.each {
+          def depNode = depsNode.appendNode("dependency")
+          depNode.appendNode("groupId", it.group)
+          depNode.appendNode("artifactId", it.name)
+          depNode.appendNode("version", it.version)
+          depNode.appendNode("scope", "compile")
+        }
+      }
+    }
+  }
+
+  setupRepositories(repositories)
+}
+
+// Required until the deprecation is removed. Frame's main jar that is published to maven does not contain sub modules.
+loom.disableDeprecatedPomGeneration(publishing.publications.mavenJava)
+
+void setupRepositories(RepositoryHandler repositories) {
+  //repositories.mavenLocal() // uncomment for testing
+  def ENV = System.getenv()
+  if (ENV.MAVEN_URL) {
+    repositories.maven {
+      url ENV.MAVEN_URL
+      if (ENV.MAVEN_USERNAME) {
+        credentials {
+          username ENV.MAVEN_USERNAME
+          password ENV.MAVEN_PASSWORD
+        }
+      }
+    }
+  }
+}
+
+subprojects.each { remapJar.dependsOn("${it.path}:remapJar") }
+sourceSets { testmod }
+
+def devOnlyModules = []
+dependencies {
+  afterEvaluate {
+    subprojects.each {
+      api project(path: ":${it.name}", configuration: "namedElements")
+      if (!(it.name in devOnlyModules)) include project("${it.name}:")
+      testmodImplementation project("${it.name}:").sourceSets.testmod.output
+    }
   }
 }

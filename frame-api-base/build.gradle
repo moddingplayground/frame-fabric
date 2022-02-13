@@ -1,0 +1,2 @@
+archivesBaseName = "frame-api-base"
+version = getSubprojectVersion(project)
