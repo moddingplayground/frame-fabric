@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-toymaker-v0",
+  "name": "Frame Toymaker (v0)",
+  "description": "A data generation utility.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-toymaker-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "accessWidener": "frame-toymaker-v0.accesswidener"
+}
