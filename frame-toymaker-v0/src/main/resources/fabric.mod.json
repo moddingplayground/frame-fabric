@@ -10,5 +10,6 @@
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }
   },
+  "mixins": [ "frame-toymaker-v0.mixins.json" ],
   "accessWidener": "frame-toymaker-v0.accesswidener"
 }
