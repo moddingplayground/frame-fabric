@@ -5,12 +5,12 @@
   "mixins": [
     "BannerBlockEntityMixin",
     "BannerItemMixin",
-    "BuiltinModelItemRendererMixin",
     "LoomContainerMixin",
     "LoomContainerPatternSlotMixin"
   ],
   "client": [
     "client.BannerBlockEntityRendererMixin",
+    "client.BuiltinModelItemRendererMixin",
     "client.ClientBannerBlockEntityMixin",
     "client.LoomScreenMixin"
   ],

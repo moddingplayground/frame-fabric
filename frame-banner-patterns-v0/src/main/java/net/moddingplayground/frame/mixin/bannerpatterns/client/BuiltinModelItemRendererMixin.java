@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.mixin.bannerpatterns;
+package net.moddingplayground.frame.mixin.bannerpatterns.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
