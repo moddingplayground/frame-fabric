@@ -4,8 +4,14 @@
 ```gradle
 repositories {
   maven {
-    name = "Modding Playground Maven"
+    name = "Modding Playground"
     url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
+  }
+
+  // if using frame-config
+  maven {
+    name = "Shedaniel"
+    url  = "https://maven.shedaniel.me/"
   }
 }
 
