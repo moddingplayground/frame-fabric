@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.items",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ItemGroupMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
