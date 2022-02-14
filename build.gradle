@@ -1,5 +1,11 @@
 //file:noinspection all
 
+buildscript {
+  dependencies {
+    classpath 'org.kohsuke:github-api:1.135'
+  }
+}
+
 plugins {
   id "java-library"
   id "eclipse"
@@ -196,6 +202,28 @@ dependencies {
   }
 }
 
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+
+task github(dependsOn: remapMavenJar) {
+  onlyIf { ENV.GITHUB_TOKEN }
+
+  doLast {
+    def github = GitHub.connectUsingOAuth(ENV.GITHUB_TOKEN as String)
+    def repository = github.getRepository(project.github_repository)
+
+    def releaseBuilder = new GHReleaseBuilder(repository, version as String)
+    releaseBuilder.name("[$project.minecraft_version] Frame $project.version")
+    releaseBuilder.body(ENV.CHANGELOG ?: "No changelog provided")
+    releaseBuilder.commitish(project.github_branch)
+    releaseBuilder.prerelease(project.prerelease == "true")
+
+    def ghRelease = releaseBuilder.create()
+    ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
+  }
+}
+github.mustRunAfter build
+
 curseforge {
   if (ENV.CURSEFORGE_API_KEY) { apiKey = ENV.CURSEFORGE_API_KEY }
 
@@ -232,4 +260,10 @@ task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload, dependsOn: remapMa
 
   addGameVersion(project.minecraft_version)
   addLoader('fabric')
+}
+
+task releaseVersion() {
+  github
+  curseforge
+  modrinth
 }
