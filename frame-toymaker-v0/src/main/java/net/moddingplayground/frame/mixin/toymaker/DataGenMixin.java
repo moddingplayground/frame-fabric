@@ -14,7 +14,7 @@ import java.util.List;
 @SuppressWarnings("UnusedMixin")
 @Mixin(Main.class)
 public class DataGenMixin {
-    @Inject(method = "main", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "main", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/registry/DynamicRegistryManager;create()Lnet/minecraft/util/registry/DynamicRegistryManager$Impl;", shift = At.Shift.AFTER), cancellable = true, remap = false)
     private static void onDataMain(String[] strings, CallbackInfo ci) {
         boolean data = Boolean.parseBoolean(System.getProperty("toymaker.datagen"));
         if (data) {
