@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static net.moddingplayground.frame.api.tabbeditemgroups.v0.Tab.*;
 import static net.moddingplayground.frame.api.util.FrameUtil.*;
 
 public class TabbedItemGroup extends ItemGroup {
@@ -169,8 +170,8 @@ public class TabbedItemGroup extends ItemGroup {
             TabbedItemGroup group = new TabbedItemGroup(id, icon, this.tabs, this.defaultPredicate);
 
             int tabCount = this.tabs.size();
-            if (tabCount > Tab.MAX_RECOMMENDED_TABS) LOGGER.warn("{} registered {} tabs (recommended max {})", id, tabCount, Tab.MAX_RECOMMENDED_TABS);
-            else if (tabCount == 1) LOGGER.warn("{} only registered 1 item group tab?", id);
+            if (tabCount > MAX_RECOMMENDED_TABS) LOGGER.warn("Tabbed item group {} registered {} tabs (recommended max {})", id, tabCount, MAX_RECOMMENDED_TABS);
+                else if (tabCount == 1) LOGGER.warn("Tabbed item group {} only registered 1 item group tab?", id);
             for (Tab tab : this.tabs) tab.addToGroup(group);
 
             return group;
