@@ -2,3 +2,7 @@ archivesBaseName = "frame-toymaker-v0"
 version = getSubprojectVersion(project)
 
 loom { accessWidenerPath = file("src/main/resources/frame-toymaker-v0.accesswidener") }
+
+moduleDependencies(project, [
+        'frame-api-base'
+])

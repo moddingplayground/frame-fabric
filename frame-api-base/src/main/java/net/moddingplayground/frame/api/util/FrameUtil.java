@@ -1,6 +1,11 @@
 package net.moddingplayground.frame.api.util;
 
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.function.IntFunction;
 
 public final class FrameUtil {
     private FrameUtil() {}
@@ -15,5 +20,11 @@ public final class FrameUtil {
 
     public static GUIIcon<Identifier> iconOf(Identifier id) {
         return GUIIcon.ofStatic(suffixIdentifier(id), suffixIdentifier(id, "hovered"), suffixIdentifier(id, "selected"));
+    }
+
+    public static <T> T[] indexedArray(int cap, IntFunction<T[]> generator, Function<Integer, T> action) {
+        return Util.make(new ArrayList<T>(), list -> {
+            for (int i = 0; i < cap; i++) list.add(action.apply(i));
+        }).toArray(generator);
     }
 }

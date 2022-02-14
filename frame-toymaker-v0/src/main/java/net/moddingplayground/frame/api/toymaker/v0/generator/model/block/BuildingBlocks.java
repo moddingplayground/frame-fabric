@@ -8,8 +8,13 @@ import net.moddingplayground.frame.api.toymaker.v0.generator.model.InheritingMod
 import net.moddingplayground.frame.api.toymaker.v0.generator.model.ModelGen;
 import net.moddingplayground.frame.api.toymaker.v0.generator.model.StateGen;
 import net.moddingplayground.frame.api.toymaker.v0.generator.model.StateModelInfo;
+import net.moddingplayground.frame.api.util.FrameUtil;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
+
+import static net.moddingplayground.frame.api.toymaker.v0.generator.model.AbstractModelGenerator.*;
+import static net.moddingplayground.frame.api.toymaker.v0.generator.model.StateModelInfo.*;
 
 @SuppressWarnings("unused")
 public final class BuildingBlocks {
@@ -220,5 +225,33 @@ public final class BuildingBlocks {
 
     public static StateGen stairsColumn(Identifier name, Identifier end, Identifier side) {
         return stairsSided(name, end, end, side);
+    }
+
+    public static StateGen horizontalVarying(Identifier name, int variants, Function<Integer, ModelGen> model) {
+        Identifier[] ids = FrameUtil.indexedArray(variants, Identifier[]::new, i -> i == 0 ? name : name(name, i));
+        ModelGen[] models = FrameUtil.indexedArray(variants, ModelGen[]::new, model);
+
+        VariantsStateGen gen = VariantsStateGen.variants();
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() != Direction.Axis.Y) {
+                gen.variant("facing=" + direction.getName(), FrameUtil.indexedArray(variants, StateModelInfo[]::new,
+                    i -> DIRECTION_MODEL.apply(direction, StateModelInfo.create(ids[i], models[i]))
+                                        .weight(variants - i)
+                ));
+            }
+        }
+
+        return gen;
+    }
+
+    public static StateGen ladderVarying(Identifier name, int variants) {
+        Identifier[] ids = FrameUtil.indexedArray(variants, Identifier[]::new, i -> i == 0 ? name : name(name, i));
+        return horizontalVarying(name, variants, i -> InheritingModelGen.ladder(ids[i]));
+    }
+
+    public static StateGen hanging(Identifier name) {
+        return VariantsStateGen.variants()
+                               .variant("hanging=false", create(name))
+                               .variant("hanging=true", create(Identifier.tryParse(name + "_hanging")));
     }
 }

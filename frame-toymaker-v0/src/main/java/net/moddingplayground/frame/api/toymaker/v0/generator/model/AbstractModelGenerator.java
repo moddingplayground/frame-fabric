@@ -1,6 +1,7 @@
 package net.moddingplayground.frame.api.toymaker.v0.generator.model;
 
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.api.toymaker.v0.generator.AbstractGenerator;
 
@@ -35,6 +36,11 @@ public abstract class AbstractModelGenerator<T, U> extends AbstractGenerator<Ide
         path = path.replaceAll(pattern, reformat);
 
         return new Identifier(id.getNamespace(), String.format(nameFormat, path));
+    }
+
+    public static Identifier name(Identifier id, Object arg, Object... args) {
+        StringBuilder str = Util.make(new StringBuilder(), b -> { for (Object s : args) b.append(s); });
+        return Identifier.tryParse(id + arg.toString() + str);
     }
 
     public Identifier name(T object) {

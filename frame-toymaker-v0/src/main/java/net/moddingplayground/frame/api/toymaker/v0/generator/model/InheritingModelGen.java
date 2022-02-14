@@ -363,8 +363,14 @@ public class InheritingModelGen implements ModelGen {
             .texture("torch", texture);
     }
 
-    public static ModelGen wallPlantThin(Identifier texture) {
+    public static InheritingModelGen wallPlantThin(Identifier texture) {
         return new InheritingModelGen(new Identifier("toymaker", "block/template_wall_plant_thin"))
             .texture("texture", texture);
+    }
+
+    public static InheritingModelGen ladder(Identifier texture) {
+        return new InheritingModelGen("block/ladder")
+            .texture("texture", texture)
+            .texture("particle", "#texture");
     }
 }
