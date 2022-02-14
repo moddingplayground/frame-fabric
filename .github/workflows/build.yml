@@ -5,7 +5,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [17-jdk]
+        java: [ 17 ]
     runs-on: ubuntu-20.04
     container:
       image: eclipse-temurin:${{ matrix.java }}
@@ -15,19 +15,17 @@ jobs:
         with:
           fetch-depth: 0
       - uses: gradle/wrapper-validation-action@v1
-      - if: ${{ runner.os != 'Windows' }}
+      - name: Make gradle runner executable
         run: chmod +x ./gradlew
-      - run: ./gradlew check build publishToMavenLocal --stacktrace --parallel --warning-mode=fail
-      - run: mkdir run && echo "eula=true" >> run/eula.txt
-      - uses: actions/upload-artifact@v2
+      - name: Build
+        run: ./gradlew build --stacktrace --parallel --warning-mode=summary
+      - name: Upload project libs
+        uses: actions/upload-artifact@v2
         with:
-          name: Artifacts
+          name: libs
           path: build/libs/
-      - uses: actions/upload-artifact@v2
+      - name: Upload subproject libs
+        uses: actions/upload-artifact@v2
         with:
-          name: Artifacts
+          name: libs
           path: ./*/build/libs/
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Maven Local
-          path: /root/.m2/repository
