@@ -10,5 +10,8 @@
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }
   },
-  "mixins": [ "frame-tabbed-item-groups-v0.mixins.json" ]
+  "mixins": [ "frame-tabbed-item-groups-v0.mixins.json" ],
+  "depends": {
+    "frame-api-base": "*"
+  }
 }
