@@ -262,8 +262,4 @@ task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload, dependsOn: remapMa
   addLoader('fabric')
 }
 
-task releaseVersion() {
-  github
-  curseforge
-  modrinth
-}
+task releaseVersion(dependsOn: [ 'build', 'github', 'curseforge', 'modrinth' ])
