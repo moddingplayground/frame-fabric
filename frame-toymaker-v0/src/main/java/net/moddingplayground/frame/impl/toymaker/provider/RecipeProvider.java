@@ -3,6 +3,8 @@ package net.moddingplayground.frame.impl.toymaker.provider;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.criterion.ImpossibleCriterion;
 import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Identifier;
@@ -69,6 +71,14 @@ public class RecipeProvider extends AbstractDataProvider<Supplier<AbstractRecipe
                     if (json != null && map.put(id, json) != null) throw new IllegalStateException("Duplicate recipe advancement " + id);
                 }, id)
             );
+
+            Identifier rootId = gen.getId("root");
+            if (!map.containsKey(rootId)) {
+                map.put(rootId, Advancement.Task.create()
+                                                .criterion("impossible", new ImpossibleCriterion.Conditions())
+                                                .toJson()
+                );
+            }
         }
         return map;
     }
