@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
+import net.moddingplayground.frame.impl.toymaker.DataMain;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @Mixin(ShapedRecipeJsonFactory.class)
@@ -34,23 +36,25 @@ public abstract class ShapedRecipeJsonFactoryMixin {
 
     @Inject(method = "offerTo", at = @At("HEAD"), cancellable = true)
     public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier id, CallbackInfo ci) {
-        if (id.getNamespace().equals("toymaker")) {
-            this.validate(id);
-            this.builder.parent(new Identifier("toymaker", "recipes/root"))
-                        .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
-                        .rewards(AdvancementRewards.Builder.recipe(id))
-                        .criteriaMerger(CriterionMerger.OR);
+        Optional.ofNullable(DataMain.TARGET_MOD_ID).ifPresent(s -> {
+            if (id.getNamespace().equals(s)) {
+                this.validate(id);
+                this.builder.parent(new Identifier(s, "recipes/root"))
+                            .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
+                            .rewards(AdvancementRewards.Builder.recipe(id))
+                            .criteriaMerger(CriterionMerger.OR);
 
-            exporter.accept(new ShapedRecipeJsonFactory.ShapedRecipeJsonProvider(
-                id, this.output, this.outputCount,
-                this.group == null
-                    ? ""
-                    : this.group,
-                this.pattern, this.inputs, this.builder,
-                new Identifier(id.getNamespace(), "recipes/" + id.getPath())
-            ));
+                exporter.accept(new ShapedRecipeJsonFactory.ShapedRecipeJsonProvider(
+                    id, this.output, this.outputCount,
+                    this.group == null
+                        ? ""
+                        : this.group,
+                    this.pattern, this.inputs, this.builder,
+                    new Identifier(id.getNamespace(), "recipes/" + id.getPath())
+                ));
 
-            ci.cancel();
-        }
+                ci.cancel();
+            }
+        });
     }
 }

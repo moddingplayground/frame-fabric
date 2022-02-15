@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
+import net.moddingplayground.frame.impl.toymaker.DataMain;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @Mixin(ShapelessRecipeJsonFactory.class)
@@ -32,23 +34,25 @@ public abstract class ShapelessRecipeJsonFactoryMixin {
 
     @Inject(method = "offerTo", at = @At(value = "HEAD"), cancellable = true)
     private void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId, CallbackInfo ci) {
-        if (recipeId.getNamespace().equals("toymaker")) {
-            this.validate(recipeId);
-            this.builder.parent(new Identifier("toymaker", "recipes/root"))
-                        .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
-                        .rewards(AdvancementRewards.Builder.recipe(recipeId))
-                        .criteriaMerger(CriterionMerger.OR);
+        Optional.ofNullable(DataMain.TARGET_MOD_ID).ifPresent(s -> {
+            if (recipeId.getNamespace().equals(s)) {
+                this.validate(recipeId);
+                this.builder.parent(new Identifier(s, "recipes/root"))
+                            .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
+                            .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                            .criteriaMerger(CriterionMerger.OR);
 
-            exporter.accept(new ShapelessRecipeJsonFactory.ShapelessRecipeJsonProvider(
-                recipeId, this.output, this.outputCount,
-                this.group == null
-                    ? ""
-                    : this.group,
-                this.inputs, this.builder,
-                new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
-            ));
+                exporter.accept(new ShapelessRecipeJsonFactory.ShapelessRecipeJsonProvider(
+                    recipeId, this.output, this.outputCount,
+                    this.group == null
+                        ? ""
+                        : this.group,
+                    this.inputs, this.builder,
+                    new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
+                ));
 
-            ci.cancel();
-        }
+                ci.cancel();
+            }
+        });
     }
 }

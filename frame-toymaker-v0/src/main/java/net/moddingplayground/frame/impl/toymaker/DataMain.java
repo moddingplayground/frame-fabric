@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class DataMain {
     private static final Logger LOGGER = LoggerFactory.getLogger("toymaker");
-    @Nullable private static final String TARGET_MOD_ID = System.getProperty("toymaker.datagen.modid");
+    @Nullable public static final String TARGET_MOD_ID = System.getProperty("toymaker.datagen.modid");
 
     public static void main(String[] strings) throws IOException {
         OptionParser opts = new OptionParser();
