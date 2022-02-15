@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.Util;
 import net.moddingplayground.frame.impl.contentregistries.StateRegistryImpl;
 
 import java.util.function.Function;
@@ -15,7 +16,7 @@ public interface StateRegistry extends Iterable<BlockState> {
     StateRegistry LADDERS_DEATH_MESSAGES = new StateRegistryImpl(LADDERS);
     StateRegistry SCAFFOLDING_DEATH_MESSAGES = new StateRegistryImpl(state -> !state.isOf(Blocks.SCAFFOLDING));
 
-    Function<BlockEntityType<?>, StateRegistry> BLOCK_ENTITY_SUPPORTS = type -> new StateRegistryImpl();
+    Function<BlockEntityType<?>, StateRegistry> BLOCK_ENTITY_SUPPORTS = Util.memoize(type -> new StateRegistryImpl());
 
     StateRegistry add(BlockState... states);
     StateRegistry add(Block... blocks);
