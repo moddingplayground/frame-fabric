@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.rendering",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "client.EntityModelLayersMixin",
+    "client.TexturedRenderLayersMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
