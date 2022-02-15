@@ -11,9 +11,10 @@ import net.minecraft.util.Identifier;
 /**
  * An interface that adds custom textures to modded chests.
  */
-@FunctionalInterface
 public interface ChestTextureProvider {
-    Identifier getTexture(BlockEntity blockEntity, ChestType type, boolean christmas);
+    default Identifier getTexture(BlockEntity blockEntity, ChestType type, boolean christmas) {
+        return new Identifier("");
+    }
 
     @Environment(EnvType.CLIENT)
     default SpriteIdentifier getSpriteIdentifier(BlockEntity blockEntity, ChestType type, boolean christmas) {
