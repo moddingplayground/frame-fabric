@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class FrameBannerPattern {
-    private final boolean hasItem;
+    private final boolean special;
     private final Function<BannerContext, Identifier> spriteId = Util.memoize(context -> {
         Identifier id = this.getId();
         return new Identifier(id.getNamespace(), "frame/banner_pattern/%s/%s".formatted(context.getId(), id.getPath()));
@@ -19,16 +19,21 @@ public class FrameBannerPattern {
 
     private Identifier id;
 
-    public FrameBannerPattern(boolean hasItem) {
-        this.hasItem = hasItem;
+    public FrameBannerPattern(boolean special) {
+        this.special = special;
     }
 
     public FrameBannerPattern() {
         this(false);
     }
 
+    public final boolean isSpecial() {
+        return this.special;
+    }
+
+    @Deprecated(forRemoval = true)
     public final boolean hasItem() {
-        return this.hasItem;
+        return this.isSpecial();
     }
 
     /**

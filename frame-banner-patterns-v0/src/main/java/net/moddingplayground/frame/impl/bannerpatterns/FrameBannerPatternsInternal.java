@@ -52,7 +52,7 @@ public final class FrameBannerPatternsInternal {
      * in order to skip special patterns.
      */
     public static int indexOf(FrameBannerPattern pattern) {
-        if (pattern.hasItem()) {
+        if (pattern.isSpecial()) {
             return specialPatterns.indexOf(pattern) + nonSpecialPatterns.size();
         } else {
             return nonSpecialPatterns.indexOf(pattern);
@@ -106,7 +106,7 @@ public final class FrameBannerPatternsInternal {
      * so patterns are guaranteed to be added in raw ID order.
      */
     static void addPattern(FrameBannerPattern pattern) {
-        if (!pattern.hasItem()) {
+        if (!pattern.isSpecial()) {
             nonSpecialPatterns.add(pattern);
         } else {
             specialPatterns.add(pattern);
