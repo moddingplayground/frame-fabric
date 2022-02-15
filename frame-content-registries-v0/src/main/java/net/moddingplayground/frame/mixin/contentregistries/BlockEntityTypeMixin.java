@@ -19,7 +19,7 @@ public class BlockEntityTypeMixin {
         return registry.contains(state);
     });
 
-    @Inject(method = "supports", at = @At("RETURN"))
+    @Inject(method = "supports", at = @At("RETURN"), cancellable = true)
     private void onSupports(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValueZ() && this.frame_supports.apply(state)) cir.setReturnValue(true);
     }
