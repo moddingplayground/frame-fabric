@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-tags-v0",
+  "name": "Frame Tags (v0)",
+  "description": "An API for predefined tags and other tag utilities.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-tags-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  }
+}
