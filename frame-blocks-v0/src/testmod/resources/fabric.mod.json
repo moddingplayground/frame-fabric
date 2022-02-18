@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-blocks-v0-test",
+  "name": "Frame Blocks (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-blocks-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.blocks.FrameBlocksTest" ]
+  }
+}
