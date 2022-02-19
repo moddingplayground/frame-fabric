@@ -1,0 +1,2 @@
+archivesBaseName = "frame-loot-tables-v0"
+version = getSubprojectVersion(project)

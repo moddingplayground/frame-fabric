@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-loot-tables-v0",
+  "name": "Frame Loot Tables (v0)",
+  "description": "An API for loot table utilities.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-loot-tables-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-loot-tables-v0-test",
+  "name": "Frame Loot Tables (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-loot-tables-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.loottables.FrameLootTablesTest" ]
+  }
+}
