@@ -26,8 +26,8 @@ public class TexturedRenderLayersMixin {
         if (block instanceof ChestTextureProvider provider) cir.setReturnValue(provider.getSpriteIdentifier(blockEntity, type, christmas));
     }
 
-    @Inject(method = "getSignTextureId", at = @At("HEAD"), cancellable = true)
-    private static void onGetSignTexture(SignType type, CallbackInfoReturnable<SpriteIdentifier> cir) {
+    @Inject(method = "createSignTextureId", at = @At("HEAD"), cancellable = true)
+    private static void onCreateSignTextureId(SignType type, CallbackInfoReturnable<SpriteIdentifier> cir) {
         if (type instanceof SignTextureProvider provider) cir.setReturnValue(provider.getSpriteIdentifier(type));
     }
 }
