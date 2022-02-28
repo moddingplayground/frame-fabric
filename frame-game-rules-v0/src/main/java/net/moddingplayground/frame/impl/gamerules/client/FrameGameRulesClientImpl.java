@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.gamerules.v0.SynchronizedBooleanGameRuleRegistry;
 import net.moddingplayground.frame.impl.gamerules.SynchronizedBooleanGameRuleRegistryImpl;
 import net.moddingplayground.frame.mixin.gamerules.GameRulesRuleAccessor;
@@ -20,7 +19,7 @@ public final class FrameGameRulesClientImpl implements ClientModInitializer {
 
         // accept client game rule update
         ClientPlayNetworking.registerGlobalReceiver(SynchronizedBooleanGameRuleRegistryImpl.PACKET_ID, (client, handler, buf, sender) -> {
-            Identifier id = buf.readIdentifier();
+            String id = buf.readString();
             boolean value = buf.readBoolean();
 
             BooleanRule rule = impl.ruleToIdCache.reverse(id);

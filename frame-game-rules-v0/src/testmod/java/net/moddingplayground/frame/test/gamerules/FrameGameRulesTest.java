@@ -7,16 +7,16 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
 import net.moddingplayground.frame.api.gamerules.v0.SynchronizedBooleanGameRuleRegistry;
 
 import java.util.function.BiConsumer;
 
+import static net.minecraft.util.Identifier.*;
 import static net.minecraft.world.GameRules.*;
 
 public class FrameGameRulesTest implements ModInitializer {
-    public static final Key<BooleanRule> TEST_GAME_RULE = synced("test_game_rule", false, (server, rule) -> {
+    public static final Key<BooleanRule> TEST_GAME_RULE = synced("test_GAME_rule", false, (server, rule) -> {
         boolean val = rule.get();
         for (ServerPlayerEntity player : PlayerLookup.all(server)) player.sendMessage(new LiteralText("Server value updated: " + val), false);
     });
@@ -37,6 +37,6 @@ public class FrameGameRulesTest implements ModInitializer {
     }
 
     private static <T extends Rule<T>> Key<T> register(String id, Type<T> type) {
-        return GameRuleRegistry.register(new Identifier("frame-game-rules-test", id).toString(), Category.MISC, type);
+        return GameRuleRegistry.register("frame-game-rules-test" + NAMESPACE_SEPARATOR + id, Category.MISC, type);
     }
 }

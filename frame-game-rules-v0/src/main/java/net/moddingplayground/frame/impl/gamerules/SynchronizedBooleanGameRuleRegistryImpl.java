@@ -26,7 +26,7 @@ public final class SynchronizedBooleanGameRuleRegistryImpl implements Synchroniz
     public static final Identifier PACKET_ID = new Identifier("frame", "game_rule_sync");
 
     public final Function<Type<BooleanRule>, Key<BooleanRule>> typeToKeyCache;
-    public final ReverseMemoizeFunction<BooleanRule, Identifier> ruleToIdCache;
+    public final ReverseMemoizeFunction<BooleanRule, String> ruleToIdCache;
     public final Map<Key<BooleanRule>, Boolean> defaults, values;
 
     public SynchronizedBooleanGameRuleRegistryImpl() {
@@ -54,20 +54,18 @@ public final class SynchronizedBooleanGameRuleRegistryImpl implements Synchroniz
     }
 
     public void synchronize(MinecraftServer server, BooleanRule rule) {
-        Identifier id = this.ruleToIdCache.apply(rule);
-        if (id == null) return;
+        String id = this.ruleToIdCache.apply(rule);
         for (ServerPlayerEntity player : PlayerLookup.all(server)) this.synchronize(player, id, rule.get());
     }
 
     public void synchronize(ServerPlayerEntity player, BooleanRule rule) {
-        Identifier id = this.ruleToIdCache.apply(rule);
-        if (id == null) return;
+        String id = this.ruleToIdCache.apply(rule);
         this.synchronize(player, id, rule.get());
     }
 
-    public void synchronize(ServerPlayerEntity player, Identifier id, boolean value) {
+    public void synchronize(ServerPlayerEntity player, String id, boolean value) {
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeIdentifier(id);
+        buf.writeString(id);
         buf.writeBoolean(value);
         ServerPlayNetworking.send(player, PACKET_ID, buf);
     }
@@ -80,9 +78,8 @@ public final class SynchronizedBooleanGameRuleRegistryImpl implements Synchroniz
         return (Key<BooleanRule>) inverse.get(type);
     }
 
-    public Identifier ruleToId(BooleanRule rule) {
+    public String ruleToId(BooleanRule rule) {
         Key<BooleanRule> key = this.typeToKeyCache.apply(((GameRulesRuleAccessor) rule).getType());
-        String name = key.getName();
-        return Identifier.tryParse(name);
+        return key.getName();
     }
 }
