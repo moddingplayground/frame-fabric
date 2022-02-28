@@ -5,7 +5,7 @@
   "description": "An API for game rule utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-game-rules-v0/icon.png",
+  "icon": "assets/frame-game-rules/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

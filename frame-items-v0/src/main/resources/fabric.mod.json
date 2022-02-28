@@ -5,7 +5,7 @@
   "description": "An API for item utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-items-v0/icon.png",
+  "icon": "assets/frame-items/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

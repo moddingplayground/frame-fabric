@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "frame-blocks-v0",
-  "name": "Frame blocks (v0)",
+  "name": "Frame Blocks (v0)",
   "description": "An API for blocks and block utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-blocks-v0/icon.png",
+  "icon": "assets/frame-blocks/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

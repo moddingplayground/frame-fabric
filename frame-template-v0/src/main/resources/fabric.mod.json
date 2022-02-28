@@ -5,7 +5,7 @@
   "description": "Someone forgot a description!",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-template-v0/icon.png",
+  "icon": "assets/frame-template/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

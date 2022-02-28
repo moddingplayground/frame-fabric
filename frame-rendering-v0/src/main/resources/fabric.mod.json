@@ -5,7 +5,7 @@
   "description": "An API for rendering utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-rendering-v0/icon.png",
+  "icon": "assets/frame-rendering/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

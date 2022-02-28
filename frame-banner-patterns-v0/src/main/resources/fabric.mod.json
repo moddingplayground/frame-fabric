@@ -5,7 +5,7 @@
   "description": "An API for adding custom banner patterns.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-banner-patterns-v0/icon.png",
+  "icon": "assets/frame-banner-patterns/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

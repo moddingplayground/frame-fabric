@@ -5,7 +5,7 @@
   "description": "An API for adding tabbed item groups.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-tabbed-item-groups-v0/icon.png",
+  "icon": "assets/frame-tabbed-item-groups/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }

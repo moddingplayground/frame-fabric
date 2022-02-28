@@ -5,7 +5,7 @@
   "description": "A data generation utility.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-toymaker-v0/icon.png",
+  "icon": "assets/frame-toymaker/icon.png",
   "custom": {
     "frame:module-lifecycle": "stable",
     "modmenu": { "parent": "frame" }
