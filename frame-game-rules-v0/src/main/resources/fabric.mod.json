@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-game-rules-v0",
+  "name": "Frame Game Rules (v0)",
+  "description": "An API for game rule utilities.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame-game-rules-v0/icon.png",
+  "custom": {
+    "frame:module-lifecycle": "stable",
+    "modmenu": { "parent": "frame" }
+  },
+  "depends": {
+    "frame-api-base": "*"
+  },
+  "mixins": [ "frame-game-rules-v0.mixins.json" ],
+  "entrypoints": {
+    "main":   [ "net.moddingplayground.frame.impl.gamerules.FrameGameRulesImpl" ],
+    "client": [ "net.moddingplayground.frame.impl.gamerules.client.FrameGameRulesClientImpl" ]
+  }
+}
