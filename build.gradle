@@ -8,9 +8,8 @@ plugins {
 
 def ENV = System.getenv()
 
-version = ENV.GITHUB_ACTIONS
-        ? "${project.version}+build.${ENV.GITHUB_RUN_NUMBER}"
-        : project.version
+String ver = "${project.version}+${project.github_branch}"
+version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
 
 logger.lifecycle("Building %s: %s".formatted(project.mod_id, version))
 
