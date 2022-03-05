@@ -40,6 +40,7 @@ public class DataGenMixinPlugin implements IMixinConfigPlugin {
                 "BlockLootTableGeneratorInvoker",
                 "CookingRecipeJsonBuilderMixin",
                 "EntityTypeMixin",
+                "EulaReaderMixin",
                 "RecipeProviderAccessor",
                 "ShapedRecipeJsonBuilderMixin",
                 "ShapelessRecipeJsonBuilderMixin",
