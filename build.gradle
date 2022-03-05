@@ -1,8 +1,12 @@
 plugins {
+  id 'java-library'
+  id 'idea'
+  id 'eclipse'
+
   id 'fabric-loom' version '0.11-SNAPSHOT' apply false
   id 'maven-publish'
 
-  id 'com.modrinth.minotaur' version '1.1.0'
+  id 'com.modrinth.minotaur' version '2.+'
   id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
@@ -77,8 +81,8 @@ allprojects {
   }
 
   dependencies {
-    minecraft "com.mojang:minecraft:$rootProject.ver_minecraft"
-    mappings "net.fabricmc:yarn:${rootProject.ver_minecraft}+build.${project.ver_yarn}:v2"
+    minecraft "com.mojang:minecraft:$project.ver_minecraft"
+    mappings "net.fabricmc:yarn:${project.ver_minecraft}+build.${project.ver_yarn}:v2"
     modApi "net.fabricmc:fabric-loader:${project.ver_loader}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.ver_fabric}"
@@ -93,7 +97,6 @@ allprojects {
   }
 
   java { withSourcesJar() }
-
   jar { from('README.md', 'LICENSE', 'LICENSE_ASSETS') exclude('.cache') }
 
   tasks.withType(AbstractArchiveTask) {

@@ -1,7 +1,6 @@
 package net.moddingplayground.frame.mixin.items;
 
 import com.google.common.base.Suppliers;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;

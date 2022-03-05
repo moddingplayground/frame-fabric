@@ -12,6 +12,8 @@ import net.moddingplayground.frame.api.toymaker.v0.generator.model.StateModelInf
 import java.util.function.Function;
 
 import static net.moddingplayground.frame.api.toymaker.v0.generator.model.InheritingModelGen.*;
+import static net.moddingplayground.frame.api.toymaker.v0.generator.model.block.BuildingBlocks.slabAll;
+import static net.moddingplayground.frame.api.toymaker.v0.generator.model.block.BuildingBlocks.stairsAll;
 import static net.moddingplayground.frame.api.toymaker.v0.generator.model.block.BuildingBlocks.*;
 
 @SuppressWarnings("unused")

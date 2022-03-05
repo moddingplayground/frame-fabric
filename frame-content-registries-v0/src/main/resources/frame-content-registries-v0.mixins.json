@@ -5,7 +5,6 @@
   "mixins": [
     "BlockEntityTypeMixin",
     "BookshelfStateRegistryMixins$EnchantingTableBlockMixin",
-    "BookshelfStateRegistryMixins$EnchantmentScreenHandlerMixin",
     "LadderStateRegistryMixins$DamageTrackerMixin",
     "LadderStateRegistryMixins$FlowableFluidMixin",
     "LadderStateRegistryMixins$LivingEntityMixin"

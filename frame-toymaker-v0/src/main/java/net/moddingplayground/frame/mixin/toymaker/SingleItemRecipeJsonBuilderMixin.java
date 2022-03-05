@@ -5,7 +5,7 @@ import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory;
+import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
@@ -22,13 +22,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@Mixin(SingleItemRecipeJsonFactory.class)
-public abstract class SingleItemRecipeJsonFactoryMixin {
+@Mixin(SingleItemRecipeJsonBuilder.class)
+public abstract class SingleItemRecipeJsonBuilderMixin {
     @Shadow @Nullable private String group;
     @Shadow @Final private Ingredient input;
     @Shadow @Final private Item output;
     @Shadow @Final private int count;
-    @Shadow @Final private Advancement.Task builder;
+    @Shadow @Final private Advancement.Builder advancementBuilder;
     @Shadow @Final private RecipeSerializer<?> serializer;
 
     @Shadow protected abstract void validate(Identifier recipeId);
@@ -38,17 +38,17 @@ public abstract class SingleItemRecipeJsonFactoryMixin {
         Optional.ofNullable(DataMain.TARGET_MOD_ID).ifPresent(s -> {
             if (id.getNamespace().equals(s)) {
                 this.validate(id);
-                this.builder.parent(new Identifier(s, "recipes/root"))
-                            .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
-                            .rewards(AdvancementRewards.Builder.recipe(id))
-                            .criteriaMerger(CriterionMerger.OR);
+                this.advancementBuilder.parent(new Identifier(s, "recipes/root"))
+                                       .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
+                                       .rewards(AdvancementRewards.Builder.recipe(id))
+                                       .criteriaMerger(CriterionMerger.OR);
 
-                exporter.accept(new SingleItemRecipeJsonFactory.SingleItemRecipeJsonProvider(
+                exporter.accept(new SingleItemRecipeJsonBuilder.SingleItemRecipeJsonProvider(
                     id, this.serializer,
                     this.group == null
                         ? ""
                         : this.group,
-                    this.input, this.output, this.count, this.builder,
+                    this.input, this.output, this.count, this.advancementBuilder,
                     new Identifier(id.getNamespace(), "recipes/" + id.getPath())
                 ));
 

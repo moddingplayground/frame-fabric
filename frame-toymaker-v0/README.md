@@ -27,9 +27,9 @@ Each type of data generator has a generator store. This is essentially a registr
 
 Every subclass of `AbstractGenerator` must contain a `generate` method. Each generator type has a default `add` method, using the types contained in its map, which may be supported by utility methods, seen below.
 
-### `AbstractAdvancementGenerator (Identifier, Advancement.Task)`
+### `AbstractAdvancementGenerator (Identifier, Advancement.Builder)`
 
-- `String, Advancement.Task`
+- `String, Advancement.Builder`
 
 ### `AbstractItemModelGenerator (Item, ModelGen)`
 
@@ -60,15 +60,15 @@ Implementation of `AbstractLootTableGenerator` as `Block`. Includes utility meth
 
 Implementation of `AbstractLootTableGenerator` as `EntityType<?>`. Only exists to verify that entities being added are subclasses of `LivingEntity`.
 
-### `AbstractRecipeGenerator (Identifier, CraftingRecipeJsonFactory)`
+### `AbstractRecipeGenerator (Identifier, CraftingRecipeJsonBuilder)`
 
-- `String, CraftingRecipeJsonFactory` - infers an `Identifier` from the generator's mod id
+- `String, CraftingRecipeJsonBuilder` - infers an `Identifier` from the generator's mod id
 
 ### `AbstractTagGenerator (Identifier, TagEntryFactory<T>)`
 
-- `Tag<T>, T...`
-- `Tag<T>, RegistryKey<T>...`
-- `Tag<T>, Tag<T>...`
+- `TagKey<T>, T...`
+- `TagKey<T>, RegistryKey<T>...`
+- `TagKey<T>, TagKey<T>...`
 
 ## Gradle
 

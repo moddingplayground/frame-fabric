@@ -74,7 +74,7 @@ public class RecipeProvider extends AbstractDataProvider<Supplier<AbstractRecipe
 
             Identifier rootId = gen.getId("root");
             if (!map.containsKey(rootId)) {
-                map.put(rootId, Advancement.Task.create()
+                map.put(rootId, Advancement.Builder.create()
                                                 .criterion("impossible", new ImpossibleCriterion.Conditions())
                                                 .toJson()
                 );

@@ -5,7 +5,7 @@ import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@Mixin(ShapelessRecipeJsonFactory.class)
-public abstract class ShapelessRecipeJsonFactoryMixin {
-    @Shadow @Final private Advancement.Task builder;
+@Mixin(ShapelessRecipeJsonBuilder.class)
+public abstract class ShapelessRecipeJsonBuilderMixin {
+    @Shadow @Final private Advancement.Builder advancementBuilder;
     @Shadow @Final private Item output;
     @Shadow @Final private int outputCount;
     @Shadow @Nullable private String group;
@@ -37,17 +37,17 @@ public abstract class ShapelessRecipeJsonFactoryMixin {
         Optional.ofNullable(DataMain.TARGET_MOD_ID).ifPresent(s -> {
             if (recipeId.getNamespace().equals(s)) {
                 this.validate(recipeId);
-                this.builder.parent(new Identifier(s, "recipes/root"))
-                            .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
-                            .rewards(AdvancementRewards.Builder.recipe(recipeId))
-                            .criteriaMerger(CriterionMerger.OR);
+                this.advancementBuilder.parent(new Identifier(s, "recipes/root"))
+                                       .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
+                                       .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                                       .criteriaMerger(CriterionMerger.OR);
 
-                exporter.accept(new ShapelessRecipeJsonFactory.ShapelessRecipeJsonProvider(
+                exporter.accept(new ShapelessRecipeJsonBuilder.ShapelessRecipeJsonProvider(
                     recipeId, this.output, this.outputCount,
                     this.group == null
                         ? ""
                         : this.group,
-                    this.inputs, this.builder,
+                    this.inputs, this.advancementBuilder,
                     new Identifier(recipeId.getNamespace(), "recipes/" + recipeId.getPath())
                 ));
 

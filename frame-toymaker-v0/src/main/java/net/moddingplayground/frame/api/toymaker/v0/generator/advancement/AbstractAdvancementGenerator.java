@@ -10,17 +10,17 @@ import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.toymaker.v0.generator.AbstractGenerator;
 
 @SuppressWarnings("unused")
-public abstract class AbstractAdvancementGenerator extends AbstractGenerator<Identifier, Advancement.Task> {
+public abstract class AbstractAdvancementGenerator extends AbstractGenerator<Identifier, Advancement.Builder> {
     public AbstractAdvancementGenerator(String modId) {
         super(modId);
     }
 
-    public AbstractAdvancementGenerator add(String id, Advancement.Task factory) {
+    public AbstractAdvancementGenerator add(String id, Advancement.Builder factory) {
         this.add(getId(id), factory);
         return this;
     }
@@ -33,7 +33,7 @@ public abstract class AbstractAdvancementGenerator extends AbstractGenerator<Ide
         return this.hasItems(ItemPredicate.Builder.create().items(itemConvertible).build());
     }
 
-    public InventoryChangedCriterion.Conditions hasItems(Tag<Item> tag) {
+    public InventoryChangedCriterion.Conditions hasItems(TagKey<Item> tag) {
         return this.hasItems(ItemPredicate.Builder.create().tag(tag).build());
     }
 

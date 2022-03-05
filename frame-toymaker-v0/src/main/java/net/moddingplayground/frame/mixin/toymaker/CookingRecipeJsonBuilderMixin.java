@@ -4,9 +4,10 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
 import net.minecraft.item.Item;
+import net.minecraft.recipe.CookingRecipeSerializer;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.impl.toymaker.DataMain;
@@ -18,39 +19,38 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-@Mixin(ShapedRecipeJsonFactory.class)
-public abstract class ShapedRecipeJsonFactoryMixin {
-    @Shadow @Final private Advancement.Task builder;
-    @Shadow @Final private Item output;
-    @Shadow @Final private int outputCount;
+@Mixin(CookingRecipeJsonBuilder.class)
+public abstract class CookingRecipeJsonBuilderMixin {
+    @Shadow @Final private Advancement.Builder advancementBuilder;
     @Shadow @Nullable private String group;
-    @Shadow @Final private List<String> pattern;
-    @Shadow @Final private Map<Character, Ingredient> inputs;
+    @Shadow @Final private Ingredient input;
+    @Shadow @Final private Item output;
+    @Shadow @Final private float experience;
+    @Shadow @Final private int cookingTime;
+    @Shadow @Final private CookingRecipeSerializer<?> serializer;
 
     @Shadow protected abstract void validate(Identifier recipeId);
 
     @Inject(method = "offerTo", at = @At("HEAD"), cancellable = true)
-    public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier id, CallbackInfo ci) {
+    private void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier id, CallbackInfo ci) {
         Optional.ofNullable(DataMain.TARGET_MOD_ID).ifPresent(s -> {
             if (id.getNamespace().equals(s)) {
                 this.validate(id);
-                this.builder.parent(new Identifier(s, "recipes/root"))
-                            .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
-                            .rewards(AdvancementRewards.Builder.recipe(id))
-                            .criteriaMerger(CriterionMerger.OR);
+                this.advancementBuilder.parent(new Identifier(s, "recipes/root"))
+                                       .criterion("has_the_recipe", RecipeUnlockedCriterion.create(id))
+                                       .rewards(AdvancementRewards.Builder.recipe(id))
+                                       .criteriaMerger(CriterionMerger.OR);
 
-                exporter.accept(new ShapedRecipeJsonFactory.ShapedRecipeJsonProvider(
-                    id, this.output, this.outputCount,
+                exporter.accept(new CookingRecipeJsonBuilder.CookingRecipeJsonProvider(
+                    id,
                     this.group == null
                         ? ""
                         : this.group,
-                    this.pattern, this.inputs, this.builder,
-                    new Identifier(id.getNamespace(), "recipes/" + id.getPath())
+                    this.input, this.output, this.experience, this.cookingTime, this.advancementBuilder,
+                    new Identifier(id.getNamespace(), "recipes/" + id.getPath()), this.serializer
                 ));
 
                 ci.cancel();

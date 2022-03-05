@@ -1,6 +1,6 @@
 package net.moddingplayground.frame.api.toymaker.v0.generator.tag;
 
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -22,28 +22,24 @@ public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifi
     }
 
     @SafeVarargs
-    public final TagEntryFactory<T> add(Tag<T> tag, T... objects) {
+    public final TagEntryFactory<T> add(TagKey<T> tag, T... objects) {
         return this.getOrCreateFactory(tag).add(objects);
     }
 
     @SafeVarargs
-    public final TagEntryFactory<T> add(Tag<T> tag, RegistryKey<T>... objects) {
+    public final TagEntryFactory<T> add(TagKey<T> tag, RegistryKey<T>... objects) {
         TagEntryFactory<T> factory = this.getOrCreateFactory(tag);
         for (RegistryKey<T> object : objects) factory.add(this.registry.get(object));
         return factory;
     }
 
     @SafeVarargs
-    public final TagEntryFactory<T> add(Tag<T> tag, Tag<T>... tags) {
+    public final TagEntryFactory<T> add(TagKey<T> tag, TagKey<T>... tags) {
         return this.getOrCreateFactory(tag).add(tags);
     }
 
-    public TagEntryFactory<T> getOrCreateFactory(Tag<T> tag) {
-        if (tag instanceof Tag.Identified identified) {
-            return this.getOrCreateFactory(identified.getId());
-        } else {
-            throw new RuntimeException("Cannot identify tag " + tag);
-        }
+    public TagEntryFactory<T> getOrCreateFactory(TagKey<T> tag) {
+        return this.getOrCreateFactory(tag.id());
     }
 
     public TagEntryFactory<T> getOrCreateFactory(Identifier id) {

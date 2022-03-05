@@ -1,8 +1,8 @@
 package net.moddingplayground.frame.mixin.toymaker;
 
 import net.minecraft.data.family.BlockFamily;
-import net.minecraft.data.server.RecipesProvider;
-import net.minecraft.data.server.recipe.CraftingRecipeJsonFactory;
+import net.minecraft.data.server.RecipeProvider;
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-@Mixin(RecipesProvider.class)
-public interface RecipesProviderAccessor {
+@Mixin(RecipeProvider.class)
+public interface RecipeProviderAccessor {
     @Accessor
-    static Map<BlockFamily.Variant, BiFunction<ItemConvertible, ItemConvertible, CraftingRecipeJsonFactory>> getVARIANT_FACTORIES() {
+    static Map<BlockFamily.Variant, BiFunction<ItemConvertible, ItemConvertible, CraftingRecipeJsonBuilder>> getVARIANT_FACTORIES() {
         throw new AssertionError();
     }
 }

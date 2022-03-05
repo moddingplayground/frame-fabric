@@ -1,13 +1,13 @@
 package net.moddingplayground.frame.api.tags.v0;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.impl.tags.CommonTagImpl;
 
 import java.util.List;
@@ -69,20 +69,20 @@ public interface CommonTag {
         );
     });
 
-    List<Tag.Identified<Block>> blockTags();
-    List<Tag.Identified<Item>> itemTags();
+    List<TagKey<Block>> blockTags();
+    List<TagKey<Item>> itemTags();
 
-    void run(Consumer<Tag.Identified<Block>> block, Consumer<Tag.Identified<Item>> item);
+    void run(Consumer<TagKey<Block>> block, Consumer<TagKey<Item>> item);
 
     static Identifier id(String id) {
         return new Identifier("c", id);
     }
 
-    static Tag.Identified<Item> item(String id) {
-        return TagFactory.ITEM.create(id(id));
+    static TagKey<Item> item(String id) {
+        return TagKey.of(Registry.ITEM_KEY, id(id));
     }
 
-    static Tag.Identified<Block> block(String id) {
-        return TagFactory.BLOCK.create(id(id));
+    static TagKey<Block> block(String id) {
+        return TagKey.of(Registry.BLOCK_KEY, id(id));
     }
 }

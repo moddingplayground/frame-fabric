@@ -3,7 +3,7 @@ package net.moddingplayground.frame.api.tabbeditemgroups.v0;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -91,8 +91,8 @@ public class Tab {
         Predicate NEVER = (group, item) -> false;
         Predicate CONTAINS = (group, item) -> item.getGroup() == group;
 
-        static Predicate tag(Tag<Item> tag) {
-            return (group, item) -> tag.contains(item);
+        static Predicate tag(TagKey<Item> tag) {
+            return (group, item) -> item.getDefaultStack().isIn(tag);
         }
 
         static Predicate items(ItemConvertible... items) {

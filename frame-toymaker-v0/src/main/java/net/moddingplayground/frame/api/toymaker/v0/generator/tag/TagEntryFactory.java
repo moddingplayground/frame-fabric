@@ -2,7 +2,7 @@ package net.moddingplayground.frame.api.toymaker.v0.generator.tag;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
@@ -33,14 +33,8 @@ public class TagEntryFactory<T> {
     }
 
     @SafeVarargs
-    public final TagEntryFactory<T> add(Tag<T>... tags) {
-        for (Tag<T> tag : tags) {
-            if (tag instanceof Tag.Identified identified) {
-                this.entries.add(String.format("#%s", identified.getId()));
-            } else {
-                throw new RuntimeException("Cannot identify tag " + tag);
-            }
-        }
+    public final TagEntryFactory<T> add(TagKey<T>... tags) {
+        for (TagKey<T> tag : tags) this.entries.add(String.format("#%s", tag.id()));
         return this;
     }
 

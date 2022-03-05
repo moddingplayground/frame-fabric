@@ -25,6 +25,7 @@ public class ReverseMemoizeFunction<T, R> implements Function<T, R> {
         return new ReverseMemoizeFunction<>(function);
     }
 
+    @Override
     public R apply(T object) {
         return this.cache.computeIfAbsent(object, function);
     }

@@ -8,14 +8,12 @@ import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.texture.ResourceTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.util.GUIIcon;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.mojang.blaze3d.systems.RenderSystem.*;

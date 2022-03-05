@@ -35,17 +35,17 @@ public class DataGenMixinPlugin implements IMixinConfigPlugin {
                 "DataGeneratorMixin",
 
                 "AbstractBlockMixin",
-                "AdvancementTaskMixin",
+                "AdvancementBuilderMixin",
                 "BlockLootTableGeneratorAccessor",
                 "BlockLootTableGeneratorInvoker",
-                "CookingRecipeJsonFactoryMixin",
+                "CookingRecipeJsonBuilderMixin",
                 "EntityTypeMixin",
-                "RecipesProviderAccessor",
-                "ShapedRecipeJsonFactoryMixin",
-                "ShapelessRecipeJsonFactoryMixin",
+                "RecipeProviderAccessor",
+                "ShapedRecipeJsonBuilderMixin",
+                "ShapelessRecipeJsonBuilderMixin",
                 "SharedConstantsMixin",
-                "SingleItemRecipeJsonFactoryAccessor",
-                "SingleItemRecipeJsonFactoryMixin"
+                "SingleItemRecipeJsonBuilderAccessor",
+                "SingleItemRecipeJsonBuilderMixin"
             );
         }
         return null;
