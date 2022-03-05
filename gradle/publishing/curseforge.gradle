@@ -13,7 +13,7 @@ curseforge {
         changelog = new File("./gradle/publishing", "CHANGELOG.md").text
         releaseType = project.release_type
 
-        mainArtifact(remapJar) { displayName = "[$project.ver_minecraft] $project.mod_name $version" }
+        mainArtifact(remapJar) { displayName = "[$project.ver_minecraft] $project.mod_name $project.version" }
         afterEvaluate { uploadTask.dependsOn(remapJar) }
     }
 

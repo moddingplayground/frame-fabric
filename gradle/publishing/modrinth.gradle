@@ -12,7 +12,7 @@ task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload, dependsOn: remapJa
 
     projectId = project.modrinth_id
     versionNumber = version
-    versionName = "[$project.ver_minecraft] $project.mod_name $version"
+    versionName = "[$project.ver_minecraft] $project.mod_name $project.version"
     releaseType = project.release_type
     changelog = new File("./gradle/publishing", "CHANGELOG.md").text
 
