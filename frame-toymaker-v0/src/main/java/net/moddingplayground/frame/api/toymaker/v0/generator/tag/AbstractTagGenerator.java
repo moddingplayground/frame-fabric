@@ -6,19 +6,21 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.moddingplayground.frame.api.toymaker.v0.generator.AbstractGenerator;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifier, TagEntryFactory<T>> {
     protected final Registry<T> registry;
-    protected final String tagDir;
+    private final NameType nameType;
 
-    public AbstractTagGenerator(String modId, Registry<T> registry, String tagDir) {
+    public AbstractTagGenerator(String modId, Registry<T> registry, NameType nameType) {
         super(modId);
         this.registry = registry;
-        this.tagDir = tagDir;
+        this.nameType = nameType;
     }
 
     public AbstractTagGenerator(String modId, Registry<T> registry) {
-        this(modId, registry, registry.getKey().getValue().getPath());
+        this(modId, registry, NameType.infer(registry));
     }
 
     @SafeVarargs
@@ -47,6 +49,35 @@ public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifi
     }
 
     public Identifier getId(Identifier id) {
-        return new Identifier(id.getNamespace(), String.format("%ss/%s", this.tagDir, id.getPath()));
+        String format = this.getFormat();
+        RegistryKey<? extends Registry<T>> key = this.registry.getKey();
+        Identifier reg = key.getValue();
+        return new Identifier(id.getNamespace(), format.formatted(reg.getPath(), id.getPath()));
+    }
+
+    public String getFormat() {
+        return this.nameType.format;
+    }
+
+    public enum NameType {
+        SINGULAR("%s/%s"), PLURAL("%ss/%s");
+
+        public static final List<Registry<?>> INFER_PLURAL = List.of(
+            Registry.BLOCK,
+            Registry.ITEM,
+            Registry.FLUID,
+            Registry.ENTITY_TYPE,
+            Registry.GAME_EVENT
+        );
+
+        public final String format;
+
+        NameType(String format) {
+            this.format = format;
+        }
+
+        public static <T> NameType infer(Registry<T> reg) {
+            return INFER_PLURAL.contains(reg) ? PLURAL : SINGULAR;
+        }
     }
 }
