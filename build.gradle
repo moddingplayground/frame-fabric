@@ -15,26 +15,24 @@ def ENV = System.getenv()
 String ver = "${project.version}+${project.github_branch}"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
 
-logger.lifecycle("Building %s: %s".formatted(project.mod_id, version))
+logger.lifecycle('Building %s: %s'.formatted(project.mod_id, version))
 
 def getSubprojectVersion(project) {
   // Get the version from the gradle.properties file
   def version = project.properties["${project.name}-version"]
-  if (!version) throw new NullPointerException("Could not find version for " + project.name)
+  if (!version) throw new NullPointerException("Could not find version for ${project.name}")
   return version
 }
 
 def moduleDependencies(project, List<String> depNames) {
   def deps = depNames.iterator().collect { project.dependencies.project(path: ":$it", configuration: 'namedElements') }
-  project.dependencies {
-    deps.each { api it }
-  }
+  project.dependencies { deps.each { api it } }
 }
 
 allprojects {
-  apply plugin: "java-library"
-  apply plugin: "maven-publish"
-  apply plugin: "fabric-loom"
+  apply plugin: 'java-library'
+  apply plugin: 'maven-publish'
+  apply plugin: 'fabric-loom'
 
   tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
   group = project.maven_group
@@ -53,14 +51,14 @@ allprojects {
       testmodClient {
         client()
         ideConfigGenerated project.rootProject == project
-        name = "Testmod Client"
+        name = 'Testmod Client'
         source sourceSets.testmod
       }
 
       testmodServer {
         server()
         ideConfigGenerated project.rootProject == project
-        name = "Testmod Server"
+        name = 'Testmod Server'
         source sourceSets.testmod
       }
     }
@@ -68,13 +66,13 @@ allprojects {
 
   repositories {
     maven {
-      name = "Terraformers"
-      url  = "https://maven.terraformersmc.com/releases/"
+      name = 'Terraformers'
+      url  = 'https://maven.terraformersmc.com/releases/'
     }
 
     maven {
-      name = "Modding Playground"
-      url  = "https://raw.githubusercontent.com/moddingplayground/maven/main/"
+      name = 'Modding Playground'
+      url  = 'https://raw.githubusercontent.com/moddingplayground/maven/main/'
     }
 
     mavenLocal()
@@ -92,8 +90,8 @@ allprojects {
   loom { shareRemapCaches = true }
 
   processResources {
-    inputs.property "version", project.version
-    filesMatching("fabric.mod.json") { expand "version": project.version }
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand 'version': project.version }
   }
 
   java { withSourcesJar() }
@@ -109,8 +107,7 @@ allprojects {
 
 // Apply auxiliary buildscripts to submodules
 // This must be done after all plugins are applied to subprojects
-apply from: "gradle/module-validation.gradle"
-apply from: "gradle/module-versioning.gradle"
+apply from: 'gradle/module-versioning.gradle'
 
 subprojects {
   dependencies { testmodImplementation sourceSets.main.output }
@@ -142,7 +139,7 @@ def devOnlyModules = []
 dependencies {
   afterEvaluate {
     subprojects.each {
-      api project(path: ":${it.name}", configuration: "namedElements")
+      api project(path: ":${it.name}", configuration: 'namedElements')
       if (!(it.name in devOnlyModules)) include project("${it.name}:")
       testmodImplementation project("${it.name}:").sourceSets.testmod.output
     }
@@ -159,13 +156,13 @@ publishing {
       artifact(sourcesJar) { builtBy remapSourcesJar }
 
       pom.withXml {
-        def depsNode = asNode().appendNode("dependencies")
+        def depsNode = asNode().appendNode('dependencies')
         subprojects.each {
-          def depNode = depsNode.appendNode("dependency")
-          depNode.appendNode("groupId", it.group)
-          depNode.appendNode("artifactId", it.name)
-          depNode.appendNode("version", it.version)
-          depNode.appendNode("scope", "compile")
+          def depNode = depsNode.appendNode('dependency')
+          depNode.appendNode('groupId', it.group)
+          depNode.appendNode('artifactId', it.name)
+          depNode.appendNode('version', it.version)
+          depNode.appendNode('scope', 'compile')
         }
       }
     }

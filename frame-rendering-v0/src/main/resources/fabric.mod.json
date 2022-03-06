@@ -6,9 +6,6 @@
   "version": "${version}",
   "environment": "*",
   "icon": "assets/frame-rendering/icon.png",
-  "custom": {
-    "frame:module-lifecycle": "stable",
-    "modmenu": { "parent": "frame" }
-  },
+  "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-rendering-v0.mixins.json" ]
 }

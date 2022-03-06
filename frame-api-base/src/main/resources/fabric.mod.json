@@ -6,8 +6,5 @@
   "version": "${version}",
   "environment": "*",
   "icon": "assets/frame-api-base/icon.png",
-  "custom": {
-    "frame:module-lifecycle": "stable",
-    "modmenu": { "parent": "frame" }
-  }
+  "custom": { "modmenu": { "parent": "frame" } }
 }

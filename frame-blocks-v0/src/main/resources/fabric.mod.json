@@ -6,10 +6,7 @@
   "version": "${version}",
   "environment": "*",
   "icon": "assets/frame-blocks/icon.png",
-  "custom": {
-    "frame:module-lifecycle": "stable",
-    "modmenu": { "parent": "frame" }
-  },
+  "custom": { "modmenu": { "parent": "frame" } },
   "depends": {
     "frame-api-base": "*"
   },
