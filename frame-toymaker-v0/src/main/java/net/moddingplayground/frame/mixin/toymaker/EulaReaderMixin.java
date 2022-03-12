@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EulaReader.class)
 public class EulaReaderMixin {
-    @Inject(method = "isEulaAgreedTo", at = @At("HEAD"))
+    @Inject(method = "isEulaAgreedTo", at = @At("HEAD"), cancellable = true)
     private void onIsEulaAgreedTo(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(true);
     }

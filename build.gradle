@@ -10,12 +10,11 @@ plugins {
   id 'fabric-loom' version '0.11-SNAPSHOT' apply false
   id 'maven-publish'
 
-  id 'com.modrinth.minotaur' version '2.+'
+  id 'com.modrinth.minotaur' version '2.0.2'
   id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
 def ENV = System.getenv()
-
 
 String ver = "${project.version_id}+${project.github_branch}"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
