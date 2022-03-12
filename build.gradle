@@ -196,9 +196,7 @@ void setupRepositories(RepositoryHandler repositories) {
 
 task releaseVersion(dependsOn: [ build, 'github', 'modrinth', 'curseforge' ])
 
-import org.kohsuke.github.GHReleaseBuilder
-import org.kohsuke.github.GitHub
-
+import org.kohsuke.github.*
 task github(dependsOn: build) {
   onlyIf { ENV.GITHUB_TOKEN }
   doLast {
