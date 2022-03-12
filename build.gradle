@@ -14,11 +14,9 @@ def ENV = System.getenv()
 
 String ver = "${project.version}+${project.github_branch}"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
-
-logger.lifecycle('Building %s: %s'.formatted(project.mod_id, version))
+logger.lifecycle("Building ${project.mod_id}: ${version}")
 
 def getSubprojectVersion(project) {
-  // Get the version from the gradle.properties file
   def version = project.properties["${project.name}-version"]
   if (!version) throw new NullPointerException("Could not find version for ${project.name}")
   return version
