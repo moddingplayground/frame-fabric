@@ -12,7 +12,7 @@ if (ENV.CURSEFORGE_API_KEY) curseforge {
         releaseType = project.release_type
 
         mainArtifact(remapJar) {
-            displayName = "[$project.ver_minecraft] $project.mod_name $project.version"
+            displayName = "[$project.github_branch] $project.mod_name $project.version_id"
             relations { requiredLibrary 'fabric-api' }
         }
 

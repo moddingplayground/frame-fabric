@@ -15,7 +15,7 @@ task github(dependsOn: build) {
         def repository = github.getRepository(project.github_repository)
 
         def builder = new GHReleaseBuilder(repository, version)
-        builder.name("[$project.ver_minecraft] $project.mod_name $project.version")
+        builder.name("[$project.github_branch] $project.mod_name $project.version_id")
         builder.body(new File("./gradle/publishing", "CHANGELOG.md").text)
         builder.commitish(project.github_branch)
         builder.prerelease(project.release_type == 'beta')
