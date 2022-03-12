@@ -1,5 +1,4 @@
 buildscript {
-  // repositories { mavenCentral() }
   dependencies { classpath 'org.kohsuke:github-api:1.301' }
 }
 
