@@ -46,7 +46,8 @@ public class DataGenMixinPlugin implements IMixinConfigPlugin {
                 "ShapelessRecipeJsonBuilderMixin",
                 "SharedConstantsMixin",
                 "SingleItemRecipeJsonBuilderAccessor",
-                "SingleItemRecipeJsonBuilderMixin"
+                "SingleItemRecipeJsonBuilderMixin",
+                "TagManagerLoaderAccessor"
             );
         }
         return null;

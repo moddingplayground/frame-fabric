@@ -5,8 +5,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.moddingplayground.frame.api.toymaker.v0.generator.AbstractGenerator;
+import net.moddingplayground.frame.mixin.toymaker.TagManagerLoaderAccessor;
 
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifier, TagEntryFactory<T>> {
@@ -62,13 +64,7 @@ public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifi
     public enum NameType {
         SINGULAR("%s/%s"), PLURAL("%ss/%s");
 
-        public static final List<Registry<?>> INFER_PLURAL = List.of(
-            Registry.BLOCK,
-            Registry.ITEM,
-            Registry.FLUID,
-            Registry.ENTITY_TYPE,
-            Registry.GAME_EVENT
-        );
+        public static final Set<RegistryKey<? extends Registry<?>>> INFER_PLURAL = TagManagerLoaderAccessor.getDIRECTORIES().keySet();
 
         public final String format;
 
@@ -77,7 +73,7 @@ public abstract class AbstractTagGenerator<T> extends AbstractGenerator<Identifi
         }
 
         public static <T> NameType infer(Registry<T> reg) {
-            return INFER_PLURAL.contains(reg) ? PLURAL : SINGULAR;
+            return INFER_PLURAL.contains(reg.getKey()) ? PLURAL : SINGULAR;
         }
     }
 }
