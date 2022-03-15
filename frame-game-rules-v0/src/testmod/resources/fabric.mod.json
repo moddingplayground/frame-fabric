@@ -9,6 +9,7 @@
     "frame-game-rules-v0": "*"
   },
   "entrypoints": {
-    "main": [ "net.moddingplayground.frame.test.gamerules.FrameGameRulesTest" ]
+    "main": [ "net.moddingplayground.frame.test.gamerules.FrameGameRulesTest" ],
+    "client": [ "net.moddingplayground.frame.test.gamerules.client.FrameGameRulesClientTest" ]
   }
 }

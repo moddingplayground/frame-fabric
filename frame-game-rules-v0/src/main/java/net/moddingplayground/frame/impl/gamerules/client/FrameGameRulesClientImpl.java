@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.world.GameRules;
 import net.moddingplayground.frame.api.gamerules.v0.SynchronizedBooleanGameRuleRegistry;
 import net.moddingplayground.frame.impl.gamerules.SynchronizedBooleanGameRuleRegistryImpl;
 import net.moddingplayground.frame.mixin.gamerules.GameRulesRuleAccessor;
@@ -19,19 +18,15 @@ public final class FrameGameRulesClientImpl implements ClientModInitializer {
     public void onInitializeClient() {
         SynchronizedBooleanGameRuleRegistryImpl impl = (SynchronizedBooleanGameRuleRegistryImpl) SynchronizedBooleanGameRuleRegistry.INSTANCE;
 
-        // try to initialize all possible id caches
-        GameRules gameRules = new GameRules();
-        impl.values.keySet().forEach(key -> impl.idCache.apply(gameRules.get(key)));
-
         // accept client game rule update
         ClientPlayNetworking.registerGlobalReceiver(SynchronizedBooleanGameRuleRegistryImpl.PACKET_ID, (client, handler, buf, sender) -> {
             String id = buf.readString();
             boolean value = buf.readBoolean();
 
-            BooleanRule rule = impl.idCache.reverse(id);
+            BooleanRule rule = impl.idCache.get().get(id);
             GameRulesRuleAccessor access = (GameRulesRuleAccessor) rule;
             Type<?> type = access.getType();
-            impl.set((Key<BooleanRule>) impl.keyCache.apply(type), value);
+            impl.set((Key<BooleanRule>) SynchronizedBooleanGameRuleRegistryImpl.KEY_CACHE.apply(type), value);
         });
 
         // reset game rules on leave

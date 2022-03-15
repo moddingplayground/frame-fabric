@@ -1,7 +1,6 @@
 package net.moddingplayground.frame.test.gamerules;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.server.MinecraftServer;
@@ -21,14 +20,7 @@ public class FrameGameRulesTest implements ModInitializer {
         for (ServerPlayerEntity player : PlayerLookup.all(server)) player.sendMessage(new LiteralText("Server value updated: " + val), false);
     });
 
-    @Override
-    public void onInitialize() {
-        ClientTickEvents.START_CLIENT_TICK.register(client -> {
-            if (client.world == null) return;
-            boolean val = SynchronizedBooleanGameRuleRegistry.INSTANCE.get(client.world, TEST_GAME_RULE);
-            client.player.sendMessage(new LiteralText("Client value: " + val), true);
-        });
-    }
+    @Override public void onInitialize() {}
 
     private static GameRules.Key<GameRules.BooleanRule> synced(String id, boolean defaultValue, BiConsumer<MinecraftServer, BooleanRule> onChanged) {
         GameRules.Key<GameRules.BooleanRule> key = register(id, SynchronizedBooleanGameRuleRegistry.createRule(defaultValue, onChanged));
