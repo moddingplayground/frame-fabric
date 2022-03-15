@@ -25,13 +25,13 @@ import static net.minecraft.world.GameRules.*;
 public final class SynchronizedBooleanGameRuleRegistryImpl implements SynchronizedBooleanGameRuleRegistry {
     public static final Identifier PACKET_ID = new Identifier("frame", "game_rule_sync");
 
-    public final Function<Type<BooleanRule>, Key<BooleanRule>> typeToKeyCache;
-    public final ReverseMemoizeFunction<BooleanRule, String> ruleToIdCache;
+    public final Function<Type<?>, Key<?>> keyCache;
+    public final ReverseMemoizeFunction<BooleanRule, String> idCache;
     public final Map<Key<BooleanRule>, Boolean> defaults, values;
 
     public SynchronizedBooleanGameRuleRegistryImpl() {
-        this.typeToKeyCache = Util.memoize(this::typeToKey);
-        this.ruleToIdCache = ReverseMemoizeFunction.create(this::ruleToId);
+        this.keyCache = Util.memoize(this::typeToKey);
+        this.idCache = ReverseMemoizeFunction.create(this::ruleToId);
 
         this.defaults = Maps.newHashMap();
         this.values = Maps.newHashMap();
@@ -54,12 +54,12 @@ public final class SynchronizedBooleanGameRuleRegistryImpl implements Synchroniz
     }
 
     public void synchronize(MinecraftServer server, BooleanRule rule) {
-        String id = this.ruleToIdCache.apply(rule);
+        String id = this.idCache.apply(rule);
         for (ServerPlayerEntity player : PlayerLookup.all(server)) this.synchronize(player, id, rule.get());
     }
 
     public void synchronize(ServerPlayerEntity player, BooleanRule rule) {
-        String id = this.ruleToIdCache.apply(rule);
+        String id = this.idCache.apply(rule);
         this.synchronize(player, id, rule.get());
     }
 
@@ -70,16 +70,15 @@ public final class SynchronizedBooleanGameRuleRegistryImpl implements Synchroniz
         ServerPlayNetworking.send(player, PACKET_ID, buf);
     }
 
-    @SuppressWarnings("unchecked")
-    private Key<BooleanRule> typeToKey(Type<BooleanRule> type) {
+    private Key<?> typeToKey(Type<?> type) {
         Map<Key<?>, Type<?>> map = GameRulesAccessor.getRULE_TYPES();
         Set<Map.Entry<Key<?>, Type<?>>> entries = map.entrySet();
         Map<Type<?>, Key<?>> inverse = entries.stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-        return (Key<BooleanRule>) inverse.get(type);
+        return inverse.get(type);
     }
 
     public String ruleToId(BooleanRule rule) {
-        Key<BooleanRule> key = this.typeToKeyCache.apply(((GameRulesRuleAccessor) rule).getType());
+        Key<?> key = this.keyCache.apply(((GameRulesRuleAccessor) rule).getType());
         return key.getName();
     }
 }
