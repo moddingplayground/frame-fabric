@@ -59,7 +59,13 @@ public class TagEntryFactory<T> {
         JsonObject root = new JsonObject();
         root.addProperty("replace", replace);
         JsonArray values = new JsonArray();
-        this.entries.forEach(values::add);
+        this.entries.stream()
+                    .sorted((o1, o2) -> {
+                        if (o1.equals(o2)) return 0;
+                        if (o1.startsWith("#") && o2.startsWith("#")) return 0;
+                        return o2.startsWith("#") ? 1 : -1;
+                    })
+                    .forEach(values::add);
         root.add("values", values);
         return root;
     }
