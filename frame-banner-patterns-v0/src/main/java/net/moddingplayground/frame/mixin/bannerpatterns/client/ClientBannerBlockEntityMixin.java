@@ -28,7 +28,7 @@ import java.util.List;
 @Mixin(BannerBlockEntity.class)
 public abstract class ClientBannerBlockEntityMixin extends BlockEntity implements FrameBannerPatternAccess {
     @Shadow private List<?> patterns;
-    @Unique private List<FrameBannerPatternData> frame_bannerPatterns = Collections.emptyList();
+    private @Unique List<FrameBannerPatternData> frame_bannerPatterns = Collections.emptyList();
 
     private ClientBannerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

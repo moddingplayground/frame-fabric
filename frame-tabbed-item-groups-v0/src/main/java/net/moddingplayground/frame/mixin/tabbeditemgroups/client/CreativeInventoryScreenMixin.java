@@ -37,8 +37,8 @@ import static net.moddingplayground.frame.api.tabbeditemgroups.v0.TabWidget.*;
 public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScreen<CreativeInventoryScreen.CreativeScreenHandler> {
     @Shadow private static int selectedTab;
 
-    @Unique private int frame_mouseX, frame_mouseY;
-    @Unique private final List<TabWidget> frame_tabWidgets = Lists.newArrayList();
+    private @Unique int frame_mouseX, frame_mouseY;
+    private final @Unique List<TabWidget> frame_tabWidgets = Lists.newArrayList();
 
     public CreativeInventoryScreenMixin(CreativeInventoryScreen.CreativeScreenHandler handler, PlayerInventory inventory, Text text) {
         super(handler, inventory, text);
@@ -97,7 +97,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         }
     }
 
-    private boolean frame_isHovered(ItemGroup group, int column, boolean isTopRow) {
+    private @Unique boolean frame_isHovered(ItemGroup group, int column, boolean isTopRow) {
         int mx = group.isSpecial()
             ? this.backgroundWidth - 28 * (6 - column) + 2
             : 28 * column + Math.max(column, 0);
@@ -131,8 +131,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         }
     }
 
-    @Unique
-    private void frame_addTabWidget(TabbedItemGroup group, int index, GUIIcon<Identifier> backgroundTexture, Text message) {
+    private @Unique void frame_addTabWidget(TabbedItemGroup group, int index, GUIIcon<Identifier> backgroundTexture, Text message) {
         int x = this.x - 29;
         int y = this.y + 17;
 

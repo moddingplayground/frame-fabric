@@ -6,13 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TagGeneratorStore<T extends AbstractTagGenerator<?>> {
+public record TagGeneratorStore<T extends AbstractTagGenerator<?>>(Supplier<T> factory) {
     private static final List<TagGeneratorStore<?>> REGISTRY = new ArrayList<>();
-    private final Supplier<T> factory;
-
-    public TagGeneratorStore(Supplier<T> factory) {
-        this.factory = factory;
-    }
 
     public static TagGeneratorStore<?> register(Supplier<AbstractTagGenerator<?>> factory) {
         TagGeneratorStore<?> store = new TagGeneratorStore<>(factory);
@@ -20,7 +15,7 @@ public class TagGeneratorStore<T extends AbstractTagGenerator<?>> {
         return store;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static List<Supplier<AbstractTagGenerator<?>>> all() {
         List<Supplier<AbstractTagGenerator<?>>> list = new ArrayList<>();
         for (TagGeneratorStore store : REGISTRY) list.add(store.factory);

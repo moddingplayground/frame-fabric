@@ -6,13 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ItemModelGeneratorStore {
+public record ItemModelGeneratorStore(Supplier<AbstractItemModelGenerator> factory) {
     private static final List<ItemModelGeneratorStore> REGISTRY = new ArrayList<>();
-    private final Supplier<AbstractItemModelGenerator> factory;
-
-    public ItemModelGeneratorStore(Supplier<AbstractItemModelGenerator> factory) {
-        this.factory = factory;
-    }
 
     public static ItemModelGeneratorStore register(Supplier<AbstractItemModelGenerator> factory) {
         ItemModelGeneratorStore store = new ItemModelGeneratorStore(factory);
@@ -22,7 +17,7 @@ public class ItemModelGeneratorStore {
 
     public static List<Supplier<AbstractItemModelGenerator>> all() {
         List<Supplier<AbstractItemModelGenerator>> list = new ArrayList<>();
-        for (ItemModelGeneratorStore store : REGISTRY) list.add(store.factory);
+        for (ItemModelGeneratorStore store : REGISTRY) list.add(store.factory());
         return list;
     }
 }

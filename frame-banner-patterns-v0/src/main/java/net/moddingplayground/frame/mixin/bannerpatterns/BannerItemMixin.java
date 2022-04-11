@@ -23,8 +23,8 @@ import java.util.List;
 
 @Mixin(BannerItem.class)
 public abstract class BannerItemMixin extends WallStandingBlockItem {
-    @Unique private static NbtList frame_bannerPatterns;
-    @Unique private static int frame_nextBannerPatternIndex;
+    private static @Unique NbtList frame_bannerPatterns;
+    private static @Unique int frame_nextBannerPatternIndex;
 
     private BannerItemMixin(Block standingBlock, Block wallBlock, Settings settings) {
         super(standingBlock, wallBlock, settings);
@@ -84,8 +84,7 @@ public abstract class BannerItemMixin extends WallStandingBlockItem {
         }
     }
 
-    @Unique
-    private static void frame_addBannerPatternLine(NbtCompound nbt, List<Text> lines) {
+    private static @Unique void frame_addBannerPatternLine(NbtCompound nbt, List<Text> lines) {
         Identifier id = Identifier.tryParse(nbt.getString("Pattern"));
         DyeColor color = DyeColor.byId(nbt.getInt("Color"));
         if (id != null) {

@@ -33,8 +33,8 @@ import java.util.function.BiFunction;
 @Environment(EnvType.CLIENT)
 @Mixin(BannerBlockEntityRenderer.class)
 public abstract class BannerBlockEntityRendererMixin {
-    @Unique private static List<FrameBannerPatternData> frame_bannerPatterns;
-    @Unique private static int frame_nextPatternIndex;
+    private static @Unique List<FrameBannerPatternData> frame_bannerPatterns;
+    private static @Unique int frame_nextPatternIndex;
 
     /**
      * Saves Frame banner pattern in a field for rendering.
@@ -91,10 +91,9 @@ public abstract class BannerBlockEntityRendererMixin {
         frame_bannerPatterns = Collections.emptyList();
     }
 
-    @Unique private static final BiFunction<Identifier, Identifier, SpriteIdentifier> FRAME_SPRITE_IDS = Util.memoize(SpriteIdentifier::new);
+    private static final @Unique BiFunction<Identifier, Identifier, SpriteIdentifier> FRAME_SPRITE_IDS = Util.memoize(SpriteIdentifier::new);
 
-    @Unique
-    private static void frame_renderBannerPattern(FrameBannerPatternData data, MatrixStack stack, VertexConsumerProvider vertices, ModelPart part, int light, int overlay, boolean banner) {
+    private static @Unique void frame_renderBannerPattern(FrameBannerPatternData data, MatrixStack stack, VertexConsumerProvider vertices, ModelPart part, int light, int overlay, boolean banner) {
         BannerContext context = BannerContext.from(banner);
 
         FrameBannerPattern pattern = data.pattern();

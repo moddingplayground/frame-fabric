@@ -44,7 +44,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
     @Shadow private boolean hasTooManyPatterns;
     @Shadow private List<?> bannerPatterns;
 
-    @Unique private List<FrameBannerPatternData> frame_bannerPatterns = Collections.emptyList();
+    private @Unique List<FrameBannerPatternData> frame_bannerPatterns = Collections.emptyList();
 
     private LoomScreenMixin(LoomScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -124,7 +124,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
         } else frame_bannerPatterns = Collections.emptyList();
     }
 
-    @Unique private int frame_bannerPatternIndex;
+    private @Unique int frame_bannerPatternIndex;
 
     /**
      * Prevents an ArrayIndexOutOfBoundsException from occuring when the vanilla
@@ -141,7 +141,7 @@ public abstract class LoomScreenMixin extends HandledScreen<LoomScreenHandler> {
         return Math.max(patternIndex, 0);
     }
 
-    @Unique private static final List<FrameBannerPatternData> frame_singlePattern = new ArrayList<>();
+    private static final @Unique List<FrameBannerPatternData> frame_singlePattern = new ArrayList<>();
 
     /**
      * If the pattern index indicates a Frame pattern, put the Frame

@@ -43,7 +43,7 @@ public abstract class LoomContainerMixin extends ScreenHandler {
     @Shadow @Final private Slot patternSlot;
     @Shadow @Final private Slot outputSlot;
 
-    @Unique private PlayerEntity player;
+    private @Unique PlayerEntity player;
 
     private LoomContainerMixin(@Nullable ScreenHandlerType<?> type, int syncId) {
         super(type, syncId);

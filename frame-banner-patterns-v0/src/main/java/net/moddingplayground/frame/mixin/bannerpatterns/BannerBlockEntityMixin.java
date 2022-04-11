@@ -31,7 +31,7 @@ import static java.util.Comparator.*;
  */
 @Mixin(BannerBlockEntity.class)
 public abstract class BannerBlockEntityMixin extends BlockEntity implements FrameBannerPatternAccess.Internal {
-    @Unique private NbtList frame_bannerPatternsTag = new NbtList();
+    private @Unique NbtList frame_bannerPatternsTag = new NbtList();
 
     private BannerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

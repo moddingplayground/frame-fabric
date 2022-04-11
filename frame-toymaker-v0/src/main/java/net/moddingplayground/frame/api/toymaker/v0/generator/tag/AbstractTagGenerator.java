@@ -7,7 +7,6 @@ import net.minecraft.util.registry.RegistryKey;
 import net.moddingplayground.frame.api.toymaker.v0.generator.AbstractGenerator;
 import net.moddingplayground.frame.mixin.toymaker.TagManagerLoaderAccessor;
 
-import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")

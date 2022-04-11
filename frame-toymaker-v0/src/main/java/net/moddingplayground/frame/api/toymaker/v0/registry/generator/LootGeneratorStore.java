@@ -8,15 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class LootGeneratorStore<T extends AbstractLootTableGenerator<?>> {
+public record LootGeneratorStore<T extends AbstractLootTableGenerator<?>>(Supplier<T> factory, LootContextType context) {
     private static final List<LootGeneratorStore<?>> REGISTRY = new ArrayList<>();
-    private final Supplier<T> factory;
-    private final LootContextType context;
-
-    public LootGeneratorStore(Supplier<T> factory, LootContextType context) {
-        this.factory = factory;
-        this.context = context;
-    }
 
     public static LootGeneratorStore<?> register(Supplier<AbstractLootTableGenerator<?>> factory, LootContextType context) {
         LootGeneratorStore<?> store = new LootGeneratorStore<>(factory, context);
@@ -27,7 +20,7 @@ public class LootGeneratorStore<T extends AbstractLootTableGenerator<?>> {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static List<Pair<Supplier<AbstractLootTableGenerator<?>>, LootContextType>> all() {
         List<Pair<Supplier<AbstractLootTableGenerator<?>>, LootContextType>> list = new ArrayList<>();
-        for (LootGeneratorStore<?> store : REGISTRY) list.add(new Pair(store.factory, store.context));
+        for (LootGeneratorStore<?> store : REGISTRY) list.add(new Pair(store.factory(), store.context()));
         return list;
     }
 }
