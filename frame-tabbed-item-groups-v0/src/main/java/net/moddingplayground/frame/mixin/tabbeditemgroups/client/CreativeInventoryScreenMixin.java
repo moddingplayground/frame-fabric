@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -56,14 +56,23 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     /**
      * Replaces vanilla title with tabbed title.
      */
-    @Redirect(method = "drawForeground", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemGroup;getDisplayName()Lnet/minecraft/text/Text;"))
-    private Text redirectDrawForegroundGetDisplayName(ItemGroup group) {
-        if (group instanceof TabbedItemGroup tabbedGroup) {
-            return tabbedGroup.getSelectedTab()
-                              .<Text>map(tab -> new TranslatableText(tabbedGroup.getTabbedTextKey(), tab.getDisplayText()))
-                              .orElseGet(group::getDisplayName);
+    @ModifyArg(
+        method = "drawForeground",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I",
+            ordinal = 0
+        ),
+        index = 1
+    )
+    private Text onDrawForegroundGetDisplayName(Text displayName) {
+        ItemGroup group = ItemGroup.GROUPS[selectedTab];
+        if (group instanceof TabbedItemGroup tabbed) {
+            return tabbed.getSelectedTab()
+                         .<Text>map(tab -> new TranslatableText(tabbed.getTabbedTextKey(), tab.getDisplayText()))
+                         .orElseGet(group::getDisplayName);
         }
-        return group.getDisplayName();
+        return displayName;
     }
 
     /**
