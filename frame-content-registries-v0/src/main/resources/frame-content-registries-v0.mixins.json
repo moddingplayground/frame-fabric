@@ -6,7 +6,6 @@
     "BlockEntityTypeMixin",
     "BookshelfStateRegistryMixins$EnchantingTableBlockMixin",
     "LadderStateRegistryMixins$DamageTrackerMixin",
-    "LadderStateRegistryMixins$FlowableFluidMixin",
     "LadderStateRegistryMixins$LivingEntityMixin"
   ],
   "client": [],
