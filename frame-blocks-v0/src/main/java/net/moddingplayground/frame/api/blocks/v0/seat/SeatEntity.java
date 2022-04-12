@@ -35,7 +35,6 @@ public class SeatEntity extends Entity {
     @Override
     public void move(MovementType type, Vec3d movement) {
         if (type == MovementType.PISTON) {
-            System.out.println(movement);
             this.refreshPositionAfterTeleport(new Vec3d(
                 this.getX() + (movement.x == 0 ? 0 : movement.x < 0 ? -1.0D : 1.0D),
                 this.getY(),
