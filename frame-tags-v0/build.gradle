@@ -1,2 +1,0 @@
-archivesBaseName = "frame-tags-v0"
-version = getSubprojectVersion(project)
