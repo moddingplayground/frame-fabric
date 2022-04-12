@@ -5,7 +5,7 @@
   "description": "An API for item utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-items/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-items-v0.mixins.json" ]
 }

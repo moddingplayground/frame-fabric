@@ -5,6 +5,6 @@
   "description": "An API for loot table utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-loot-tables/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } }
 }

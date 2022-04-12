@@ -5,7 +5,7 @@
   "description": "An API for rendering utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-rendering/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-rendering-v0.mixins.json" ]
 }

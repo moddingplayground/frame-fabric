@@ -1,6 +1,4 @@
-buildscript {
-  dependencies { classpath 'org.kohsuke:github-api:1.301' }
-}
+buildscript { dependencies { classpath 'org.kohsuke:github-api:1.301' } }
 
 plugins {
   id 'java-library'
@@ -113,6 +111,11 @@ apply from: 'gradle/module-versioning.gradle'
 
 subprojects {
   dependencies { testmodImplementation sourceSets.main.output }
+
+  jar {
+    def ICON_LOCATION = "assets/${project.mod_id}/icon.png"
+    from("${rootProject.projectDir}/src/main/resources/${ICON_LOCATION}") { rename { ICON_LOCATION } }
+  }
 
   publishing {
     publications { mavenJava(MavenPublication) { from components.java } }

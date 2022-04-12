@@ -5,7 +5,7 @@
   "description": "A group of utilities for making configurations.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-config/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "depends": {
     "cloth-config": ">=6.1"

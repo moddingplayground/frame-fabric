@@ -5,7 +5,7 @@
   "description": "Adds registries for vanilla features that are missing them.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-content-registries/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-content-registries-v0.mixins.json" ]
 }

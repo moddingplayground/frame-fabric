@@ -5,7 +5,7 @@
   "description": "An API for adding tabbed item groups.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-tabbed-item-groups/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-tabbed-item-groups-v0.mixins.json" ],
   "depends": {

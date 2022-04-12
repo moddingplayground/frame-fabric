@@ -5,7 +5,7 @@
   "description": "An API for adding custom banner patterns.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-banner-patterns/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "entrypoints": {
     "main": [ "net.moddingplayground.frame.impl.bannerpatterns.FrameBannerPatternsImpl" ],

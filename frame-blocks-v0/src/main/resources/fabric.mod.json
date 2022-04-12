@@ -5,7 +5,7 @@
   "description": "An API for blocks and block utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-blocks/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "depends": {
     "frame-api-base": "*"

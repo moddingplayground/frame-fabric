@@ -5,7 +5,7 @@
   "description": "A data generation utility.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-toymaker/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } },
   "mixins": [ "frame-toymaker-v0.mixins.json" ],
   "accessWidener": "frame-toymaker-v0.accesswidener",

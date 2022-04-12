@@ -5,6 +5,6 @@
   "description": "An API for predefined tags and other tag utilities.",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-tags/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } }
 }

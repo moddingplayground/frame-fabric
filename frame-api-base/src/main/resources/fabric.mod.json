@@ -5,6 +5,6 @@
   "description": "Utilities for the overall Frame API",
   "version": "${version}",
   "environment": "*",
-  "icon": "assets/frame-api-base/icon.png",
+  "icon": "assets/frame/icon.png",
   "custom": { "modmenu": { "parent": "frame" } }
 }
