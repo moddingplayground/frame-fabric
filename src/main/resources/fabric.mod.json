@@ -13,6 +13,7 @@
     "All Rights Reserved (Assets)"
   ],
   "authors": [ "Daniel Orr (Andante)" ],
+  "contributors": [ "Gaetano Russo (Ninni)" ],
 
   "contact": {
     "homepage": "https://moddingplayground.net/frame",
@@ -22,9 +23,7 @@
   "custom": {
     "modmenu": {
       "badges": [ "library" ],
-      "links": {
-        "mod.frame.contact.discord": "https://discord.moddingplayground.net"
-      }
+      "links": { "mod.frame.contact.discord": "https://discord.moddingplayground.net" }
     }
   },
 
