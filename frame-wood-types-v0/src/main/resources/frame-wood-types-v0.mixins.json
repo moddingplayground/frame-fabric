@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.woodtypes",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EntityPredicateMixin$Single",
+    "EntityPredicateMixin$Tagged"
+  ],
+  "client": [
+    "client.BoatEntityRendererAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

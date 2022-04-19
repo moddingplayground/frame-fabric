@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-wood-types-v0-test",
+  "name": "Frame Wood Types (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-wood-types-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.woodtypes.FrameWoodTypesTest" ],
+    "frame-wood-types": [ "net.moddingplayground.frame.test.woodtypes.FrameWoodTypesTestEntrypoint" ]
+  }
+}

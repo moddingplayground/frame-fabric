@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-wood-types-v0",
+  "name": "Frame Wood Types (v0)",
+  "description": "An API for wood utilities.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame/icon.png",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.impl.woodtypes.FrameWoodTypesImpl" ],
+    "client": [
+      "net.moddingplayground.frame.impl.woodtypes.client.FrameWoodTypesClientImpl",
+      "net.moddingplayground.frame.impl.woodtypes.client.model.FrameWoodTypesEntityModelLayersImpl"
+    ]
+  },
+  "mixins": [ "frame-wood-types-v0.mixins.json" ],
+  "accessWidener": "frame-wood-types-v0.accesswidener"
+}
