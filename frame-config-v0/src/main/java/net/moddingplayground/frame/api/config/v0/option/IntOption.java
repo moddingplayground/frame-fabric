@@ -8,7 +8,6 @@ import me.shedaniel.clothconfig2.impl.builders.IntFieldBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 public class IntOption extends Option<Integer> {
@@ -63,7 +62,7 @@ public class IntOption extends Option<Integer> {
                        .setMax(this.max)
                        .setDefaultValue(this.getDefaultValue())
                        .setSaveConsumer(this::setValue)
-                       .setTooltip(this.getTooltip(id))
+                       .setTooltip(this.getTooltipArray(id))
                        .setTextGetter(i -> this.getValueText(id, i))
                        .build()
             );
@@ -71,7 +70,7 @@ public class IntOption extends Option<Integer> {
             IntFieldBuilder field = builder.startIntField(this.getTitle(id), this.getValue())
                                            .setDefaultValue(this.getDefaultValue())
                                            .setSaveConsumer(this::setValue)
-                                           .setTooltip(this.getTooltip(id));
+                                           .setTooltip(this.getTooltipArray(id));
             if (this.min != null) field.setMin(this.min);
             if (this.max != null) field.setMax(this.max);
             category.addEntry(field.build());
@@ -80,6 +79,6 @@ public class IntOption extends Option<Integer> {
 
     @Environment(EnvType.CLIENT)
     private Text getValueText(Identifier id, Integer value) {
-        return new TranslatableText("%s.value".formatted(this.getTranslationKey(id)), value);
+        return Text.translatable("%s.value".formatted(this.getTranslationKey(id)), value);
     }
 }

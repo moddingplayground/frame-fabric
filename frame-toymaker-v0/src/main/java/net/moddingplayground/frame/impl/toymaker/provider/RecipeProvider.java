@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.ImpossibleCriterion;
-import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataWriter;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.toymaker.v0.generator.recipe.AbstractRecipeGenerator;
 import net.moddingplayground.frame.api.toymaker.v0.registry.generator.RecipeGeneratorStore;
@@ -41,7 +41,7 @@ public class RecipeProvider extends AbstractDataProvider<Supplier<AbstractRecipe
     }
 
     @Override
-    public void run(DataCache cache) {
+    public void run(DataWriter cache) {
         super.run(cache);
         this.write(cache, this.createFileMapAdvancements(), (path, id) -> this.getOutput(path, id, "advancements/recipes"));
     }

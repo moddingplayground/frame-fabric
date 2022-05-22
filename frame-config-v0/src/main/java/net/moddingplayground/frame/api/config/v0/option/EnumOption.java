@@ -7,7 +7,6 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 public class EnumOption<T extends Enum<T>> extends Option<T> {
@@ -41,7 +40,7 @@ public class EnumOption<T extends Enum<T>> extends Option<T> {
             builder.startEnumSelector(this.getTitle(id), this.clazz, this.getValue())
                    .setDefaultValue(this.getDefaultValue())
                    .setSaveConsumer(this::setValue)
-                   .setTooltip(this.getTooltip(id))
+                   .setTooltip(this.getTooltipArray(id))
                    .setEnumNameProvider(e -> this.getValueText(id, e))
                    .build()
         );
@@ -49,6 +48,6 @@ public class EnumOption<T extends Enum<T>> extends Option<T> {
 
     @Environment(EnvType.CLIENT)
     private Text getValueText(Identifier id, Enum<?> value) {
-        return new TranslatableText("%s.value.%s".formatted(this.getTranslationKey(id), value.toString().toLowerCase()));
+        return Text.translatable("%s.value.%s".formatted(this.getTranslationKey(id), value.toString().toLowerCase()));
     }
 }

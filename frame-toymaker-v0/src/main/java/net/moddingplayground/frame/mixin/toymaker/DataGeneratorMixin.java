@@ -1,6 +1,7 @@
 package net.moddingplayground.frame.mixin.toymaker;
 
 import com.google.common.base.Stopwatch;
+import net.minecraft.GameVersion;
 import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -24,11 +25,12 @@ public abstract class DataGeneratorMixin implements DataGenAccess {
     @Shadow @Final private List<DataProvider> providers;
     @Shadow @Final private static Logger LOGGER;
 
-    @SuppressWarnings("ConstantConditions") // Mixin's powers are beyond that of IntelliJ
+    @Shadow @Final private GameVersion gameVersion;
+
     @Override
     public void run(Consumer<DataCacheAccess> configure) throws IOException {
-        DataCache dataCache = new DataCache(getOutput(), "cache");
-        configure.accept((DataCacheAccess) dataCache);
+        DataCache cache = new DataCache(getOutput(), this.providers, this.gameVersion);
+        configure.accept((DataCacheAccess) cache);
         Stopwatch allSw = Stopwatch.createStarted();
         Stopwatch providerSw = Stopwatch.createUnstarted();
 
@@ -37,13 +39,13 @@ public abstract class DataGeneratorMixin implements DataGenAccess {
         for (DataProvider provider : providers) {
             LOGGER.info("  Starting provider: {}", provider.getName());
             providerSw.start();
-            provider.run(dataCache);
+            provider.run(cache.getOrCreateWriter(provider));
             providerSw.stop();
             LOGGER.info("    {} finished after {} ms", provider.getName(), providerSw.elapsed(TimeUnit.MILLISECONDS));
             providerSw.reset();
         }
 
         LOGGER.info("All providers took: {} ms", allSw.elapsed(TimeUnit.MILLISECONDS));
-        dataCache.write();
+        cache.write();
     }
 }

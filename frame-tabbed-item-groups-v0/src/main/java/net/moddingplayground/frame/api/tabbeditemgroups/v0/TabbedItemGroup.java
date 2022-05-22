@@ -9,8 +9,7 @@ import net.minecraft.client.util.Window;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
@@ -43,8 +42,8 @@ public class TabbedItemGroup extends ItemGroup {
         this.tabs = tabs;
         this.defaultPredicate = defaultPredicate;
 
-        TranslatableText text = (TranslatableText) this.getDisplayName();
-        this.tabbedTextKey = "%s.tab".formatted(text.getKey());
+        String key = this.getDisplayName().getContent() instanceof TranslatableTextContent content ? content.getKey() : "missingno";
+        this.tabbedTextKey = "%s.tab".formatted(key);
     }
 
     public Identifier getId() {
@@ -102,11 +101,6 @@ public class TabbedItemGroup extends ItemGroup {
         Tab.Predicate predicate = tab.map(Tab::getPredicate).orElse(this.defaultPredicate);
         Stream<Item> stream = Registry.ITEM.stream().filter(i -> predicate.test(this, i));
         for (Item item : stream.toList()) stacks.add(new ItemStack(item));
-    }
-
-    @Override
-    public final Text getDisplayName() {
-        return super.getDisplayName();
     }
 
     public Identifier getIconTexture() {

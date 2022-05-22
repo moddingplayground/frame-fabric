@@ -3,8 +3,8 @@ package net.moddingplayground.frame.impl.toymaker.provider;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import net.minecraft.block.Block;
-import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataWriter;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.moddingplayground.frame.api.toymaker.v0.generator.model.block.AbstractStateModelGenerator;
@@ -40,7 +40,7 @@ public class StateModelProvider extends AbstractDataProvider<Supplier<AbstractSt
     }
 
     @Override
-    public void run(DataCache cache) {
+    public void run(DataWriter cache) {
         super.run(cache);
         this.write(cache, this.createFileMapModels(), (root, id) -> this.getOutput(root, id, "models"));
     }

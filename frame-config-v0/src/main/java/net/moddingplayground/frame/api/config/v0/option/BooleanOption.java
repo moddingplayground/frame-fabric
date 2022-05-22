@@ -36,7 +36,7 @@ public class BooleanOption extends Option<Boolean> {
             builder.startBooleanToggle(this.getTitle(id), this.getValue())
                    .setDefaultValue(this.getDefaultValue())
                    .setSaveConsumer(this::setValue)
-                   .setTooltip(this.getTooltip(id))
+                   .setTooltip(this.getTooltipArray(id))
                    .build()
         );
     }

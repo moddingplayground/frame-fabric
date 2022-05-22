@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.tabbeditemgroups.v0.Tab;
 import net.moddingplayground.frame.api.tabbeditemgroups.v0.TabWidget;
@@ -69,7 +68,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         ItemGroup group = ItemGroup.GROUPS[selectedTab];
         if (group instanceof TabbedItemGroup tabbed) {
             return tabbed.getSelectedTab()
-                         .<Text>map(tab -> new TranslatableText(tabbed.getTabbedTextKey(), tab.getDisplayText()))
+                         .<Text>map(tab -> Text.translatable(tabbed.getTabbedTextKey(), tab.getDisplayText()))
                          .orElseGet(group::getDisplayName);
         }
         return displayName;

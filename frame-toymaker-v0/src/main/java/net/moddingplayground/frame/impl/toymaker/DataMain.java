@@ -6,6 +6,7 @@ import joptsimple.OptionSpec;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.minecraft.SharedConstants;
 import net.minecraft.data.DataGenerator;
 import net.moddingplayground.frame.api.toymaker.v0.ToymakerEntrypoint;
 import net.moddingplayground.frame.impl.toymaker.provider.AdvancementProvider;
@@ -93,18 +94,15 @@ public class DataMain {
     }
 
     public static DataGenerator create(Path output, Collection<Path> inputs, boolean includeClient, boolean includeServer, boolean includeDev, boolean includeReports, boolean validate) {
-        DataGenerator gen = new DataGenerator(output, inputs);
+        DataGenerator gen = new DataGenerator(output, inputs, SharedConstants.getGameVersion(), true);
 
-        if (includeClient) {
-            gen.addProvider(new StateModelProvider(gen));
-            gen.addProvider(new ItemModelProvider(gen));
-        }
-        if (includeServer) {
-            gen.addProvider(new TagProvider(gen));
-            gen.addProvider(new LootTableProvider(gen));
-            gen.addProvider(new RecipeProvider(gen));
-            gen.addProvider(new AdvancementProvider(gen));
-        }
+        gen.addProvider(includeClient, new StateModelProvider(gen));
+        gen.addProvider(includeClient, new ItemModelProvider(gen));
+
+        gen.addProvider(includeServer, new TagProvider(gen));
+        gen.addProvider(includeServer, new LootTableProvider(gen));
+        gen.addProvider(includeServer, new RecipeProvider(gen));
+        gen.addProvider(includeServer, new AdvancementProvider(gen));
 
         return gen;
     }

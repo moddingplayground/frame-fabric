@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.world.GameRules;
 import net.moddingplayground.frame.api.gamerules.v0.SynchronizedBooleanGameRuleRegistry;
 
@@ -17,7 +17,7 @@ import static net.minecraft.world.GameRules.*;
 public class FrameGameRulesTest implements ModInitializer {
     public static final Key<BooleanRule> TEST_GAME_RULE = synced("test_GAME_rule", false, (server, rule) -> {
         boolean val = rule.get();
-        for (ServerPlayerEntity player : PlayerLookup.all(server)) player.sendMessage(new LiteralText("Server value updated: " + val), false);
+        for (ServerPlayerEntity player : PlayerLookup.all(server)) player.sendMessage(Text.of("Server value updated: " + val), false);
     });
 
     @Override public void onInitialize() {}

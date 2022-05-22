@@ -36,7 +36,7 @@ public class ColorOption extends Option<Integer> {
             builder.startColorField(this.getTitle(id), this.getValue())
                    .setDefaultValue(this.getDefaultValue())
                    .setSaveConsumer(this::setValue)
-                   .setTooltip(this.getTooltip(id))
+                   .setTooltip(this.getTooltipArray(id))
                    .build()
         );
     }

@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -74,7 +75,8 @@ public class Config {
         File folder = this.file.getParentFile();
         if (folder.exists() || folder.mkdirs()) {
             try (PrintWriter out = new PrintWriter(this.file)) {
-                JsonObject jsonObject = this.oldJson == null ? new JsonObject() : this.oldJson.deepCopy();
+                JsonObject jsonObject = Optional.ofNullable(this.oldJson).map(JsonObject::deepCopy)
+                                                .orElseGet(JsonObject::new);
                 this.map.forEach((id, option) -> jsonObject.add(id.toString(), option.toJson()));
 
                 StringWriter writer = new StringWriter();
@@ -97,7 +99,8 @@ public class Config {
         }
 
         try {
-            String json = new String(Files.readAllBytes(this.file.toPath()));
+            Path path = this.file.toPath();
+            String json = new String(Files.readAllBytes(path));
             if (!json.isEmpty()) {
                 JsonObject jsonObject = (JsonObject) JsonParser.parseString(json);
 
@@ -109,11 +112,10 @@ public class Config {
                     JsonElement jsonElement = entry.getValue();
 
                     Identifier identifier = Identifier.tryParse(id);
-                    Option<?> option = this.map.get(identifier);
-                    if (option != null) {
+                    Optional.ofNullable(this.map.get(identifier)).ifPresent(option -> {
                         option.fromJson(jsonElement);
                         loadedConfigs.add(identifier);
-                    }
+                    });
                 }
 
                 if (!loadedConfigs.equals(this.map.keySet())) this.save();

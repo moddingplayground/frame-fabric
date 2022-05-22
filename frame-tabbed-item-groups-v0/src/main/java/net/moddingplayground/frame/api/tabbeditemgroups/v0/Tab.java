@@ -5,7 +5,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.moddingplayground.frame.api.util.GUIIcon;
@@ -75,8 +75,10 @@ public class Tab {
     }
 
     public static Text createDisplayText(ItemGroup group, Tab tab) {
-        TranslatableText text = (TranslatableText) group.getDisplayName();
-        return new TranslatableText("%s.tab.%s".formatted(text.getKey(), tab.getId()));
+        Text text = group.getDisplayName();
+        return text.getContent() instanceof TranslatableTextContent content
+            ? Text.translatable("%s.tab.%s".formatted(content.getKey(), tab.getId()))
+            : text;
     }
 
     public static Builder builder() {

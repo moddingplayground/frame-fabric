@@ -7,9 +7,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Option<T> {
@@ -53,14 +55,20 @@ public abstract class Option<T> {
     }
 
     @Environment(EnvType.CLIENT)
-    public TranslatableText getTitle(Identifier id) {
-        return new TranslatableText(this.getTranslationKey(id));
+    public Text getTitle(Identifier id) {
+        return Text.translatable(this.getTranslationKey(id));
     }
 
     @Environment(EnvType.CLIENT)
-    public Optional<Text[]> getTooltip(Identifier id) {
+    public Collection<Text> getTooltip(Identifier id) {
         String key = "%s.tooltip".formatted(this.getTranslationKey(id));
-        return I18n.hasTranslation(key) ? Optional.of(new Text[]{ new TranslatableText(key) }) : Optional.empty();
+        return I18n.hasTranslation(key) ? List.of(Text.translatable(key)) : Collections.emptyList();
+    }
+
+    @Environment(EnvType.CLIENT)
+    public Optional<Text[]> getTooltipArray(Identifier id) {
+        Collection<Text> texts = this.getTooltip(id);
+        return texts.isEmpty() ? Optional.empty() : Optional.of(texts.toArray(Text[]::new));
     }
 
     @Override

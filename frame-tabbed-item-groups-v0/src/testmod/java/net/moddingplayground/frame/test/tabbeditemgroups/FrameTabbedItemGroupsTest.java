@@ -35,7 +35,7 @@ public class FrameTabbedItemGroupsTest implements ModInitializer {
                                .build("three", iconOf(new Identifier("three"))))
                        .tab(Tab.builder()
                                .predicate(tag(ItemTags.BEACON_PAYMENT_ITEMS))
-                               .displayText(t -> createDisplayText(t.getGroup(), t).shallowCopy().formatted(Formatting.AQUA))
+                               .displayText(t -> createDisplayText(t.getGroup(), t).copy().formatted(Formatting.AQUA))
                                .build("four", GUIIcon.of(() -> new ItemStack(Items.DIAMOND))))
                        .tab(Tab.builder().build("five", GUIIcon.of(() -> new ItemStack(Items.GLOWSTONE))))
                        .tab(Tab.builder().build("six", GUIIcon.of(() -> new ItemStack(Items.STICK))))

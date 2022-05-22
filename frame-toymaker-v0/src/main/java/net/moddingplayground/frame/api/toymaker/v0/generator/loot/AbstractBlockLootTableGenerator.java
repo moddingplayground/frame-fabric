@@ -58,16 +58,16 @@ public abstract class AbstractBlockLootTableGenerator extends AbstractLootTableG
         return Registry.BLOCK;
     }
 
-    public static <T> T explosionFunc(ItemConvertible drop, LootFunctionConsumingBuilder<T> builder) {
+    public static <T extends LootFunctionConsumingBuilder<T>> T explosionFunc(ItemConvertible drop, LootFunctionConsumingBuilder<T> builder) {
         return !BlockLootTableGeneratorAccessor.getExplosionImmune().contains(drop.asItem())
             ? builder.apply(ExplosionDecayLootFunction.builder())
-            : builder.getThis();
+            : builder.getThisFunctionConsumingBuilder();
     }
 
-    public static <T> T explosionCond(ItemConvertible drop, LootConditionConsumingBuilder<T> builder) {
+    public static <T extends LootConditionConsumingBuilder<T>> T explosionCond(ItemConvertible drop, LootConditionConsumingBuilder<T> builder) {
         return !BlockLootTableGeneratorAccessor.getExplosionImmune().contains(drop.asItem())
             ? builder.conditionally(SurvivesExplosionLootCondition.builder())
-            : builder.getThis();
+            : builder.getThisConditionConsumingBuilder();
     }
 
     public LootTable.Builder drops(ItemConvertible drop) {
