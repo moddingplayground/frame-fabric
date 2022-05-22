@@ -31,7 +31,6 @@ public class DataGenMixinPlugin implements IMixinConfigPlugin {
         if (Boolean.parseBoolean(System.getProperty("toymaker.datagen"))) {
             return Lists.newArrayList(
                 "DataGenMixin",
-                "DataCacheMixin",
                 "DataGeneratorMixin",
 
                 "AbstractBlockMixin",
