@@ -6,5 +6,6 @@
   "version": "${version}",
   "environment": "*",
   "icon": "assets/frame/icon.png",
-  "custom": { "modmenu": { "parent": "frame" } }
+  "custom": { "modmenu": { "parent": "frame" } },
+  "mixins": [ "frame-loot-tables-v0.mixins.json" ]
 }

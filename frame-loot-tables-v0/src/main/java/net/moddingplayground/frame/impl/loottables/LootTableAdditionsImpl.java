@@ -1,9 +1,13 @@
 package net.moddingplayground.frame.impl.loottables;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
 import net.minecraft.util.Identifier;
 import net.moddingplayground.frame.api.loottables.v0.LootTableAdditions;
+import net.moddingplayground.frame.mixin.loottables.LootPoolAccessor;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
 
@@ -34,10 +38,16 @@ public class LootTableAdditionsImpl implements LootTableAdditions {
 
     @Override
     public LootTableAdditions register() {
-        LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (id.equals(this.lootTable)) {
                 List<Identifier> additions = this.additions;
-                additions.forEach(table -> supplier.copyFrom(manager.getTable(table)));
+                additions.forEach(xid -> {
+                    LootTable table = lootManager.getTable(xid);
+                    for (LootPool pool : table.pools) {
+                        ((LootPoolAccessor) pool).setFunctions(ArrayUtils.addAll(pool.functions, table.functions));
+                        tableBuilder.pool(pool);
+                    }
+                });
             }
         });
         return this;
