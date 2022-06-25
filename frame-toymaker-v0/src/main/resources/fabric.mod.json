@@ -1,15 +1,10 @@
 {
   "schemaVersion": 1,
   "id": "frame-toymaker-v0",
-  "name": "Frame Toymaker (v0)",
-  "description": "A data generation utility.",
+  "name": "Frame Data Generation Helpers (v0)",
+  "description": "An API holding various data generation helper methods",
   "version": "${version}",
   "environment": "*",
   "icon": "assets/frame/icon.png",
-  "custom": { "modmenu": { "parent": "frame" } },
-  "mixins": [ "frame-toymaker-v0.mixins.json" ],
-  "accessWidener": "frame-toymaker-v0.accesswidener",
-  "depends": {
-    "frame-api-base": "*"
-  }
+  "custom": { "modmenu": { "parent": "frame" } }
 }

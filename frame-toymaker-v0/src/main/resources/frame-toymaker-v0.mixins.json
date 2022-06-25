@@ -1,9 +1,0 @@
-{
-  "required": true,
-  "package": "net.moddingplayground.frame.mixin.toymaker",
-  "compatibilityLevel": "JAVA_17",
-  "plugin": "net.moddingplayground.frame.mixin.toymaker.DataGenMixinPlugin",
-  "injectors": {
-    "defaultRequire": 1
-  }
-}
