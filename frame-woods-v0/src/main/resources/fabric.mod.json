@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-woods-v0",
+  "name": "Frame Woods (v0)",
+  "description": "An API for wood type utilities",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame/icon.png",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "mixins": [ "frame-woods-v0.mixins.json" ],
+  "depends": {
+    "frame-rendering-v0": "*"
+  }
+}

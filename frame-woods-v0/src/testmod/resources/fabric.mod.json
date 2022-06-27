@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-woods-v0-test",
+  "name": "Frame Woods (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-woods-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.woods.FrameWoodsTest" ],
+    "frame-woods": [ "net.moddingplayground.frame.test.woods.FrameWoodsTestWoods" ]
+  }
+}

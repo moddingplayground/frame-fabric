@@ -29,6 +29,11 @@ def moduleDependencies(project, List<String> depNames) {
   project.dependencies { deps.each { api it } }
 }
 
+def testDependencies(project, List<String> depNames) {
+  def deps = depNames.iterator().collect { project.dependencies.project(path: ":$it", configuration: 'namedElements') }
+  project.dependencies { deps.each { testmodImplementation it }}
+}
+
 allprojects {
   apply plugin: 'java-library'
   apply plugin: 'maven-publish'

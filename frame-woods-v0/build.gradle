@@ -1,0 +1,10 @@
+archivesBaseName = "frame-woods-v0"
+version = getSubprojectVersion(project)
+
+moduleDependencies(project, [
+        'frame-rendering-v0'
+])
+
+testDependencies(project, [
+        ':frame-content-registries-v0',
+])
