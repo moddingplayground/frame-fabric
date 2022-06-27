@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "target" })
 @Mixin(BoatEntity.Type.class)
 public class BoatEntityTypeMixin implements BoatEntityTypeAccess {
     @Invoker("<init>") private static BoatEntity.Type invokeInit(String internalName, int internalId, Block baseBlock, String name) { throw new AssertionError(); }
