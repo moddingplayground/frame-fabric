@@ -8,6 +8,7 @@ plugins {
   id 'fabric-loom' version '0.12-SNAPSHOT' apply false
   id 'maven-publish'
 
+  id "org.ajoberstar.grgit" version "3.1.0"
   id 'com.modrinth.minotaur' version '2.0.2'
   id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
@@ -18,10 +19,18 @@ String ver = "${project.version_id}+${project.major_version}"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
 logger.lifecycle("Building ${project.mod_id}: ${version}")
 
+import org.apache.commons.codec.digest.DigestUtils
 def getSubprojectVersion(project) {
+  // Get the version from the gradle.properties file
   def version = project.properties["${project.name}-version"]
   if (!version) throw new NullPointerException("Could not find version for ${project.name}")
-  return version
+
+  if (grgit == null) return version + "+nogit"
+
+  def latestCommits = grgit.log(paths: [project.name], maxCommits: 1)
+  if (latestCommits.isEmpty()) return version + "+uncommited"
+
+  return "${version}+${latestCommits.get(0).id.substring(0, 8)}${DigestUtils.sha256Hex(project.major_version).substring(0, 2)}"
 }
 
 def moduleDependencies(project, List<String> depNames) {
