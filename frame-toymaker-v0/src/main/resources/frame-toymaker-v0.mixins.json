@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "net.moddingplayground.frame.mixin.toymaker",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractTagProviderInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
