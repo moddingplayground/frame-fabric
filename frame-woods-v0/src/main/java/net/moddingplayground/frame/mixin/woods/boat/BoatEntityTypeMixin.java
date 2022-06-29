@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,6 +72,11 @@ public class BoatEntityTypeMixin implements BoatEntityTypeAccess {
 
             field_7724 = values.toArray(BoatEntity.Type[]::new);
         }
+    }
+
+    @Inject(method = "getBaseBlock", at = @At("HEAD"), cancellable = true)
+    private void onGetBaseBlock(CallbackInfoReturnable<Block> cir) {
+        this.getFrameData().ifPresent(data -> cir.setReturnValue(data.getBase()));
     }
 
     @Unique

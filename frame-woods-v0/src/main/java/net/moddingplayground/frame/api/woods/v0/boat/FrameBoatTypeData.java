@@ -13,11 +13,11 @@ import java.util.function.Supplier;
 
 public class FrameBoatTypeData {
     private final Identifier id;
-    private final Block base;
+    private final Supplier<Block> base;
     private final Supplier<ItemConvertible> boatItem, chestBoatItem;
     private final Consumer<BoatEntity.Type> setter;
 
-    public FrameBoatTypeData(Identifier id, Block base, Supplier<ItemConvertible> boatItem, Supplier<ItemConvertible> chestBoatItem, Consumer<BoatEntity.Type> setter) {
+    public FrameBoatTypeData(Identifier id, Supplier<Block> base, Supplier<ItemConvertible> boatItem, Supplier<ItemConvertible> chestBoatItem, Consumer<BoatEntity.Type> setter) {
         this.id = id;
         this.base = base;
         this.setter = setter;
@@ -25,7 +25,7 @@ public class FrameBoatTypeData {
         this.chestBoatItem = chestBoatItem;
     }
 
-    public FrameBoatTypeData(Identifier id, Block base, Supplier<ItemConvertible> boatItem, Supplier<ItemConvertible> chestBoatItem) {
+    public FrameBoatTypeData(Identifier id, Supplier<Block> base, Supplier<ItemConvertible> boatItem, Supplier<ItemConvertible> chestBoatItem) {
         this(id, base, boatItem, chestBoatItem, type -> {});
     }
 
@@ -34,7 +34,7 @@ public class FrameBoatTypeData {
     }
 
     public Block getBase() {
-        return base;
+        return this.base.get();
     }
 
     public Item getBoatItem() {
