@@ -59,7 +59,7 @@ public class BoatEntityTypeMixin implements BoatEntityTypeAccess {
                 BoatEntity.Type type = invokeInit(
                     id.toUnderscoreSeparatedString().toUpperCase(Locale.ROOT),
                     startIndex + i,
-                    data.getBase(),
+                    null,
                     id.toString()
                 );
 
