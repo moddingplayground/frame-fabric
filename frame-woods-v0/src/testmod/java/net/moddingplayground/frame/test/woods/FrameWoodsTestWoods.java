@@ -10,6 +10,6 @@ import net.moddingplayground.frame.api.woods.v0.boat.FrameBoatTypeManager;
 public class FrameWoodsTestWoods implements FrameWoodsEntrypoint {
     @Override
     public void registerBoatTypes(FrameBoatTypeManager manager) {
-        manager.register(new FrameBoatTypeData(new Identifier(FrameWoodsTest.MOD_ID, "test_boat_type"), Blocks.STONE, () -> Items.ACACIA_BOAT, () -> Items.ACACIA_CHEST_BOAT));
+        manager.register(new FrameBoatTypeData(new Identifier(FrameWoodsTest.MOD_ID, "test_boat_type"), () -> Blocks.STONE, () -> Items.ACACIA_BOAT, () -> Items.ACACIA_CHEST_BOAT));
     }
 }
