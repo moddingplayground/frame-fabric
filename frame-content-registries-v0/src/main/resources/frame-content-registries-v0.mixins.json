@@ -8,7 +8,10 @@
     "LadderStateRegistryMixins$DamageTrackerMixin",
     "LadderStateRegistryMixins$LivingEntityMixin"
   ],
-  "client": [],
+  "client": [
+    "client.splash.SplashTextResourceSupplierMixin",
+    "client.splash.TitleScreenMixin"
+  ],
   "injectors": {
     "defaultRequire": 1,
     "maxShiftBy": 3

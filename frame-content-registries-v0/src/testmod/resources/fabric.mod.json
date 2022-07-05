@@ -9,6 +9,7 @@
     "frame-content-registries-v0": "*"
   },
   "entrypoints": {
-    "main": [ "net.moddingplayground.frame.test.contentregistries.FrameContentRegistriesTest" ]
+    "main": [ "net.moddingplayground.frame.test.contentregistries.FrameContentRegistriesTest" ],
+    "client": [ "net.moddingplayground.frame.test.contentregistries.client.FrameContentRegistriesTestClient" ]
   }
 }
