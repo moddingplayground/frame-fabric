@@ -3,10 +3,10 @@
   "package": "net.moddingplayground.frame.mixin.contentregistries",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockEntityTypeMixin",
-    "BookshelfStateRegistryMixins$EnchantingTableBlockMixin",
-    "LadderStateRegistryMixins$DamageTrackerMixin",
-    "LadderStateRegistryMixins$LivingEntityMixin"
+    "state.BlockEntityTypeMixin",
+    "state.DamageTrackerMixin",
+    "state.EnchantingTableBlockMixin",
+    "state.LivingEntityMixin"
   ],
   "client": [
     "client.splash.SplashTextResourceSupplierMixin",

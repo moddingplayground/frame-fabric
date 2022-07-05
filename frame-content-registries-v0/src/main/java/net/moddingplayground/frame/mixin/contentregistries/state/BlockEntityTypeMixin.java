@@ -1,4 +1,4 @@
-package net.moddingplayground.frame.mixin.contentregistries;
+package net.moddingplayground.frame.mixin.contentregistries.state;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
