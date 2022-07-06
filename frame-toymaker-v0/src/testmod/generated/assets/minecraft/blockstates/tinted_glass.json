@@ -1,0 +1,51 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minecraft:block/tinted_glass"
+      },
+      {
+        "model": "minecraft:block/tinted_glass",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/tinted_glass",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/tinted_glass",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/tinted_glass1"
+      },
+      {
+        "model": "minecraft:block/tinted_glass1",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/tinted_glass1",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/tinted_glass1",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/tinted_glass2"
+      },
+      {
+        "model": "minecraft:block/tinted_glass2",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/tinted_glass2",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/tinted_glass2",
+        "y": 270
+      }
+    ]
+  }
+}

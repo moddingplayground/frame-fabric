@@ -1,0 +1,96 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minecraft:block/terracotta"
+      },
+      {
+        "model": "minecraft:block/terracotta",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/terracotta1"
+      },
+      {
+        "model": "minecraft:block/terracotta1",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta1",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta1",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/terracotta2"
+      },
+      {
+        "model": "minecraft:block/terracotta2",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta2",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta2",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/terracotta3"
+      },
+      {
+        "model": "minecraft:block/terracotta3",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta3",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta3",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/terracotta4"
+      },
+      {
+        "model": "minecraft:block/terracotta4",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta4",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta4",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/terracotta5"
+      },
+      {
+        "model": "minecraft:block/terracotta5",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/terracotta5",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/terracotta5",
+        "y": 270
+      }
+    ]
+  }
+}

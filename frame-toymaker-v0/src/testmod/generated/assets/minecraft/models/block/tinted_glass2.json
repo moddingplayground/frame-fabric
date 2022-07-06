@@ -1,0 +1,6 @@
+{
+  "parent": "frame:block/template_floor_layer",
+  "textures": {
+    "texture": "minecraft:block/tinted_glass2"
+  }
+}

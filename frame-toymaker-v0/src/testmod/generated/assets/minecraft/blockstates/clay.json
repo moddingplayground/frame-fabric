@@ -1,0 +1,51 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minecraft:block/clay"
+      },
+      {
+        "model": "minecraft:block/clay",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/clay",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/clay",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/clay1"
+      },
+      {
+        "model": "minecraft:block/clay1",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/clay1",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/clay1",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/clay2"
+      },
+      {
+        "model": "minecraft:block/clay2",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/clay2",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/clay2",
+        "y": 270
+      }
+    ]
+  }
+}

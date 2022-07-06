@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-toymaker-v0-test",
+  "name": "Frame Toymaker (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "entrypoints": {
+    "fabric-datagen": [ "net.moddingplayground.frame.test.toymaker.FrameDataGenerator" ]
+  },
+  "depends": {
+    "frame-toymaker-v0": "*"
+  }
+}

@@ -1,8 +1,7 @@
-package net.moddingplayground.frame.api.toymaker.v0;
+package net.moddingplayground.frame.api.toymaker.v0.recipe;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder;
@@ -17,15 +16,10 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import static net.minecraft.data.server.RecipeProvider.*;
 
 public interface RecipeJsonBuilders {
-    static void offer(Consumer<RecipeJsonProvider> exporter, CraftingRecipeJsonBuilder recipe) {
-        recipe.offerTo(exporter);
-    }
-
     static ShapedRecipeJsonBuilder generic3x3(ItemConvertible from, ItemConvertible to, int count) {
         return ShapedRecipeJsonBuilder.create(to, count)
                                       .input('#', from)
@@ -161,11 +155,11 @@ public interface RecipeJsonBuilders {
     static ShapelessRecipeJsonBuilder shapeless(ItemConvertible[] from, ItemConvertible to, int count) {
         ShapelessRecipeJsonBuilder factory = ShapelessRecipeJsonBuilder.create(to, count)
                                                                        .input(Ingredient.ofItems(from));
-        for (ItemConvertible itemC : from) {
-            Item item = itemC.asItem();
+        for (ItemConvertible itemx : from) {
+            Item item = itemx.asItem();
             String itemId = Registry.ITEM.getId(item)
                                          .getPath();
-            factory.criterion("has_" + itemId, conditionsFromItem(itemC));
+            factory.criterion("has_" + itemId, conditionsFromItem(itemx));
         }
 
         return factory;
@@ -292,8 +286,7 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder sign(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(from.asItem())
-                                     .getPath();
+        String string = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to, 3)
                                       .group("sign")
                                       .input('#', from)
@@ -313,8 +306,7 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder carpet(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(from.asItem())
-                                     .getPath();
+        String string = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to, 3)
                                       .input('#', from)
                                       .pattern("##")
@@ -323,10 +315,7 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder dyedCarpet(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(to.asItem())
-                                     .getPath();
-        String string2 = Registry.ITEM.getId(from.asItem())
-                                      .getPath();
+        String string2 = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to, 8)
                                       .input('#', Blocks.WHITE_CARPET)
                                       .input('$', from)
@@ -339,8 +328,7 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder bed(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(from.asItem())
-                                     .getPath();
+        String string = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to)
                                       .input('#', from)
                                       .input('X', ItemTags.PLANKS)
@@ -351,8 +339,6 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapelessRecipeJsonBuilder dyedBed(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(to.asItem())
-                                     .getPath();
         return ShapelessRecipeJsonBuilder.create(to)
                                          .input(Items.WHITE_BED)
                                          .input(from)
@@ -361,8 +347,7 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder banner(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(from.asItem())
-                                     .getPath();
+        String string = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to)
                                       .input('#', from)
                                       .input('|', Items.STICK)
@@ -394,7 +379,6 @@ public interface RecipeJsonBuilders {
     }
 
     static ShapedRecipeJsonBuilder stainedGlassPaneDye(ItemConvertible from, ItemConvertible to) {
-        String string = Registry.ITEM.getId(to.asItem()).getPath();
         String string2 = Registry.ITEM.getId(from.asItem()).getPath();
         return ShapedRecipeJsonBuilder.create(to, 8)
                                       .input('#', Blocks.GLASS_PANE)
@@ -426,5 +410,42 @@ public interface RecipeJsonBuilders {
                                          .group("concrete_powder")
                                          .criterion("has_sand", conditionsFromItem(Blocks.SAND))
                                          .criterion("has_gravel", conditionsFromItem(Blocks.GRAVEL));
+    }
+
+    static ShapedRecipeJsonBuilder condensing(ItemConvertible from, ItemConvertible to) {
+        return ShapedRecipeJsonBuilder.create(to, 4)
+                                      .input('S', from)
+                                      .pattern("SS")
+                                      .pattern("SS")
+                                      .criterion(hasItem(from), conditionsFromItem(from));
+    }
+
+    static ShapedRecipeJsonBuilder chiselCrafting(ItemConvertible from, ItemConvertible to) {
+        return ShapedRecipeJsonBuilder.create(to)
+                                      .input('#', from)
+                                      .pattern("#")
+                                      .pattern("#")
+                                      .criterion(hasItem(from), conditionsFromItem(from));
+    }
+
+    static ShapedRecipeJsonBuilder cutCrafting(ItemConvertible from, ItemConvertible to) {
+        return ShapedRecipeJsonBuilder.create(to, 4)
+                                      .input('#', from)
+                                      .pattern("##")
+                                      .pattern("##")
+                                      .criterion(hasItem(from), conditionsFromItem(from));
+    }
+
+    static ShapedRecipeJsonBuilder wallCrafting(ItemConvertible from, ItemConvertible to) {
+        return ShapedRecipeJsonBuilder.create(to, 6)
+                                      .input('#', from)
+                                      .pattern("###")
+                                      .pattern("###")
+                                      .criterion(hasItem(from), conditionsFromItem(from));
+    }
+
+    static CookingRecipeJsonBuilder cracking(ItemConvertible from, ItemConvertible to) {
+        return CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(from), to, 0.1F, 200)
+                                       .criterion(hasItem(from), conditionsFromItem(from));
     }
 }

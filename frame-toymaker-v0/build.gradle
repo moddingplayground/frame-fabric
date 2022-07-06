@@ -1,2 +1,14 @@
 archivesBaseName = "frame-toymaker-v0"
 version = getSubprojectVersion(project)
+
+loom {
+  runs {
+    datagen {
+      inherit testmodServer
+      name "Data Generation"
+      vmArg "-Dfabric-api.datagen"
+      vmArg "-Dfabric-api.datagen.output-dir=${file('src/testmod/generated')}"
+      runDir "build/datagen"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minecraft:block/glass"
+      },
+      {
+        "model": "minecraft:block/glass",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/glass1"
+      },
+      {
+        "model": "minecraft:block/glass1",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass1",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass1",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/glass2"
+      },
+      {
+        "model": "minecraft:block/glass2",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass2",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass2",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/glass3"
+      },
+      {
+        "model": "minecraft:block/glass3",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass3",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass3",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/glass4"
+      },
+      {
+        "model": "minecraft:block/glass4",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass4",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass4",
+        "y": 270
+      },
+      {
+        "model": "minecraft:block/glass5"
+      },
+      {
+        "model": "minecraft:block/glass5",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/glass5",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/glass5",
+        "y": 270
+      }
+    ]
+  }
+}
