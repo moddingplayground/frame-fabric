@@ -79,9 +79,10 @@ public class TabbedItemGroup extends ItemGroup {
         }
     }
 
+    @Deprecated
     @Override
     public ItemStack createIcon() {
-        throw new AssertionError("createIcon should not be called");
+        return ItemStack.EMPTY;
     }
 
     public <T> Optional<T> getIconTexture(boolean hovered, Class<T> clazz) {
