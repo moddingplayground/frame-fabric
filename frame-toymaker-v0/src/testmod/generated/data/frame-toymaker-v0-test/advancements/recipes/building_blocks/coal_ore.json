@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "frame-toymaker-v0-test:coal_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_bed": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:white_bed"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_white_bed",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "frame-toymaker-v0-test:coal_ore"
+    ]
+  }
+}

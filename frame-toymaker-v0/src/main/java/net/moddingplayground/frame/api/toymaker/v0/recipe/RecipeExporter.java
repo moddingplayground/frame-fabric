@@ -48,4 +48,16 @@ public class RecipeExporter {
     public void export(CraftingRecipeJsonBuilder recipe) {
         this.export(recipe, getItemPath(recipe.getOutputItem()));
     }
+
+    public void export(ShapelessCriteriaRecipeJsonBuilder recipe, Identifier id) {
+        this.export(recipe.build(), id);
+    }
+
+    public void export(ShapelessCriteriaRecipeJsonBuilder recipe, String id) {
+        this.export(recipe.build(), id);
+    }
+
+    public void export(ShapelessCriteriaRecipeJsonBuilder recipe) {
+        this.export(recipe.build());
+    }
 }
