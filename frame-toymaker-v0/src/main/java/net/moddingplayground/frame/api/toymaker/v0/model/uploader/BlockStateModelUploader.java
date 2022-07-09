@@ -107,74 +107,90 @@ public class BlockStateModelUploader {
     }
 
     public void registerAxisRotatedColumn(Block... blocks) {
-        for (Block block : blocks) {
-            Identifier model = this.upload(TexturedModel.CUBE_COLUMN, block);
-            this.accept(BlockStateModelGenerator.createAxisRotatedBlockState(block, model));
-        }
+        for (Block block : blocks) this.accept(this.axisRotatedColumn(block));
+    }
+
+    public BlockStateSupplier axisRotatedColumn(Block block) {
+        Identifier model = this.upload(TexturedModel.CUBE_COLUMN, block);
+        return BlockStateModelGenerator.createAxisRotatedBlockState(block, model);
     }
 
     public void registerRotatingIntProperty(IntProperty property, Block... blocks) {
         for (Block block : blocks) {
-            this.accept(
-                VariantsBlockStateSupplier.create(block)
-                                          .coordinate(
-                                              BlockStateVariantMap.create(property)
-                                                                  .registerVariants(layer -> {
-                                                                      layer -= 1;
-                                                                      String suffix = layer == 0 ? "" : "" + layer;
-                                                                      return rotateAll(ModelIds.getBlockSubModelId(block, suffix));
-                                                                  })
-                                          )
-            );
+            this.accept(this.rotatingIntProperty(block, property));
             this.registerGeneratedItemModel(block);
         }
+    }
+
+    public VariantsBlockStateSupplier rotatingIntProperty(Block block, IntProperty property) {
+        return VariantsBlockStateSupplier.create(block)
+                                         .coordinate(
+                                             BlockStateVariantMap.create(property)
+                                                                 .registerVariants(layer -> {
+                                                                     layer -= 1;
+                                                                     String suffix = layer == 0 ? "" : "" + layer;
+                                                                     return rotateAll(ModelIds.getBlockSubModelId(block, suffix));
+                                                                 })
+                                         );
     }
 
     public void registerVaryingFloorLayers(int variants, Block... blocks) {
         for (Block block : blocks) {
-            this.accept(createVariants(block, Util.make(new ArrayList<>(), list -> {
-                for (int i = 0; i <= variants; i++) {
-                    String suffix = i == 0 ? "" : "" + i;
-                    TextureMap textureMap = TextureMap.texture(TextureMap.getSubId(block, suffix));
-                    Identifier model = this.upload(FrameModels.TEMPLATE_FLOOR_LAYER, block, suffix, textureMap);
-                    rotateAll(list, model);
-                }
-            })));
+            this.accept(this.varyingFloorLayers(block, variants));
             this.registerGeneratedItemModel(block);
         }
     }
 
-    public void registerFlowerPot(Block plant, Block flowerPot, BlockStateModelGenerator.TintType tintType) {
-        TextureMap textureMap = TextureMap.plant(plant);
-        Identifier model = this.upload(tintType.getFlowerPotCrossModel(), flowerPot, textureMap);
-        this.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPot, model));
+    public VariantsBlockStateSupplier varyingFloorLayers(Block block, int variants) {
+        return createVariants(block, Util.make(new ArrayList<>(), list -> {
+            for (int i = 0; i <= variants; i++) {
+                String suffix = i == 0 ? "" : "" + i;
+                TextureMap textureMap = TextureMap.texture(TextureMap.getSubId(block, suffix));
+                Identifier model = this.upload(FrameModels.TEMPLATE_FLOOR_LAYER, block, suffix, textureMap);
+                rotateAll(list, model);
+            }
+        }));
     }
 
-    public void registerFlowerPot(BlockStateModelGenerator.TintType tintType, Block... blocks) {
+    public void registerFlowerPot(Block plant, Block flowerPot, TintType tintType) {
+        this.accept(this.flowerPot(plant, flowerPot, tintType));
+    }
+
+    public VariantsBlockStateSupplier flowerPot(Block plant, Block flowerPot, TintType tintType) {
+        TextureMap textureMap = TextureMap.plant(plant);
+        Identifier model = this.upload(tintType.getFlowerPotCrossModel(), flowerPot, textureMap);
+        return BlockStateModelGenerator.createSingletonBlockState(flowerPot, model);
+    }
+
+    public void registerFlowerPot(TintType tintType, Block... blocks) {
         for (Block block : blocks) this.registerFlowerPot(block, block, tintType);
     }
 
     public void registerWallPlantThin(Block... blocks) {
         for (Block block : blocks) {
-            Identifier model = this.upload(FrameTexturedModels.TEMPLATE_WALL_PLANT_THIN, block);
-            MultipartBlockStateSupplier multipart = MultipartBlockStateSupplier.create(block);
-            BlockState state = block.getDefaultState();
-            When.PropertyCondition when = Util.make(When.create(),
-                condition -> CONNECTION_VARIANT_FUNCTIONS.stream()
-                                                         .map(Pair::getFirst)
-                                                         .forEach(property -> { if (state.contains(property)) condition.set(property, false);})
-            );
-            for (Pair<BooleanProperty, Function<Identifier, BlockStateVariant>> pair : CONNECTION_VARIANT_FUNCTIONS) {
-                BooleanProperty property = pair.getFirst();
-                Function<Identifier, BlockStateVariant> function = pair.getSecond();
-                if (!state.contains(property)) continue;
-                multipart.with(When.create().set(property, true), function.apply(model));
-                multipart.with(when, function.apply(model));
-            }
-
-            this.accept(multipart);
+            this.accept(this.wallPlantThin(block));
             this.registerGeneratedItemModel(block);
         }
+    }
+
+    public MultipartBlockStateSupplier wallPlantThin(Block block) {
+        Identifier model = this.upload(FrameTexturedModels.TEMPLATE_WALL_PLANT_THIN, block);
+        MultipartBlockStateSupplier multipart = MultipartBlockStateSupplier.create(block);
+        BlockState state = block.getDefaultState();
+        When.PropertyCondition when = Util.make(When.create(),
+            condition -> CONNECTION_VARIANT_FUNCTIONS.stream()
+                                                     .map(Pair::getFirst)
+                                                     .filter(state::contains)
+                                                     .forEach(property -> condition.set(property, false))
+        );
+        for (Pair<BooleanProperty, Function<Identifier, BlockStateVariant>> pair : CONNECTION_VARIANT_FUNCTIONS) {
+            BooleanProperty property = pair.getFirst();
+            Function<Identifier, BlockStateVariant> function = pair.getSecond();
+            if (!state.contains(property)) continue;
+            multipart.with(When.create().set(property, true), function.apply(model));
+            multipart.with(when, function.apply(model));
+        }
+        return multipart;
     }
 
     public void registerStairs(Function<Block, TextureMap> textureMapFunction, Block block, Block base) {
