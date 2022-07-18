@@ -1,3 +1,5 @@
-accessWidener	v1	named
+accessWidener	v2	named
+
+transitive-accessible    class    net/minecraft/util/registry/BuiltinRegistries$Initializer
+
 accessible    method    net/minecraft/util/registry/BuiltinRegistries    addRegistry    (Lnet/minecraft/util/registry/RegistryKey;Lnet/minecraft/util/registry/MutableRegistry;Lnet/minecraft/util/registry/BuiltinRegistries$Initializer;Lcom/mojang/serialization/Lifecycle;)Lnet/minecraft/util/registry/MutableRegistry;
-accessible    class    net/minecraft/util/registry/BuiltinRegistries$Initializer
