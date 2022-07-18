@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-registries-v0",
+  "name": "Frame Registries (v0)",
+  "description": "An API for registry utilities",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame/icon.png",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "accessWidener": "frame-registries-v0.accesswidener",
+  "mixins": [ "frame-registries-v0.mixins.json" ],
+  "contributors": [ "haykam821 (fabricmc/fabric#1031)" ]
+}

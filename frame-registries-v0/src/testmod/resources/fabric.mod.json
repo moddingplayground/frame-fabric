@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-registries-v0-test",
+  "name": "Frame Registries (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-registries-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.registries.FrameRegistriesTest" ],
+    "client": [ "net.moddingplayground.frame.test.registries.client.FrameRegistriesClientTest" ],
+    "frame-registries:end_dynamic_registry_setup": [ "net.moddingplayground.frame.test.registries.FrameDynamicRegistriesTest" ]
+  }
+}
