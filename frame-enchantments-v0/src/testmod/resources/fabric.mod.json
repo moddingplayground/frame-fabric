@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-enchantments-v0-test",
+  "name": "Frame Enchantments (v0) Test Mod",
+  "version": "${version}",
+  "environment": "*",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "depends": {
+    "frame-enchantments-v0": "*"
+  },
+  "entrypoints": {
+    "main": [ "net.moddingplayground.frame.test.enchantments.FrameEnchantmentsTest" ],
+    "frame-enchantments:targets": [ "net.moddingplayground.frame.test.enchantments.target.FrameEnchantmentsTestEnchantmentTargets" ]
+  }
+}

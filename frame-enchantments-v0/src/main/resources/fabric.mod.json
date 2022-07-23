@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "frame-enchantments-v0",
+  "name": "Frame Enchantments (v0)",
+  "description": "An API for enchantment utilities.",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/frame/icon.png",
+  "custom": { "modmenu": { "parent": "frame" } },
+  "mixins": [ "frame-enchantments-v0.mixins.json" ],
+  "accessWidener": "frame-enchantments-v0.accesswidener",
+  "entrypoints": {
+    "mm:early_risers": [ "net.moddingplayground.frame.impl.enchantment.FrameEnchantmentsASMImpl" ]
+  }
+}

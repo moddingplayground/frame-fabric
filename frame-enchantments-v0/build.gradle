@@ -1,0 +1,17 @@
+archivesBaseName = "frame-enchantments-v0"
+version = getSubprojectVersion(project)
+
+loom {
+  accessWidenerPath = file("src/main/resources/frame-enchantments-v0.accesswidener")
+}
+
+repositories {
+  maven {
+    name = 'Jitpack'
+    url  = 'https://jitpack.io/'
+  }
+}
+
+dependencies {
+  include(modApi("com.github.Chocohead:Fabric-ASM:${project.asm_version}"))
+}
