@@ -12,5 +12,5 @@ import net.moddingplayground.frame.impl.enchantment.EnchantmentTargetManager;
  */
 public interface FrameEnchantmentTargetsEntrypoint {
     String ENTRYPOINT_ID = "frame-enchantments:targets";
-    default void registerEnchantmentTargets(EnchantmentTargetManager manager) {}
+    void registerEnchantmentTargets(EnchantmentTargetManager manager);
 }
