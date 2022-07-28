@@ -212,6 +212,7 @@ void setupRepositories(RepositoryHandler repositories) {
 
 def VER_NAME = "[$project.major_version] $project.mod_name $project.version_id"
 def CHANGELOG = new File("./gradle", "CHANGELOG.md").text
+def SUPPORTED_VERSIONS = Arrays.asList(project.supported_versions.split(','))
 
 import org.kohsuke.github.*
 task github(dependsOn: build) {
@@ -238,7 +239,7 @@ if (ENV.MODRINTH_TOKEN) modrinth {
   versionType = project.release_type
   changelog = CHANGELOG
   uploadFile = remapJar
-  gameVersions = [ project.ver_minecraft ]
+  gameVersions = SUPPORTED_VERSIONS
   dependencies = [ new ModDependency("P7dR8mSH", DependencyType.REQUIRED) ]
 }
 
@@ -247,8 +248,9 @@ if (ENV.CURSEFORGE_API_KEY) curseforge {
 
   project {
     id = project.curseforge_id
-    addGameVersion project.curseforge_version
     addGameVersion 'Fabric'
+
+    for (final def cf_ver in SUPPORTED_VERSIONS) addGameVersion cf_ver
 
     changelog = CHANGELOG
     releaseType = project.release_type
