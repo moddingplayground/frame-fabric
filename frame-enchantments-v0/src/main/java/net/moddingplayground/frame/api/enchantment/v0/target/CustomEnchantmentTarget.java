@@ -4,6 +4,7 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.item.Item;
 import net.moddingplayground.frame.api.enchantment.v0.FrameEnchantmentTargetsEntrypoint;
 import net.moddingplayground.frame.mixin.enchantment.EnchantmentTargetMixin;
+import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
@@ -12,11 +13,8 @@ import org.jetbrains.annotations.ApiStatus;
  */
 @ApiStatus.OverrideOnly
 public abstract class CustomEnchantmentTarget extends EnchantmentTargetMixin {
-    @ApiStatus.Internal
     @Override
     public boolean isAcceptableItem(Item item) {
-        return this.isCustomAcceptableItem(item);
+        throw new NotImplementedException();
     }
-
-    public abstract boolean isCustomAcceptableItem(Item item);
 }
