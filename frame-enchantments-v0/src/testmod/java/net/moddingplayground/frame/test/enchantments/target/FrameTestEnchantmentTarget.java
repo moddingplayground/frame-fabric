@@ -6,7 +6,7 @@ import net.moddingplayground.frame.api.enchantment.v0.target.CustomEnchantmentTa
 
 public class FrameTestEnchantmentTarget extends CustomEnchantmentTarget {
     @Override
-    public boolean isAcceptableItem(Item item) {
+    public boolean isCustomAcceptableItem(Item item) {
         return item == Items.SPONGE;
     }
 }
