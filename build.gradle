@@ -15,8 +15,10 @@ plugins {
 
 def ENV = System.getenv()
 
-String ver = "${project.version_id}+${project.major_version}"
+String ver = "${project.version_id}+${project.major_version}-fabric"
 version = ENV.GITHUB_ACTIONS ? "${ver}.build.${ENV.GITHUB_RUN_NUMBER}" : ver
+archivesBaseName = project.mod_id
+
 logger.lifecycle("Building ${project.mod_id}: ${version}")
 
 import org.apache.commons.codec.digest.DigestUtils
@@ -80,13 +82,13 @@ allprojects {
 
   repositories {
     maven {
-      name = 'Terraformers'
-      url  = 'https://maven.terraformersmc.com/releases/'
+      name = 'Modding Playground'
+      url  = 'https://raw.githubusercontent.com/moddingplayground/maven/main/'
     }
 
     maven {
-      name = 'Modding Playground'
-      url  = 'https://raw.githubusercontent.com/moddingplayground/maven/main/'
+      name = 'Terraformers'
+      url  = 'https://maven.terraformersmc.com/releases/'
     }
 
     mavenLocal()
